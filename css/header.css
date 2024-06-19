@@ -1,0 +1,87 @@
+.textwrapper {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    padding-top: 10px;
+    overflow: hidden;
+    width: 80vh; 
+    height: 80vh; 
+    
+}
+
+
+
+.imagewrapper {
+    position: absolute;
+    aspect-ratio: 1 / 1;
+    width: 10%; 
+    height: 10%; 
+}
+
+header {
+    height: 88vh; 
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+}
+
+.spotifyStatus {
+    
+    height: 30px;
+    width: 20%;
+    position: absolute;
+    right: 0
+ }
+ 
+ 
+ .spfButton  {
+    
+    display: flex;
+    flex-direction: row;
+    width: auto; 
+    height: auto; 
+    border-radius: 20px;
+    color: white;
+    background-color: black;
+ }
+ 
+ .spfTextWrapper {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+    width: 100%;
+    right: 5%;
+    font-size: larger;
+ }
+ 
+ 
+
+ .spotifyLogo img {
+    padding: 5px;
+    width: 30px; 
+    height: 30px; 
+    
+}
+ .spotifyLogo {
+    padding: 0;
+    width: 20%; 
+    height: 50%; 
+}

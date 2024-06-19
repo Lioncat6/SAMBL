@@ -1,0 +1,30 @@
+footer {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: black;
+    text-align: center;
+    position: absolute;
+    justify-content: center;
+    bottom: 0;
+    padding: 10px;
+    width: 100%;
+    overflow: hidden;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+a {
+    color : #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
