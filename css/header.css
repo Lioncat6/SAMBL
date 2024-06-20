@@ -70,6 +70,7 @@ header {
     width: 100%;
     right: 5%;
     font-size: larger;
+    text-overflow: ellipsis;
  }
  
  
