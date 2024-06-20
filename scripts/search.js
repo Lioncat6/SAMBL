@@ -4,7 +4,7 @@ function lookup() {
     document.getElementById("searchEnter").innerHTML="<div class=\"lds-ellipsis\"><div></div><div></div><div></div><div></div></div>"
     const query = document.getElementById('searchbox').value;
     var spftoken = localStorage.getItem("spfAccessToken") 
-    if (spftoken == null) {
+    if (!spftoken) {
         spftoken = undefined;
     }
     if (spftoken != undefined & spftoken.length > 10) {
@@ -37,7 +37,7 @@ function invalidInput(reason){
 }
 
 async function fetchSpotifyArtist(artist) {
-    const fsatoken = localStorage.getItem("spfAccessToken") 
+    var fsatoken = localStorage.getItem("spfAccessToken") 
     const response = await fetch('https://api.spotify.com/v1/artists/' + artist, {
       headers: {
         Authorization: 'Bearer ' + fsatoken
@@ -55,9 +55,9 @@ async function fetchSpotifyArtist(artist) {
         } else if (data["error"]["status"] == 400) {
             invalidInput("Invalid artist id!")
         } else {
-            var fsatoken = localStorage.getItem("spfAccessToken") 
+            fsatoken = localStorage.getItem("spfAccessToken") 
             console.log(fsatoken)
-            if (fsatoken == null) {
+            if (!fsatoken) {
                 fsatoken = undefined;
             }
             if (fsatoken & fsatoken.length > 10) {
