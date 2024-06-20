@@ -62,10 +62,10 @@ async function fetchSpotifyArtist(artist) {
     }
 }
 
-async function fetchMBArtist(data) {
-    const response = await fetch('https://musicbrainz.org/ws/2/url?limit=1&resource=https://open.spotify.com/artist/' + data);
+async function fetchMBArtist(id) {
+    const response = await fetch('https://musicbrainz.org/ws/2/url?limit=1&resource=https://open.spotify.com/artist/' + id);
     const data = await response.json();
-    console.log(data)
+    console.log(id)
 }
 
 function spotifySearch(data) {
