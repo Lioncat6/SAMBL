@@ -8,7 +8,7 @@ function lookup() {
         if (query != "") {
             const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
             if(query.includes("https://open.spotify.com/artist/")) {
-                const match = spotifyUrl.match(/\/artist\/([^/?]+)/);
+                const match = query.match(/\/artist\/([^/?]+)/);
                 if (match) {
                     const spfId  = match[1];
                     fetchSpotifyArtist(spfId)
