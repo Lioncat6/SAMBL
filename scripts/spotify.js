@@ -65,8 +65,11 @@ async function getProfile(accessToken) {
     if (!data["error"]) {
         document.getElementById("spfloggedIn").innerHTML=data["display_name"]
     } else {
-        const localtoken = localStorage.getItem("spfAccessToken") 
+        var localtoken = localStorage.getItem("spfAccessToken") 
         console.log(localtoken)
+        if (localtoken == null ){
+            localtoken = undefined;
+        }
         if (localtoken != undefined & localtoken.length > 10) {
             linkSpotify()
         }
@@ -90,8 +93,11 @@ bc.onmessage = (event) => {
 if (window.location.href.includes("/callback")) {
     callback()
 } else if (window.location.href.includes("header")) {
-    const ac = localStorage.getItem("spfAccessToken") 
+    var ac = localStorage.getItem("spfAccessToken") 
     console.log(ac)
+    if (ac == null){
+        ac == undefined;
+    }
     if (ac != undefined & ac.length > 10) {
         getProfile(ac)
     }
