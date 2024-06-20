@@ -1,4 +1,3 @@
-const { ThreadChannel } = require("discord.js");
 
 function generateRandomString(length) {
     const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
