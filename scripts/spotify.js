@@ -46,6 +46,7 @@ function callback() {
         }
         console.log(err)
         document.getElementById("err").innerHTML=err
+        localStorage.setItem("spfAccessToken", undefined);
     }
 }
 
