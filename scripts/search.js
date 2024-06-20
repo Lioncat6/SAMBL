@@ -5,7 +5,7 @@ function lookup() {
     const query = document.getElementById('searchbox').value;
     var spftoken = localStorage.getItem("spfAccessToken") 
     if (!spftoken) {
-        spftoken = undefined;
+        spftoken = "";
     }
     if (spftoken != undefined & spftoken.length > 10) {
         if (query != "") {
@@ -58,7 +58,7 @@ async function fetchSpotifyArtist(artist) {
             fsatoken = localStorage.getItem("spfAccessToken") 
             console.log(fsatoken)
             if (!fsatoken) {
-                fsatoken = undefined;
+                fsatoken = "";
             }
             if (fsatoken & fsatoken.length > 10) {
                 linkSpotify()
