@@ -46,10 +46,28 @@ function callback() {
     }
 }
 
+async function getProfile(accessToken) {
+    let accessToken = localStorage.getItem('access_token');
+  
+    const response = await fetch('https://api.spotify.com/v1/me', {
+      headers: {
+        Authorization: 'Bearer ' + accessToken
+      }
+    });
+  
+    const data = await response.json();
+    print(data)
+}
+
 function spfButton(){
     linkSpotify()
 }
 
 if (window.location.href.includes("/callback")) {
     callback()
+} else {
+    var access_token = localStorage.getItem(spfAccessToken)
+    if (spfAccessToken) {
+        getProfile(access_token)
+    }
 }
