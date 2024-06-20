@@ -1,3 +1,5 @@
+const { ThreadChannel } = require("discord.js");
+
 function generateRandomString(length) {
     const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let result = "";
@@ -59,7 +61,15 @@ async function getProfile(accessToken) {
   
     const data = await response.json();
     console.log(data)
-    document.getElementById("spfloggedIn").innerHTML=data["display_name"]
+    if (!data[error]) {
+        document.getElementById("spfloggedIn").innerHTML=data["display_name"]
+    } else {
+        const localtoken = localStorage.getItem("spfAccessToken") 
+        if (localtoken) {
+            linkSpotify()
+        }
+    }
+    
 }
 
 function spfButton(){
@@ -77,8 +87,8 @@ bc.onmessage = (event) => {
 
 if (window.location.href.includes("/callback")) {
     callback()
-} else {
-    var ac = localStorage.getItem("spfAccessToken") 
+} else if (window.location.href.includes("header")) {
+    const ac = localStorage.getItem("spfAccessToken") 
     console.log(ac)
     if (ac) {
         getProfile(ac)
