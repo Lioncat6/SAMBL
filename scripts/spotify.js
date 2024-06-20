@@ -91,7 +91,7 @@ if (window.location.href.includes("/callback")) {
 } else if (window.location.href.includes("header")) {
     const ac = localStorage.getItem("spfAccessToken") 
     console.log(ac)
-    if (ac) {
+    if (ac & ac != null & ac != undefined) {
         getProfile(ac)
     }
 }
