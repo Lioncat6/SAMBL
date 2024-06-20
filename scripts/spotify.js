@@ -48,7 +48,7 @@ function callback() {
 
 async function getProfile(accessToken) {
     let token = localStorage.getItem('access_token');
-  
+    console.log(token)
     const response = await fetch('https://api.spotify.com/v1/me', {
       headers: {
         Authorization: 'Bearer ' + token
@@ -66,8 +66,8 @@ function spfButton(){
 if (window.location.href.includes("/callback")) {
     callback()
 } else {
-        var ac = localStorage.getItem("spfAccessToken") 
-    
+    var ac = localStorage.getItem("spfAccessToken") 
+    console.log(ac)
     if (ac) {
         getProfile(ac)
     }
