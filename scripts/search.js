@@ -78,6 +78,7 @@ async function fetchMBArtist(id) {
         console.log(mbid)
     } else if (doc.getElementsByTagName("text")[0].innerhtml="Not Found") {
         console.log("add artist")
+        location.assign("https://lioncat6.github.io/SAMBL/newartist?spid="+id);
     } else {
         invalidInput("MusicBrainz Error: " + doc.getElementsByTagName("text")[0].innerhtml)
     }
