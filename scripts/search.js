@@ -45,15 +45,18 @@ async function fetchSpotifyArtist(artist) {
     console.log(data)
     if (!data["error"]) {
         console.log(data)
+        fetchMBArtist(artist)
     } else {
-        if (!data["error"]["status"].includes(404)) {
+        if (data["error"]["status"] == 404) {
+            invalidInput("Spotify artist not found!")
+        } else if (data["error"]["status"] == 400) {
+            invalidInput("Invalid artist id!")
+        } else {
             const fsatoken = localStorage.getItem("spfAccessToken") 
             console.log(fsatoken)
             if (fsatoken & fsatoken.length > 10) {
                 linkSpotify()
-        }
-        } else {
-            invalidInput("Spotify artist not found!")
+            }
         }
         
     }
