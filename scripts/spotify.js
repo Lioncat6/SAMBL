@@ -34,6 +34,7 @@ function callback() {
         const urlParams = new URLSearchParams(new URL(url).hash.slice(1));
         const accessToken = urlParams.get("access_token");
         localStorage.setItem("spfAccessToken", accessToken);
+        bc.postMessage("samblRefresh");
         window.close()
     } else {
         const urlParams = new URLSearchParams(new URL(url).hash.slice(1));
@@ -62,6 +63,13 @@ async function getProfile(accessToken) {
 function spfButton(){
     linkSpotify()
 }
+
+
+bc.onmessage = (event) => {
+    if (event = "samblRefresh"){
+        window.refresh()
+    }
+};
 
 if (window.location.href.includes("/callback")) {
     callback()
