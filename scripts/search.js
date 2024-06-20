@@ -62,6 +62,7 @@ async function fetchSpotifyArtist(artist) {
             }
             if (fsatoken & fsatoken.length > 10) {
                 linkSpotify()
+                invalidInput("Spotify Timeout | Please try again")
             }
         }
         
