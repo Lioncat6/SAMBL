@@ -76,6 +76,7 @@ async function fetchMBArtist(id) {
     if (response.status == 200){
         const mbid = doc.getElementsByTagName("url")[0].id
         console.log(mbid)
+        location.assign("https://lioncat6.github.io/SAMBL/artist?spid="+id+"&mbid="+mbid);
     } else if (doc.getElementsByTagName("text")[0].innerhtml="Not Found") {
         console.log("add artist")
         location.assign("https://lioncat6.github.io/SAMBL/newartist?spid="+id);
