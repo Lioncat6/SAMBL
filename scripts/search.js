@@ -91,3 +91,10 @@ async function fetchMBArtist(id) {
 function spotifySearch(data) {
 
 }
+
+document.addEventListener("keydown", function(e) {
+  if (e.keyCode == 13) {
+    e.preventDefault()
+    lookup()
+  }
+});
