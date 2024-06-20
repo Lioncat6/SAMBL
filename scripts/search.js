@@ -73,7 +73,7 @@ async function fetchMBArtist(id) {
     const rawdata = await response.text();
     const parser = new DOMParser();
     const doc = parser.parseFromString(rawdata, "text/xml");
-    if (!doc.includes("<error>")){
+    if (!String(doc.includes("<error>"))){
         const mbid = doc.getElementsByTagName("url")[0].id
         console.log(mbid)
     } else if (doc.getElementsByTagName("text")[0].innerhtml="Not Found") {
