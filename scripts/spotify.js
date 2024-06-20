@@ -34,6 +34,7 @@ function callback() {
         const urlParams = new URLSearchParams(new URL(url).hash.slice(1));
         const accessToken = urlParams.get("access_token");
         localStorage.setItem("spfAccessToken", accessToken);
+        const bc = new BroadcastChannel("sambl");
         bc.postMessage("samblRefresh");
         window.close()
     } else {
@@ -64,9 +65,11 @@ function spfButton(){
     linkSpotify()
 }
 
+const bc = new BroadcastChannel("sambl");
 
 bc.onmessage = (event) => {
     if (event = "samblRefresh"){
+        bc.close();
         window.refresh()
     }
 };
