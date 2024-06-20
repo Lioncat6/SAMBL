@@ -68,7 +68,7 @@ async function getProfile(accessToken) {
         var localtoken = localStorage.getItem("spfAccessToken") 
         console.log(localtoken)
         if (!localtoken) {
-            localtoken = undefined;
+            localtoken = "";
         }
         if (localtoken != undefined & localtoken.length > 10) {
             linkSpotify()
@@ -96,7 +96,7 @@ if (window.location.href.includes("/callback")) {
     var ac = localStorage.getItem("spfAccessToken") 
     console.log(ac)
     if (!ac){
-        ac == undefined;
+        ac == "";
     }
     if (ac != undefined & ac.length > 10) {
         getProfile(ac)
