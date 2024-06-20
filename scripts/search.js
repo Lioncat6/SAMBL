@@ -21,7 +21,7 @@ function lookup() {
             } else if (uuidPattern.test(query)) {
 
             } else {
-                invalidInpuInconsistent("Text searching is currently not supported!")
+                invalidInput("Text searching is currently not supported!")
             }
         } else {
             invalidInput("Please enter a query")
