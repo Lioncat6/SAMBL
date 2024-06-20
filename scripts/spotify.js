@@ -56,7 +56,7 @@ async function getProfile(accessToken) {
     });
   
     const data = await response.json();
-    print(data)
+    console.log(data)
 }
 
 function spfButton(){
