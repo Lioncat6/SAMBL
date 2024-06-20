@@ -65,6 +65,7 @@ async function getProfile(accessToken) {
         document.getElementById("spfloggedIn").innerHTML=data["display_name"]
     } else {
         const localtoken = localStorage.getItem("spfAccessToken") 
+        print(localtoken)
         if (localtoken & localtoken != null & localtoken != undefined) {
             linkSpotify()
         }
