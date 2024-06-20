@@ -3,7 +3,10 @@ function lookup() {
     document.getElementById("err").innerHTML=" "
     document.getElementById("searchEnter").innerHTML="<div class=\"lds-ellipsis\"><div></div><div></div><div></div><div></div></div>"
     const query = document.getElementById('searchbox').value;
-    const spftoken = localStorage.getItem("spfAccessToken") 
+    var spftoken = localStorage.getItem("spfAccessToken") 
+    if (spftoken == null) {
+        spftoken = undefined;
+    }
     if (spftoken != undefined & spftoken.length > 10) {
         if (query != "") {
             const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -18,7 +21,7 @@ function lookup() {
             } else if (uuidPattern.test(query)) {
 
             } else {
-                invalidInput("Text searching is currently not supported!")
+                invalidInpuInconsistent("Text searching is currently not supported!")
             }
         } else {
             invalidInput("Please enter a query")
@@ -52,8 +55,11 @@ async function fetchSpotifyArtist(artist) {
         } else if (data["error"]["status"] == 400) {
             invalidInput("Invalid artist id!")
         } else {
-            const fsatoken = localStorage.getItem("spfAccessToken") 
+            var fsatoken = localStorage.getItem("spfAccessToken") 
             console.log(fsatoken)
+            if (fsatoken == null) {
+                fsatoken = undefined;
+            }
             if (fsatoken & fsatoken.length > 10) {
                 linkSpotify()
             }
