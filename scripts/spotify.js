@@ -59,6 +59,7 @@ async function getProfile(accessToken) {
   
     const data = await response.json();
     console.log(data)
+    document.getElementById("spfloggedIn").innerHTML=data["display_name"]
 }
 
 function spfButton(){
@@ -70,7 +71,7 @@ const bc = new BroadcastChannel("sambl");
 bc.onmessage = (event) => {
     if (event = "samblRefresh"){
         bc.close();
-        window.refresh()
+        location.reload()
     }
 };
 
