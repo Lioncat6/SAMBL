@@ -3,23 +3,28 @@ function lookup() {
     document.getElementById("err").innerHTML=" "
     document.getElementById("searchEnter").innerHTML="<div class=\"lds-ellipsis\"><div></div><div></div><div></div><div></div></div>"
     const query = document.getElementById('searchbox').value;
-    if (query != "") {
-        const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-        if(query.includes("https://open.spotify.com/artist/")) {
-            const match = spotifyUrl.match(/\/artist\/([^/?]+)/);
-            if (match) {
-                const spfId  = match[1];
-                
-            } else {
-                
-            }
-        } else if (uuidPattern.test(query)) {
+    const spftoken = localStorage.getItem("spfAccessToken") 
+    if (spftoken & spftoken.length > 10) {
+        if (query != "") {
+            const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+            if(query.includes("https://open.spotify.com/artist/")) {
+                const match = spotifyUrl.match(/\/artist\/([^/?]+)/);
+                if (match) {
+                    const spfId  = match[1];
+                    fetchSpotifyArtist(spfId)
+                } else {
+                    
+                }
+            } else if (uuidPattern.test(query)) {
 
+            } else {
+                invalidInput("Text searching is currently not supported!")
+            }
         } else {
-            invalidInput("Text searching is currently not supported!")
+            invalidInput("Please enter a query")
         }
     } else {
-        invalidInput("Please enter a query")
+        invalidInput("Please login to spotify")
     }
 }
 
@@ -28,8 +33,30 @@ function invalidInput(reason){
     document.getElementById("searchEnter").innerHTML="Search"
 }
 
-function fetchSpotifyArtist(data) {
-
+async function fetchSpotifyArtist(artist) {
+    const fsatoken = localStorage.getItem("spfAccessToken") 
+    const response = await fetch('https://api.spotify.com/v1/artists/' + artist, {
+      headers: {
+        Authorization: 'Bearer ' + fsatoken
+      }
+    });
+  
+    const data = await response.json();
+    console.log(data)
+    if (!data["error"]) {
+        console.log(data)
+    } else {
+        if (!data["error"]["status"].includes(404)) {
+            const fsatoken = localStorage.getItem("spfAccessToken") 
+            console.log(fsatoken)
+            if (fsatoken & fsatoken.length > 10) {
+                linkSpotify()
+        }
+        } else {
+            invalidInput("Spotify artist not found!")
+        }
+        
+    }
 }
 
 function fetchMBArtist(data) {

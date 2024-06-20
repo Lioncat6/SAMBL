@@ -50,6 +50,7 @@ function callback() {
     }
 }
 
+
 async function getProfile(accessToken) {
     let token = accessToken
     console.log(token)
