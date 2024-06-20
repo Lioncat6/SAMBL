@@ -64,8 +64,10 @@ async function fetchSpotifyArtist(artist) {
 
 async function fetchMBArtist(id) {
     const response = await fetch('https://musicbrainz.org/ws/2/url?limit=1&resource=https://open.spotify.com/artist/' + id);
-    const data = await response.json();
-    console.log(id)
+    const rawdata = await response.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(rawdata, "text/xml");
+    console.log(doc)
 }
 
 function spotifySearch(data) {
