@@ -67,7 +67,7 @@ async function fetchMBArtist(id) {
     const rawdata = await response.text();
     const parser = new DOMParser();
     const doc = parser.parseFromString(rawdata, "text/xml");
-    console.log(doc)
+    console.log(doc.getElementsByTagName("url")[0].id)
 }
 
 function spotifySearch(data) {
