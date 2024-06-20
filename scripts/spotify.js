@@ -1,0 +1,55 @@
+function generateRandomString(length) {
+    const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+ 
+    for (let i = 0; i < length; i++) {
+       const randomIndex = Math.floor(Math.random() * charset.length);
+       result += charset[randomIndex];
+    }
+ 
+    return result;
+ }
+
+function linkSpotify() {
+    var client_id = '57d875faab2243bca6bf51d4c6899b7d';
+    var redirect_uri = 'https://lioncat6.github.io/SAMBL/callback';
+    
+    var state = generateRandomString(16);
+    
+    localStorage.setItem("spfStateKey", state);
+    var scope = 'user-read-private user-read-email';
+    
+    var url = 'https://accounts.spotify.com/authorize';
+    url += '?response_type=token';
+    url += '&client_id=' + encodeURIComponent(client_id);
+    url += '&scope=' + encodeURIComponent(scope);
+    url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
+    url += '&state=' + encodeURIComponent(state);
+    window.open(url)
+}
+
+function callback() {
+    const url = window.location.href
+    if (url.includes("access_token")) {
+        const urlParams = new URLSearchParams(new URL(url).hash.slice(1));
+        const accessToken = urlParams.get("access_token");
+        localStorage.setItem("spfAccessToken", accessToken);
+        window.close()
+    } else {
+        const urlParams = new URLSearchParams(new URL(url).hash.slice(1));
+        var err = urlParams.get("error");
+        if (!err) {
+            err = "no code provided" 
+        }
+        console.log(err)
+        document.getElementById("err").innerHTML=err
+    }
+}
+
+function spfButton(){
+    linkSpotify()
+}
+
+if (window.location.href.includes("/callback")) {
+    callback()
+}

@@ -52,7 +52,7 @@ header {
  
  
  .spfButton  {
-    
+    cursor: pointer;
     display: flex;
     flex-direction: row;
     width: auto; 
