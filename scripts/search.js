@@ -62,8 +62,10 @@ async function fetchSpotifyArtist(artist) {
     }
 }
 
-function fetchMBArtist(data) {
-
+async function fetchMBArtist(data) {
+    const response = await fetch('https://musicbrainz.org/ws/2/url?limit=1&resource=https://open.spotify.com/artist/' + data);
+    const data = await response.json();
+    console.log(data)
 }
 
 function spotifySearch(data) {
