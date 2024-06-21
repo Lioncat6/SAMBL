@@ -1,0 +1,15 @@
+#artistContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+#artistImageContainer img {
+    width: 300px;
+}
+#artistImageContainer {
+    width: 50%;
+}
+
+.spIcon, .mbIcon {
+    width: 40px;
+}

@@ -13,9 +13,15 @@ async function fetchSpotifyArtist(artist) {
     const data = await response.json();
     console.log(data)
     if (!data["error"]) {
-        const imgUrl = data["images"][0]["url"]
-        console.log(imgUrl)
-        document.getElementById("artistImageContainer").innerHTML="<a href=\""+imgUrl+"\" target=\"_blank\"><img src=\""+imgUrl+"\"></a>"
+        const spImgUrl = data["images"][0]["url"]
+        const spArtistName = data["name"]
+        const spArtistUrl = data["external_urls"]["spotify"]
+        console.log(spArtistName)
+        console.log(spArtistUrl)
+        console.log(spImgUrl)
+        document.getElementById("artistImageContainer").innerHTML="<a href=\""+spImgUrl+"\" target=\"_blank\"><img src=\""+spImgUrl+"\"></a>"
+        document.getElementById("spURL").src=spArtistUrl
+        document.getElementById("artistName").innerHTML=spArtistName
     } else {
         if (data["error"]["status"] == 404) {
             dispErr("Spotify artist not found!")
@@ -44,5 +50,8 @@ async function downloadSpotifyAlbums (artist) {
 const params = new URLSearchParams(new URL(window.location.href).search);
 const spid = params.get("spid");
 const mbid = params.get("mbid");
-
-fetchSpotifyArtist(spid)
+if ((spid) & (mbid)) {
+    fetchSpotifyArtist(spid)
+} else {
+    dispErr("Incomplete Url!")
+} 

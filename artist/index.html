@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SAMBL</title>
     <link rel="stylesheet" href="../css/main.css">
-    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+    <link rel="stylesheet" href="../css/artist.css">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">  
     <link rel="icon" type="image/png" href="../assets/images/favicon.png">
 </head>
 <body>
@@ -15,7 +16,13 @@
         <div id="err"> </div>
         <div id="artistContainer"> 
             <div id="artistImageContainer"></div>
-            <div id="artistTextContainer"></div>
+            <div id="artistTextContainer">
+                <div class="nameContainer">
+                    <h1 id="artistName"></h1>
+                    <div class="spURLContainer"><a id="spURL"><img alt="Spotify Icon" class="spIcon" src="../assets/images/Spotify_icon.svg"></a></div>
+                    <div class="mbURLContainer"><a id="mbURL"><img alt="MusicBrainz Icon" class="mbIcon" src="../assets/images/MusicBrainz_Logo.svg"></a></div>
+                </div>
+            </div>
         </div>
     </div>
     <footer><embed type="text/html" src="../footer.html"></footer>

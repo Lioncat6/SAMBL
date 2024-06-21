@@ -83,6 +83,10 @@ a:hover {
     text-decoration: underline;
 }
 
+footer embed {
+  height: 80px;
+}
+
 footer {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
