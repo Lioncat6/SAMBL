@@ -99,6 +99,10 @@ footer {
     color: red;
 }
 
+embed {
+  background-color: #f9f9f9;
+}
+
 /* https://github.com/loadingio/css-spinner/ */
 .lds-ellipsis,
 .lds-ellipsis div {
