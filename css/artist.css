@@ -14,7 +14,7 @@
     width: 40px;
 }
 
-#artistTextContainer {
+.nameContainer {
     display: flex;
     flex-direction: row;
 }
