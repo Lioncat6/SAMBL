@@ -13,3 +13,8 @@
 .spIcon, .mbIcon {
     width: 40px;
 }
+
+#artistTextContainer {
+    display: flex;
+    flex-direction: row;
+}

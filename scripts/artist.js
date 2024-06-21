@@ -20,7 +20,7 @@ async function fetchSpotifyArtist(artist) {
         console.log(spArtistUrl)
         console.log(spImgUrl)
         document.getElementById("artistImageContainer").innerHTML="<a href=\""+spImgUrl+"\" target=\"_blank\"><img src=\""+spImgUrl+"\"></a>"
-        document.getElementById("spURL").href=spArtistUrl
+        document.getElementById("spURL").setAttribute("href", spArtistUrl);
         document.getElementById("artistName").innerHTML=spArtistName
     } else {
         if (data["error"]["status"] == 404) {
