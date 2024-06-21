@@ -14,6 +14,7 @@ async function fetchSpotifyArtist(artist) {
     console.log(data)
     if (!data["error"]) {
         const imgUrl = data["images"][0]
+        console.log(imgUrl)
         document.getElementById("artistImageContainer").innerHTML="<a href=\""+imgUrl+"\" target=\"_blank\"><img src=\""+imgUrl+"\"></a>"
     } else {
         if (data["error"]["status"] == 404) {
