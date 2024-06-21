@@ -50,7 +50,7 @@ async function downloadSpotifyAlbums (artist) {
 const params = new URLSearchParams(new URL(window.location.href).search);
 const spid = params.get("spid");
 const mbid = params.get("mbid");
-if ((spid) & (mbid)) {
+if ((spid) && (mbid)) {
     fetchSpotifyArtist(spid)
 } else {
     dispErr("Incomplete Url!")
