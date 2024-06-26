@@ -208,7 +208,9 @@ function processAlbums() {
             spArtistsHtml +="<a href=\""+artistUrl+"\" target=\"_blank\">"+artistName+"</a>"
         }
         var htmlToAppend = "<div class=\"album listItem\"><div class=\"statusPill "+albumStatus+"\"></div><div class=\"albumCover\"><a href=\""+spotifyImageURL+"\" target=\"_blank\"><img src=\""+spotifyImageURL+"\" /></a></div><div class=\"textContainer\"><div class=\"albumTitle\"><a href=\""+spotifyUrl+"\" target=\"_blank\" >"+spotifyName+"</a>"+mbLinkHtml+"</div><div class=\"artists\">"+spArtistsHtml+"</div></div><a class=\"aTisketButton\" href=\"https://atisket.pulsewidth.org.uk/?spf_id="+spotifyId+"&preferred_vendor=spf\" target=\"_blank\"><div>A-tisket</div></a></div>"
-        document.getElementById("albumList").append(htmlToAppend)
+        var htmlObject = document.createElement('div');
+        htmlObject.innerHTML = htmlToAppend
+        document.getElementById("albumList").append(htmlObject)
     }
 
 }
