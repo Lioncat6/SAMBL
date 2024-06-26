@@ -70,21 +70,19 @@ async function fetchSpotifyArtist(artist) {
 }
 
 async function fetchMBArtist(id) {
-    const response = await fetch('https://musicbrainz.org/ws/2/url?limit=1&resource=https://open.spotify.com/artist/' + id);
-    const rawdata = await response.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(rawdata, "text/xml");
+    const response = await fetch('https://musicbrainz.org/ws/2/url?limit=1&inc=artist-rels+label-rels+release-rels&fmt=json&resource=https://open.spotify.com/artist/' + id);
+    const data = await response.json();
     if (response.status == 200){
-        const mbid = doc.getElementsByTagName("url")[0].id
+        const mbid = data["relations"][0]["artist"]["type-id"]
         console.log(mbid)
         invalidInput(" ");
         location.assign("https://lioncat6.github.io/SAMBL/artist?spid="+id+"&mbid="+mbid);
-    } else if (doc.getElementsByTagName("text")[0].innerhtml="Not Found") {
+    } else if (data["error"]="Not Found" || response.status == 404) {
         console.log("add artist")
         invalidInput(" ")
         location.assign("https://lioncat6.github.io/SAMBL/newartist?spid="+id);
     } else {
-        invalidInput("MusicBrainz Error: " + doc.getElementsByTagName("text")[0].innerhtml)
+        invalidInput("MusicBrainz Error: " + data["error"])
     }
 }
 
