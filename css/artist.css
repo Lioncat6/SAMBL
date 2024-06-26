@@ -112,7 +112,7 @@
   
   #albumList {
     border-radius: 10px;
-    height: 90vh;
+    height: 100%;
     border: 1px solid black;
     overflow-y: auto;
     margin: 0 10px 0 10px;
@@ -128,6 +128,12 @@
     
   }
   
+  #albumContainer {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 90px);
+  }
+
   #albumContainer ::-webkit-scrollbar {
     width: 15px;
     
@@ -148,4 +154,7 @@
     background-color: #555;
   }
   
-  
+  #body {
+    height: 100%;
+    overflow: hidden;
+  }
