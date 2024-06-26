@@ -36,6 +36,7 @@ async function fetchSpotifyArtist(artist) {
             if (fsatoken & fsatoken.length > 10) {
                 linkSpotify()
                 dispErr("Spotify Timeout | Please reload")
+                location.reload()
             }
         }
         
@@ -47,10 +48,17 @@ async function downloadSpotifyAlbums (artist) {
 
 }
 
+async function downloadMusicbrainzReleases (artist) {
+
+
+}
+
 const params = new URLSearchParams(new URL(window.location.href).search);
 const spid = params.get("spid");
 const mbid = params.get("mbid");
 if ((spid) && (mbid)) {
+    document.getElementById("mbURL").setAttribute("href", "https://musicbrainz.org/artist/"+mbid);
+    document.getElementById("mbURL").innerHTML="<div class=\"lds-facebook\"><div></div><div></div><div></div></div>";
     fetchSpotifyArtist(spid)
 } else {
     dispErr("Incomplete Url!")
