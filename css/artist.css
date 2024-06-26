@@ -19,10 +19,10 @@
     flex-direction: row;
 }
 
-#spURLContainer {
+.spURLContainer {
     padding: 8% 5%;
 }
 
-#mbURLContainer {
+.mbURLContainer {
     padding: 7% 0;
 }

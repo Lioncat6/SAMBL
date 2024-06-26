@@ -119,8 +119,8 @@ async function downloadSpotifyAlbums (artist) {
         }
 
     }
-    for (x in albumList["items"]) {
-        console.log(albumList["items"][x])
+    for (x in albumList) {
+        console.log(albumList[x])
     }
 }
 
