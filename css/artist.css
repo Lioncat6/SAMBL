@@ -127,7 +127,7 @@
 }
 
 #albumContainer {
-  display: flex;
+  display: none;
   flex-direction: column;
   height: calc(100% - 90px);
 }
