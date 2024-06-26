@@ -62,6 +62,7 @@ async function downloadSpotifyAlbums (artist) {
         albumCount = data["total"]
         for (x in data["items"]) {
             albumList.push(data["items"][x])
+            document.getElementById("loadingText").innerHTML="Loading albums from spotify... ("+x+"/"+albumCount+")"
         }
     } else {
         if (data["error"]["status"] == 404) {
@@ -97,6 +98,7 @@ async function downloadSpotifyAlbums (artist) {
         if (!data["error"]) {
             for (x in data["items"]) {
                 albumList.push(data["items"][x])
+                document.getElementById("loadingText").innerHTML="Loading albums from spotify... ("+(x+currentOffset)+"/"+albumCount+")"
             }
         } else {
             if (data["error"]["status"] == 404) {
@@ -122,10 +124,17 @@ async function downloadSpotifyAlbums (artist) {
     for (x in albumList) {
         console.log(albumList[x])
     }
+    document.getElementById("loadingContainer").innerHTML="";
+    document.getElementById("loadingText").innerHTML=""
+    searchMusicBrainzUrls()
 }
 
-async function downloadMusicbrainzReleases (artist) {
+async function searchMusicBrainzUrls() {
 
+
+}
+
+function addListItem() {
 
 }
 
@@ -134,7 +143,8 @@ const spid = params.get("spid");
 const mbid = params.get("mbid");
 if ((spid) && (mbid)) {
     document.getElementById("mbURL").setAttribute("href", "https://musicbrainz.org/artist/"+mbid);
-    document.getElementById("contentContainer").innerHTML="<div class=\"lds-facebook\"><div></div><div></div><div></div></div>";
+    document.getElementById("loadingContainer").innerHTML="<div class=\"lds-facebook\"><div></div><div></div><div></div></div>";
+    document.getElementById("loadingText").innerHTML="Loading albums from spotify..."
     fetchSpotifyArtist(spid)
 } else {
     dispErr("Incomplete Url!")
