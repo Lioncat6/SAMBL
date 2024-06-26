@@ -178,3 +178,23 @@
 #albumList a:hover {
     text-decoration: underline;
 }
+
+#searchContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+#filterSearch {
+        position: relative;
+        margin-left: auto;
+        padding: 10px;
+        height: 15px;
+        border: 1px solid gray;
+        border-radius: 20px;
+        transition: 0.2s all;
+}
+
+#filterSearch:hover {
+    border: 1px solid black;
+    transition: 0.2s all;
+}
