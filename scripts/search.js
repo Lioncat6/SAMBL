@@ -73,7 +73,7 @@ async function fetchMBArtist(id) {
     const response = await fetch('https://musicbrainz.org/ws/2/url?limit=1&inc=artist-rels+label-rels+release-rels&fmt=json&resource=https://open.spotify.com/artist/' + id);
     const data = await response.json();
     if (response.status == 200){
-        const mbid = data["relations"][0]["artist"]["type-id"]
+        const mbid = data["relations"][0]["artist"]["id"]
         console.log(mbid)
         invalidInput(" ");
         location.assign("https://lioncat6.github.io/SAMBL/artist?spid="+id+"&mbid="+mbid);
