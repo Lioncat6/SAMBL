@@ -58,7 +58,7 @@ const spid = params.get("spid");
 const mbid = params.get("mbid");
 if ((spid) && (mbid)) {
     document.getElementById("mbURL").setAttribute("href", "https://musicbrainz.org/artist/"+mbid);
-    document.getElementById("mbURL").innerHTML="<div class=\"lds-facebook\"><div></div><div></div><div></div></div>";
+    document.getElementById("contentContainer").innerHTML="<div class=\"lds-facebook\"><div></div><div></div><div></div></div>";
     fetchSpotifyArtist(spid)
 } else {
     dispErr("Incomplete Url!")
