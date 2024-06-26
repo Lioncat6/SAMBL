@@ -45,7 +45,7 @@ async function fetchSpotifyArtist(artist) {
 }
 
 async function downloadSpotifyAlbums (artist) {
-    const albumCount = 0;
+    var albumCount = 0;
     var currentOffset = 0;
     var albumList = []; 
 
