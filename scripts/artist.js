@@ -98,7 +98,7 @@ async function downloadSpotifyAlbums (artist) {
         if (!data["error"]) {
             for (x in data["items"]) {
                 albumList.push(data["items"][x])
-                document.getElementById("loadingText").innerHTML="Loading albums from spotify... ("+int(int(x)+int(currentOffset))+"/"+albumCount+")"
+                document.getElementById("loadingText").innerHTML="Loading albums from spotify... ("+Number(Number(x)+Number(currentOffset))+"/"+albumCount+")"
             }
         } else {
             if (data["error"]["status"] == 404) {
