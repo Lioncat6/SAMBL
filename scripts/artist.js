@@ -117,8 +117,11 @@ async function downloadSpotifyAlbums (artist) {
             }
             
         }
-    }
 
+    }
+    for (x in albumList["items"]) {
+        console.log(albumList["items"][x])
+    }
 }
 
 async function downloadMusicbrainzReleases (artist) {
