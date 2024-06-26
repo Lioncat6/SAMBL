@@ -47,7 +47,6 @@ async function fetchSpotifyArtist(artist) {
 async function downloadSpotifyAlbums (artist) {
     var albumCount = 0;
     var currentOffset = 0;
-    var albumList = []; 
 
     var fsatoken = localStorage.getItem("spfAccessToken") 
     const response = await fetch('https://api.spotify.com/v1/artists/' + artist + "/albums?limit=50", {
@@ -61,7 +60,7 @@ async function downloadSpotifyAlbums (artist) {
     if (!data["error"]) {
         albumCount = data["total"]
         for (x in data["items"]) {
-            albumList.push(data["items"][x])
+            spotifyAlbumList.push(data["items"][x])
             document.getElementById("loadingText").innerHTML="Loading albums from spotify... ("+x+"/"+albumCount+")"
         }
     } else {
@@ -97,7 +96,7 @@ async function downloadSpotifyAlbums (artist) {
         console.log(data)
         if (!data["error"]) {
             for (x in data["items"]) {
-                albumList.push(data["items"][x])
+                spotifyAlbumList.push(data["items"][x])
                 document.getElementById("loadingText").innerHTML="Loading albums from spotify... ("+Number(Number(x)+Number(currentOffset))+"/"+albumCount+")"
             }
         } else {
@@ -121,16 +120,63 @@ async function downloadSpotifyAlbums (artist) {
         }
 
     }
-    for (x in albumList) {
-        console.log(albumList[x])
+    for (x in spotifyAlbumList) {
+        console.log(spotifyAlbumList[x])
+    }
+    
+    downloadMusicBrainzAlbums()
+}
+
+async function downloadMusicBrainzAlbums() {
+    var albumCount = 0;
+    var currentOffset = 0;
+    document.getElementById("loadingText").innerHTML="Downloading MusicBrainz Albums..."
+    const response = await fetch("https://musicbrainz.org/ws/2/release?artist="+mbid+"&inc=url-rels&fmt=json&offset=" + currentOffset);
+    const data = await response.json();
+    if (response.status == 200){
+        console.log(data)
+        albumCount = data["release-count"]
+        for (x in data["releases"]) {
+            mbAlbumList.push(data["releases"][x])
+            document.getElementById("loadingText").innerHTML="Loading albums from MusicBrainz... ("+x+"/"+albumCount+")"
+        }
+    } else if (data["error"]="Not Found" || response.status == 404) {
+        dispErr("Musicbrainz artist not found. URL likely malfomed");
+    } else {
+        dispErr("MusicBrainz Error: " + data["error"])
+    }
+
+    while (currentOffset + 15 < albumCount) {
+        currentOffset += 15;
+        await new Promise(r => setTimeout(r, 500));
+        const response = await fetch("https://musicbrainz.org/ws/2/release?artist="+mbid+"&inc=url-rels&fmt=json&offset=" + currentOffset);
+        const data = await response.json();
+        if (response.status == 200){
+            console.log(data)
+            for (x in data["releases"]) {
+                mbAlbumList.push(data["releases"][x])
+                document.getElementById("loadingText").innerHTML="Loading albums from MusicBrainz... ("+Number(Number(x)+Number(currentOffset))+"/"+albumCount+")"
+            }
+        } else if (data["error"]="Not Found" || response.status == 404) {
+            dispErr("Musicbrainz artist not found. URL likely malfomed");
+        } else {
+            dispErr("MusicBrainz Error: " + data["error"])
+        }
     }
     document.getElementById("loadingContainer").innerHTML="";
     document.getElementById("loadingText").innerHTML=""
-    searchMusicBrainzUrls()
+
+     for (x in mbAlbumList) {
+        console.log(mbAlbumList[x])
+    }
 }
 
-async function searchMusicBrainzUrls() {
+function processAlbums() {
 
+
+}
+
+function displayList(){
 
 }
 
@@ -141,6 +187,8 @@ function addListItem() {
 const params = new URLSearchParams(new URL(window.location.href).search);
 const spid = params.get("spid");
 const mbid = params.get("mbid");
+var spotifyAlbumList = []; 
+var mbAlbumList = []; 
 if ((spid) && (mbid)) {
     document.getElementById("mbURL").setAttribute("href", "https://musicbrainz.org/artist/"+mbid);
     document.getElementById("loadingContainer").innerHTML="<div class=\"lds-facebook\"><div></div><div></div><div></div></div>";
