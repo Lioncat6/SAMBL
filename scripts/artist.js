@@ -190,3 +190,23 @@ if ((spid) && (mbid)) {
 } else {
     dispErr("Incomplete Url!")
 } 
+
+
+function searchList() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("listSearch");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("albumList");
+    tr = table.getElementsByClassName("listItem");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByClassName("albumTitle")[0].getElementsByTagName("a")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
+  }

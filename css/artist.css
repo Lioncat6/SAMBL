@@ -1,160 +1,161 @@
 #artistContainer {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 #artistImageContainer img {
-    width: 300px;
+  width: 300px;
 }
 #artistImageContainer {
-    width: 50%;
+  width: 50%;
 }
 
-.spIcon, .mbIcon {
-    width: 40px;
+.spIcon,
+.mbIcon {
+  width: 40px;
 }
 
 .nameContainer {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .spURLContainer {
-    padding: 8% 5%;
+  padding: 8% 5%;
 }
 
 .mbURLContainer {
-    padding: 7% 0;
+  padding: 7% 0;
 }
 
 #loadingText {
-    color: grey;
+  color: grey;
 }
 
 .listItem {
-    border: 1px solid gray;
-    display: flex;
-    flex-direction: row;
-    border-radius: 10px;
-    height: 64px;
-    margin: 3px 3px;
-  }
-  
-  .listItem:hover {
-    border: 1px solid black;
-    transition: 0.5s all;
-  }
-  
-  .statusPill {
-    transform: translateY(2px);
-    margin: 2px 2px 0 3px;
-    width: 12px;
-    height: 56px;
-    border-radius: 10px;
-  
-  }
-  
-  .aTisketButton {
-    position: relative;
-    margin-left: auto;
-    margin-top: 12px;
-    margin-right: 5px;
-    padding: 10px;
-    height: 15px;
-    border: 1px solid black;
-    border-radius: 20px;
-     transition: 0.2s all;
-  }
-  
-  .aTisketButton:hover {
-    border: 1px solid #ffc470;
-    transition: 0.2s all;
-    background-color: #ffeea8;
-    text-decoration: none;
-    color: #704100;
-  }
-  
-  .red {
-    background-color: red;
-  }
-  
-  .green {
-    background-color: #34eb80;
-  }
-  
-  .orange {
-    background-color: orange;
-  }
-  
-  .albumCover img {
-    margin: 2px 0 0 0;
-    border-radius: 10px;
-    width: 60px;
-    height: 60px;
-  }
-  
-  .textContainer {
-    padding: 8px 0 0 8px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .albumTitle {
-    font-weight: bold;
-  }
-  
-  .artists {
-    text-align: left;
-    font-size: small;
-    font-weight: normal;
-  }
-  
-  
-  #albumList {
-    border-radius: 10px;
-    height: 100%;
-    border: 1px solid black;
-    overflow-y: auto;
-    margin: 0 10px 0 10px;
-  }
-  
-  #listSearch {
-    border-radius: 10px;
-    height: 30px;
-    border: 1px solid black;
-    margin: 10px 10px 2px 10px;
-    width: calc(100% - 32px);
-    padding: 0px 5px;
-    
-  }
-  
-  #albumContainer {
-    display: flex;
-    flex-direction: column;
-    height: calc(100% - 90px);
-  }
+  border: 1px solid gray;
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+  height: 64px;
+  margin: 3px 3px;
+}
 
-  #albumContainer ::-webkit-scrollbar {
-    width: 15px;
-    
-  }
-  
-  #albumContainer ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  #albumContainer ::-webkit-scrollbar-thumb {
-    border: 4px solid rgba(0, 0, 0, 0);
-    background-clip: padding-box;
-    border-radius: 9999px;
-    background-color: #aaa;
-  }
-  
-  #albumContainer ::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
-  }
-  
-  #body {
-    height: 100%;
-    overflow: hidden;
-  }
+.listItem:hover {
+  border: 1px solid black;
+  transition: 0.5s all;
+}
+
+.statusPill {
+  transform: translateY(2px);
+  margin: 2px 2px 0 3px;
+  width: 12px;
+  height: 56px;
+  border-radius: 10px;
+}
+
+.aTisketButton {
+  position: relative;
+  margin-left: auto;
+  margin-top: 12px;
+  margin-right: 5px;
+  padding: 10px;
+  height: 15px;
+  border: 1px solid black;
+  border-radius: 20px;
+  transition: 0.2s all;
+}
+
+.aTisketButton:hover {
+  border: 1px solid #ffc470;
+  transition: 0.2s all;
+  background-color: #ffeea8;
+  text-decoration: none;
+  color: #704100;
+}
+
+.red {
+  background-color: red;
+}
+
+.green {
+  background-color: #34eb80;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.albumCover img {
+  margin: 2px 0 0 0;
+  border-radius: 10px;
+  width: 60px;
+  height: 60px;
+}
+
+.textContainer {
+  padding: 8px 0 0 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.albumTitle {
+  font-weight: bold;
+}
+
+.artists {
+  text-align: left;
+  font-size: small;
+  font-weight: normal;
+}
+
+#albumList {
+  border-radius: 10px;
+  height: 100%;
+  border: 1px solid black;
+  overflow-y: auto;
+  margin: 0 10px 0 10px;
+}
+
+#listSearch {
+  border-radius: 10px;
+  height: 30px;
+  border: 1px solid black;
+  margin: 10px 10px 2px 10px;
+  width: calc(100% - 32px);
+  padding: 0px 5px;
+}
+
+#albumContainer {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 90px);
+}
+
+#albumContainer ::-webkit-scrollbar {
+  width: 15px;
+}
+
+#albumContainer ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#albumContainer ::-webkit-scrollbar-thumb {
+  border: 4px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  border-radius: 9999px;
+  background-color: #aaa;
+}
+
+#albumContainer ::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+#body {
+  height: 100%;
+  overflow: hidden;
+}
+
+#contentContainer {
+  height: 100%;
+}
