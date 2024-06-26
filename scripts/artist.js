@@ -50,7 +50,7 @@ async function downloadSpotifyAlbums (artist) {
     var albumList = []; 
 
     var fsatoken = localStorage.getItem("spfAccessToken") 
-    const response = await fetch('https://api.spotify.com/v1/artists/' + artist + "albums?limit=50", {
+    const response = await fetch('https://api.spotify.com/v1/artists/' + artist + "/albums?limit=50", {
       headers: {
         Authorization: 'Bearer ' + fsatoken
       }
@@ -82,7 +82,7 @@ async function downloadSpotifyAlbums (artist) {
         }
         
     }
-    while (offset + 50 < albumCount) {
+    while (currentOffset + 50 < albumCount) {
         currentOffset += 50;
         await new Promise(r => setTimeout(r, 500));
         var fsatoken = localStorage.getItem("spfAccessToken") 
