@@ -118,10 +118,6 @@ async function downloadSpotifyAlbums (artist) {
             }
             
         }
-
-    }
-    for (x in spotifyAlbumList) {
-        console.log(spotifyAlbumList[x])
     }
     
     downloadMusicBrainzAlbums()
@@ -166,9 +162,6 @@ async function downloadMusicBrainzAlbums() {
     document.getElementById("loadingContainer").innerHTML="";
     document.getElementById("loadingText").innerHTML=""
 
-     for (x in mbAlbumList) {
-        console.log(mbAlbumList[x])
-    }
 }
 
 function processAlbums() {
