@@ -189,7 +189,7 @@ function processAlbums() {
             if (albumStatus == "green") {
                 break
             }
-            if (mbReleaseName == spotifyName){
+            if (mbReleaseName.toUpperCase() == spotifyName.toUpperCase()){
                 albumStatus = "orange"
             }
         }
