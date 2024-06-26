@@ -181,7 +181,7 @@ function processAlbums() {
             var mbReleaseUrls = currentMBRelease["relations"]
             for (z in mbReleaseUrls) {
                 if (mbReleaseUrls[z]["url"]["resource"] == spotifyUrl){
-                    albumMBUrl = mbReleaseUrls[z]["url"]["resource"]
+                    albumMBUrl = "https://musicbrainz.org/release/"+currentMBRelease["id"]
                     albumStatus = "green"
                     break
                 }
