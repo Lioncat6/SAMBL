@@ -22,6 +22,7 @@ async function fetchSpotifyArtist(artist) {
         document.getElementById("artistImageContainer").innerHTML="<a href=\""+spImgUrl+"\" target=\"_blank\"><img src=\""+spImgUrl+"\"></a>"
         document.getElementById("spURL").setAttribute("href", spArtistUrl);
         document.getElementById("artistName").innerHTML=spArtistName
+        downloadSpotifyAlbums(artist)
     } else {
         if (data["error"]["status"] == 404) {
             dispErr("Spotify artist not found!")
@@ -44,7 +45,79 @@ async function fetchSpotifyArtist(artist) {
 }
 
 async function downloadSpotifyAlbums (artist) {
+    const albumCount = 0;
+    var currentOffset = 0;
+    var albumList = []; 
 
+    var fsatoken = localStorage.getItem("spfAccessToken") 
+    const response = await fetch('https://api.spotify.com/v1/artists/' + artist + "albums?limit=50", {
+      headers: {
+        Authorization: 'Bearer ' + fsatoken
+      }
+    });
+  
+    const data = await response.json();
+    console.log(data)
+    if (!data["error"]) {
+        albumCount = data["total"]
+        for (x in data["items"]) {
+            albumList.push(data["items"][x])
+        }
+    } else {
+        if (data["error"]["status"] == 404) {
+            dispErr("Spotify artist not found!")
+        } else if (data["error"]["status"] == 400) {
+            dispErr("Invalid artist id!")
+        } else {
+            fsatoken = localStorage.getItem("spfAccessToken") 
+            console.log(fsatoken)
+            if (!fsatoken) {
+                fsatoken = "";
+            }
+            if (fsatoken & fsatoken.length > 10) {
+                linkSpotify()
+                dispErr("Spotify Timeout | Please reload")
+                location.reload()
+            }
+        }
+        
+    }
+    while (offset + 50 < albumCount) {
+        currentOffset += 50;
+        await new Promise(r => setTimeout(r, 500));
+        var fsatoken = localStorage.getItem("spfAccessToken") 
+        const response = await fetch('https://api.spotify.com/v1/artists/' + artist + "albums?limit=50&offset=" + currentOffset, {
+        headers: {
+            Authorization: 'Bearer ' + fsatoken
+        }
+        });
+    
+        const data = await response.json();
+        console.log(data)
+        if (!data["error"]) {
+            for (x in data["items"]) {
+                albumList.push(data["items"][x])
+            }
+        } else {
+            if (data["error"]["status"] == 404) {
+                dispErr("Spotify artist not found!")
+            } else if (data["error"]["status"] == 400) {
+                dispErr("Invalid artist id!")
+            } else {
+                fsatoken = localStorage.getItem("spfAccessToken") 
+                console.log(fsatoken)
+                if (!fsatoken) {
+                    fsatoken = "";
+                }
+                if (fsatoken & fsatoken.length > 10) {
+                    linkSpotify()
+                    dispErr("Spotify Timeout | Please reload")
+                    location.reload()
+                }
+            }
+            
+        }
+    }
 
 }
 
