@@ -180,7 +180,7 @@ function processAlbums() {
             var mbReleaseName = currentMBRelease["title"]
             var mbReleaseUrls = currentMBRelease["relations"]
             for (z in mbReleaseUrls) {
-                if (mbReleaseUrls[z]["url"] == spotifyUrl){
+                if (mbReleaseUrls[z]["url"]["resource"] == spotifyUrl){
                     albumMBUrl = mbReleaseUrls[z]["url"]
                     albumStatus = "green"
                     break

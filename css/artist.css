@@ -166,3 +166,13 @@
   width: 20px;
   height: 20px;
 }
+
+
+#albumList a {
+    color: #333;
+    text-decoration: none;
+}
+  
+#albumList a:hover {
+    text-decoration: underline;
+}
