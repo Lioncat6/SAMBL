@@ -172,6 +172,7 @@
 #albumList a {
   color: #333;
   text-decoration: none;
+  font-weight: normal;
 }
 
 #albumList a:hover {
