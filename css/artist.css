@@ -99,7 +99,7 @@
   flex-direction: column;
 }
 
-.albumTitle {
+.albumTitle, .albumTitle a {
   text-align: left;
   font-weight: bold;
 }
