@@ -66,6 +66,10 @@
   transition: 0.2s all;
 }
 
+.aTisketButton div, .aTisketButton div:hover {
+    text-decoration: none;
+}
+
 .aTisketButton:hover {
   border: 1px solid #ffc470;
   transition: 0.2s all;
@@ -101,7 +105,7 @@
 
 .albumTitle, .albumTitle a {
   text-align: left;
-  font-weight: bold;
+  font-weight: bold !important;
 }
 
 .artists {
