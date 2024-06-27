@@ -169,32 +169,38 @@
   height: 20px;
 }
 
-
 #albumList a {
-    color: #333;
-    text-decoration: none;
+  color: #333;
+  text-decoration: none;
 }
-  
+
 #albumList a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 #searchContainer {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 #filterSearch {
-        position: relative;
-        margin-left: auto;
-        padding: 10px;
-        height: 15px;
-        border: 1px solid gray;
-        border-radius: 20px;
-        transition: 0.2s all;
+  position: relative;
+  margin: 10px 10px 2px 0px;
+  padding: 10px;
+  height: 32px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  transition: 0.2s all;
+  background: transparent;
+  color: black;
+  text-align: center;
 }
 
 #filterSearch:hover {
-    border: 1px solid black;
-    transition: 0.2s all;
+  border: 1px solid black;
+  transition: 0.2s all;
+}
+
+#fbText {
+  transform: translateY(-3px);
 }
