@@ -22,6 +22,7 @@ async function fetchSpotifyArtist(artist) {
         document.getElementById("artistImageContainer").innerHTML="<a href=\""+spImgUrl+"\" target=\"_blank\"><img src=\""+spImgUrl+"\"></a>"
         document.getElementById("spURL").setAttribute("href", spArtistUrl);
         document.getElementById("artistName").innerHTML=spArtistName
+        document.getElementsByTagName("title")[0].innerHTML="SAMBL • "+spArtistName
         downloadSpotifyAlbums(artist)
     } else {
         if (data["error"]["status"] == 404) {
