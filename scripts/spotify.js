@@ -64,6 +64,8 @@ async function getProfile(accessToken) {
     console.log(data)
     if (!data["error"]) {
         document.getElementById("spfloggedIn").innerHTML=data["display_name"]
+        localStorage.setItem("spfName", data["display_name"])
+        localStorage.setItem("spfLastAuthenticated", Date.now())
     } else {
         var localtoken = localStorage.getItem("spfAccessToken") 
         console.log(localtoken)
@@ -98,7 +100,11 @@ if (window.location.href.includes("/callback")) {
     if (!ac){
         ac == "";
     }
-    if (ac != undefined & ac.length > 10) {
-        getProfile(ac)
+    if (ac != undefined && ac.length > 10) {
+        if (Math.abs(Date.now - localStorage.getItem("spfLastAuthenticated")) >= 3600000) {
+            getProfile(ac)
+        } else {
+            document.getElementById("spfloggedIn").innerHTML=localStorage.getItem("spfName")
+        }
     }
 }
