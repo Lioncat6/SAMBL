@@ -72,7 +72,7 @@ async function getProfile(accessToken) {
         if (!localtoken) {
             localtoken = "";
         }
-        if (localtoken != undefined & localtoken.length > 10) {
+        if (localtoken != undefined && localtoken.length > 10) {
             linkSpotify()
         }
     }
