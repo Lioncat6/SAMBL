@@ -37,7 +37,7 @@ async function fetchSpotifyArtist(artist) {
             }
             if (fsatoken && fsatoken.length > 10) {
                 dispErr("Spotify Timeout | Please reload")
-                location.reload()
+                //location.reload()
             }
         }
         
@@ -76,7 +76,7 @@ async function downloadSpotifyAlbums (artist) {
             }
             if (fsatoken && fsatoken.length > 10) {
                 dispErr("Spotify Timeout | Please reload")
-                location.reload()
+                //location.reload()
             }
         }
         
@@ -111,7 +111,7 @@ async function downloadSpotifyAlbums (artist) {
                 }
                 if (fsatoken && fsatoken.length > 10) {
                     dispErr("Spotify Timeout | Please reload")
-                    location.reload()
+                    //location.reload()
                 }
             }
             

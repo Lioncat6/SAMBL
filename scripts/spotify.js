@@ -88,7 +88,7 @@ const bc = new BroadcastChannel("sambl");
 bc.onmessage = (event) => {
     if (event = "samblRefresh"){
         bc.close();
-        location.reload()
+        window.top.location.reload();
     }
 };
 
