@@ -101,7 +101,7 @@ if (window.location.href.includes("/callback")) {
         ac == "";
     }
     if (ac != undefined && ac.length > 10) {
-        if (Math.abs(Date.now - localStorage.getItem("spfLastAuthenticated")) >= 3600000) {
+        if ((Math.abs(Date.now - localStorage.getItem("spfLastAuthenticated")) >= 3600000) ||  localStorage.getItem("spfLastAuthenticated") == null) {
             getProfile(ac)
         } else {
             document.getElementById("spfloggedIn").innerHTML=localStorage.getItem("spfName")
