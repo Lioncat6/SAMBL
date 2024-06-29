@@ -62,7 +62,7 @@ async function getProfile(accessToken) {
   
     const data = await response.json();
     console.log(data)
-    if (!data["error"]) {
+    if (response.status == 200) {
         document.getElementById("spfloggedIn").innerHTML=data["display_name"]
         localStorage.setItem("spfName", data["display_name"])
         localStorage.setItem("spfLastAuthenticated", Date.now())

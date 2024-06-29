@@ -25,9 +25,9 @@ async function fetchSpotifyArtist(artist) {
         document.getElementsByTagName("title")[0].innerHTML="SAMBL • "+spArtistName
         downloadSpotifyAlbums(artist)
     } else {
-        if (data["error"]["status"] == 404) {
+        if (response.status == 404) {
             dispErr("Spotify artist not found!")
-        } else if (data["error"]["status"] == 400) {
+        } else if (response.status == 400) {
             dispErr("Invalid artist id!")
         } else {
             fsatoken = localStorage.getItem("spfAccessToken") 
@@ -37,6 +37,7 @@ async function fetchSpotifyArtist(artist) {
             }
             if (fsatoken && fsatoken.length > 10) {
                 dispErr("Spotify Timeout | Please reload")
+                localStorage.setItem("spfLastAuthenticated", Date.now()-3700000) //forces spotify.js to reauth on reload.
                 //location.reload()
             }
         }
