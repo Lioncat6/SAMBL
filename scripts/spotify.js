@@ -59,22 +59,25 @@ async function getProfile(accessToken) {
         Authorization: 'Bearer ' + token
       }
     });
-  
-    const data = await response.json();
-    console.log(data)
-    if (response.status == 200) {
-        document.getElementById("spfloggedIn").innerHTML=data["display_name"]
-        localStorage.setItem("spfName", data["display_name"])
-        localStorage.setItem("spfLastAuthenticated", Date.now())
-    } else {
-        var localtoken = localStorage.getItem("spfAccessToken") 
-        console.log(localtoken)
-        if (!localtoken) {
-            localtoken = "";
+    try {
+        const data = await response.json();
+        console.log(data)
+        if (response.status == 200) {
+            document.getElementById("spfloggedIn").innerHTML=data["display_name"]
+            localStorage.setItem("spfName", data["display_name"])
+            localStorage.setItem("spfLastAuthenticated", Date.now())
+        } else {
+            var localtoken = localStorage.getItem("spfAccessToken") 
+            console.log(localtoken)
+            if (!localtoken) {
+                localtoken = "";
+            }
+            if (localtoken != undefined && localtoken.length > 10) {
+                linkSpotify()
+            }
         }
-        if (localtoken != undefined && localtoken.length > 10) {
-            linkSpotify()
-        }
+    } catch {
+        window.open("https://docs.google.com/forms/d/e/1FAIpQLSdlm7HHwNsyfqS0O9tErxevwFGlAEzAexLGl1gxpKW6graLDA/viewform")
     }
     
 }
