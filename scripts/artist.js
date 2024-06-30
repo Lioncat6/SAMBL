@@ -125,7 +125,7 @@ async function downloadSpotifyAlbums (artist) {
 async function downloadMusicBrainzAlbums() {
     var albumCount = 0;
     var currentOffset = 0;
-    document.getElementById("loadingText").innerHTML="Downloading MusicBrainz Albums 1/2 ..."
+    document.getElementById("loadingText").innerHTML="Downloading MusicBrainz Albums 1/2..."
     const response = await fetch("https://musicbrainz.org/ws/2/release?artist="+mbid+"&inc=url-rels&fmt=json&offset=" + currentOffset);
     const data = await response.json();
     if (response.status == 200){
@@ -133,7 +133,7 @@ async function downloadMusicBrainzAlbums() {
         albumCount = data["release-count"]
         for (x in data["releases"]) {
             mbAlbumList.push(data["releases"][x])
-            document.getElementById("loadingText").innerHTML="Loading albums from MusicBrainz... ("+x+"/"+albumCount+")"
+            document.getElementById("loadingText").innerHTML="Loading albums from MusicBrainz 1/2... ("+x+"/"+albumCount+")"
         }
     } else if (data["error"]="Not Found" || response.status == 404) {
         dispErr("Musicbrainz artist not found. URL likely malfomed");
@@ -189,7 +189,7 @@ async function downloadMusicBrainzAlbums() {
             console.log(data)
             for (x in data["releases"]) {
                 mbAlbumList.push(data["releases"][x])
-                document.getElementById("loadingText").innerHTML="Loading albums from MusicBrainz... ("+Number(Number(x)+Number(currentOffset))+"/"+albumCount+")"
+                document.getElementById("loadingText").innerHTML="Loading albums from MusicBrainz 2/2... ("+Number(Number(x)+Number(currentOffset))+"/"+albumCount+")"
             }
         } else if (data["error"]="Not Found" || response.status == 404) {
             dispErr("Musicbrainz artist not found. URL likely malfomed");
