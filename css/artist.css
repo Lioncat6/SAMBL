@@ -215,3 +215,8 @@
   margin-top: 12px;
   display: block;
 }
+
+.statusText {
+  color: grey;
+  padding: 5px;
+}
