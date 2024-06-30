@@ -24,6 +24,7 @@ async function fetchSpotifyArtist(artist) {
         document.getElementById("artistName").innerHTML=spArtistName
         document.getElementsByTagName("title")[0].innerHTML="SAMBL • "+spArtistName
         document.getElementById("contentContainer").innerHTML=`<a class=\"addToMBButton\" href=\"https://musicbrainz.org/artist/create?edit-artist.name=${spArtistName}&edit-artist.sort_name=${spArtistName}&edit-artist.url.0.text=${spArtistUrl}&edit-artist.url.0.link_type_id=194&edit-artist.edit_note=Artist sourced from Spotify using SAMBL ${spArtistUrl}\" target=\"_blank\"><div>Add to MusicBranz</div></a>`
+        fetchMBArtist(artist)
     } else {
         if (data["error"]["status"] == 404) {
             dispErr("Spotify artist not found!")
@@ -42,6 +43,20 @@ async function fetchSpotifyArtist(artist) {
             }
         }
         
+    }
+}
+
+async function fetchMBArtist(id) {
+    const response = await fetch('https://musicbrainz.org/ws/2/url?limit=1&inc=artist-rels+label-rels+release-rels&fmt=json&resource=https://open.spotify.com/artist/' + id);
+    const data = await response.json();
+    if (response.status == 200){
+        const mbid = data["relations"][0]["artist"]["id"]
+        console.log(mbid)
+        location.assign("https://lioncat6.github.io/SAMBL/artist?spid="+id+"&mbid="+mbid);
+    } else if (data["error"]="Not Found" || response.status == 404) {
+        console.log("add artist")
+    } else {
+        console.log("MusicBrainz Error: " + data["error"])
     }
 }
 
