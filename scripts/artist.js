@@ -165,7 +165,7 @@ async function downloadMusicBrainzAlbums2() {
     var albumCount = 0;
     var currentOffset = 0;
     document.getElementById("loadingText").innerHTML="Downloading MusicBrainz Albums 2/2..."
-    const response = await fetch("https://musicbrainz.org/ws/2/artist/"+mbid+"?inc=url-rels+various-artists+releases&fmt=json&offset=" + currentOffset);
+    const response = await fetch("https://musicbrainz.org/ws/2/release?track_artist="+mbid+"&inc=url-rels&fmt=json&offset=" + currentOffset);
     const data = await response.json();
     if (response.status == 200){
         console.log(data)
@@ -183,7 +183,7 @@ async function downloadMusicBrainzAlbums2() {
     while (currentOffset + 15 < albumCount) {
         currentOffset += 15;
         await new Promise(r => setTimeout(r, 500));
-        const response = await fetch("https://musicbrainz.org/ws/2/artist/"+mbid+"?inc=url-rels+various-artists+releases&fmt=json&offset=" + currentOffset);
+        const response = await fetch("https://musicbrainz.org/ws/2/release?track_artist="+mbid+"&inc=url-rels&fmt=json&offset=" + currentOffset);
         const data = await response.json();
         if (response.status == 200){
             console.log(data)
