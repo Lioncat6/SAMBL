@@ -206,3 +206,11 @@
 #fbText {
   transform: translateY(-3px);
 }
+
+.addToMBButton {
+  padding: 10px;
+  height: 15px;
+  border: 1px solid black;
+  border-radius: 20px;
+  margin-top: 12px;
+}
