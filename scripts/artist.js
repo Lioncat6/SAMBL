@@ -234,6 +234,7 @@ function processAlbums() {
                 albumStatus = "orange"
             } 
         }
+        total++
         if (albumStatus == "green") {
             green++
         } else if(albumStatus == "orange") {
