@@ -228,15 +228,18 @@ function processAlbums() {
                     break
                 }
             }
-            total++
             if (albumStatus == "green") {
-                green ++
+                break
             } else if (mbReleaseName.toUpperCase() == spotifyName.toUpperCase()){
                 albumStatus = "orange"
-                orange++
-            } else {
-                red ++
-            }
+            } 
+        }
+        if (albumStatus == "green") {
+            green++
+        } else if(albumStatus == "orange") {
+            orange++
+        } else {
+            red++
         }
         var mbLinkHtml = ""
         if (albumMBUrl) {
@@ -257,7 +260,14 @@ function processAlbums() {
         htmlObject.innerHTML = htmlToAppend
         document.getElementById("albumList").append(htmlObject)
     }
-    document.getElementById("statusText").innerHTML="Albums on musicBrainz: "+green+"/"+total+" ~ "+orange +" albums have matching names but no associated link"
+    if (orange == 1){
+        document.getElementById("statusText").innerHTML="Albums on musicBrainz: "+green+"/"+total+" ~ 1 album has a matching name but no associated link"
+    } else if (orange > 0) {
+        document.getElementById("statusText").innerHTML="Albums on musicBrainz: "+green+"/"+total+" ~ "+orange +" albums have matching names but no associated link"
+    } else {
+        document.getElementById("statusText").innerHTML="Albums on musicBrainz: "+green+"/"+total
+    }
+    
 
 }
 
