@@ -206,6 +206,7 @@ function processAlbums() {
     var green = 0
     var red = 0
     var orange = 0
+    var total = 0
     displayList()
     for (x in spotifyAlbumList){
         var albumStatus = "red"
@@ -227,11 +228,10 @@ function processAlbums() {
                     break
                 }
             }
+            total++
             if (albumStatus == "green") {
                 green ++
-                break
-            }
-            if (mbReleaseName.toUpperCase() == spotifyName.toUpperCase()){
+            } else if (mbReleaseName.toUpperCase() == spotifyName.toUpperCase()){
                 albumStatus = "orange"
                 orange++
             } else {
@@ -257,7 +257,7 @@ function processAlbums() {
         htmlObject.innerHTML = htmlToAppend
         document.getElementById("albumList").append(htmlObject)
     }
-    document.getElementById("statusText").innerHTML="Albums on musicBrainz: "+green+"/"+Number(Number(red)+Number(green))+" ~ "+orange +" albums have matching names but no associated link"
+    document.getElementById("statusText").innerHTML="Albums on musicBrainz: "+green+"/"+total+" ~ "+orange +" albums have matching names but no associated link"
 
 }
 
