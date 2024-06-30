@@ -13,7 +13,11 @@ async function fetchSpotifyArtist(artist) {
     const data = await response.json();
     console.log(data)
     if (!data["error"]) {
-        const spImgUrl = data["images"][0]["url"]
+        if (data["images"].length > 0){
+            const spImgUrl = data["images"][0]["url"]
+        } else {
+            const spImgUrl = ""
+        }
         const spArtistName = data["name"]
         const spArtistUrl = data["external_urls"]["spotify"]
         console.log(spArtistName)
