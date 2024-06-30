@@ -216,7 +216,7 @@
   display: block;
 }
 
-.statusText {
+#statusText {
   color: grey;
   padding: 5px;
 }
