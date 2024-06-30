@@ -37,7 +37,7 @@ function callback() {
         localStorage.setItem("spfAccessToken", accessToken);
         const bc = new BroadcastChannel("sambl");
         bc.postMessage("samblRefresh");
-        //window.close()
+        window.close()
     } else {
         const urlParams = new URLSearchParams(new URL(url).hash.slice(1));
         var err = urlParams.get("error");
