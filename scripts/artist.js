@@ -247,7 +247,7 @@ function processAlbums() {
         }
         var mbLinkHtml = ""
         if (albumMBUrl) {
-            var mbLinkHtml = "<a href=\""+albumMBUrl+"\" target=\"_blank\"><img class=\"albumMB\" src=\"../assets/images/MusicBrainz_Logo.svg\" /></a>"
+            var mbLinkHtml = "<a href=\""+albumMBUrl+"\" target=\"_blank\"><img class=\"albumMB\" src=\"../assets/images/MusicBrainz_logo_icon.svg\" /></a>"
         }
         var spArtistsHtml = ""
         for (x in spotifyAlbumArtists){
