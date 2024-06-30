@@ -13,7 +13,7 @@ async function fetchSpotifyArtist(artist) {
     const data = await response.json();
     console.log(data)
     if (!data["error"]) {
-        const spImgUrl = ""
+        var spImgUrl = ""
         if (data["images"].length > 0){
             spImgUrl = data["images"][0]["url"]
         }
