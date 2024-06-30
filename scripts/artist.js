@@ -158,10 +158,10 @@ async function downloadMusicBrainzAlbums() {
             dispErr("MusicBrainz Error: " + data["error"])
         }
     }
-    downloadMusicBrainzAlbums()
+    downloadMusicBrainzAlbums2()
 }
 
-async function downloadMusicBrainzAlbums() {
+async function downloadMusicBrainzAlbums2() {
     var albumCount = 0;
     var currentOffset = 0;
     document.getElementById("loadingText").innerHTML="Downloading MusicBrainz Albums 2/2..."
