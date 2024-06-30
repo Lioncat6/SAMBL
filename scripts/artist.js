@@ -37,7 +37,7 @@ async function fetchSpotifyArtist(artist) {
             }
             if (fsatoken && fsatoken.length > 10) {
                 dispErr("Spotify Timeout | Please reload")
-                localStorage.setItem("spfLastAuthenticated", Date.now()+3700000) //forces spotify.js to reauth on reload.
+                localStorage.setItem("spfLastAuthenticated", 0) //forces spotify.js to reauth on reload.
                 //location.reload()
             }
         }
