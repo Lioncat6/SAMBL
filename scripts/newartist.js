@@ -19,13 +19,26 @@ async function fetchSpotifyArtist(artist) {
         }
         const spArtistName = data["name"]
         const spArtistUrl = data["external_urls"]["spotify"]
+        const spGenres = data["genres"]
+        var spGenresString = ""
+        for (x in spGenres) {
+            if (x > 0) {
+                spGenresString += ", "
+            }
+            spGenresString += spGenres[x]
+        }
+        const spFollowerCount = data["followers"]["total"]
+        const spPopularity = data["popularity"]
         console.log(spArtistName)
         console.log(spArtistUrl)
         console.log(spImgUrl)
+        console.log(spGenres)
         document.getElementById("artistImageContainer").innerHTML="<a href=\""+spImgUrl+"\" target=\"_blank\"><img src=\""+spImgUrl+"\"></a>"
         document.getElementById("spURL").setAttribute("href", spArtistUrl);
         document.getElementById("artistName").innerHTML=spArtistName
         document.getElementsByTagName("title")[0].innerHTML="SAMBL • "+spArtistName
+        document.getElementById("artistFollowerCount").innerHTML = `<h2>${spFollowerCount} Followers</h2>`
+        document.getElementById("artistGenres").innerHTML = `<p>${spGenresString}</p>`
         document.getElementById("contentContainer").innerHTML=`<a class=\"addToMBButton\" href=\"https://musicbrainz.org/artist/create?edit-artist.name=${spArtistName}&edit-artist.sort_name=${spArtistName}&edit-artist.url.0.text=${spArtistUrl}&edit-artist.url.0.link_type_id=194&edit-artist.edit_note=Artist sourced from Spotify using SAMBL ${spArtistUrl}\" target=\"_blank\"><div>Add to MusicBranz</div></a>`
         fetchMBArtist(artist)
     } else {
