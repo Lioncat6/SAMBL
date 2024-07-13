@@ -1,24 +1,49 @@
-<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/header.css" />
 <header>
-    <a href="https://lioncat6.github.io/SAMBL/" target="_parent">
-        <div class="imagewrapper">
-            <img src="assets/images/favicon.svg"  alt="SAMBL Logo">
-        </div>
-    </a>
-    <div class="textwrapper">
-        <h1>SAMBL</h1>
-        <div class="subdesc">Spotify Artist MusicBrainz Lookup</div>
+  <a href="https://lioncat6.github.io/SAMBL/" target="_parent">
+    <div class="imagewrapper">
+      <img src="assets/images/favicon.svg" alt="SAMBL Logo" />
     </div>
-    <div class="spotifyStatus">
-        <div class="spfButton" onclick="spfButton()">
-            <div class="spotifyLogo">
-                <img src="assets/images/Spotify_icon.svg"  alt="Spotify Logo">
-            </div>
-            <div class="spfTextWrapper">
-                <div id="spfloggedIn">Log In</div>
-                <div id="spfloggedOut"></div>
-            </div>
-        </div>
+  </a>
+  <div class="textwrapper">
+    <h1>SAMBL</h1>
+    <div class="subdesc">Spotify Artist MusicBrainz Lookup</div>
+  </div>
+  <div class='darkModeSwitch'>
+    <label>
+      <input title="Dark mode" onclick="updateDarkMode()" id="darkModeToggle" type='checkbox'>
+      <span class='slider'></span>
+    </label>
+  </div>
+  <div class="spotifyStatus">
+    <div class="spfButton" onclick="spfButton()">
+      <div class="spotifyLogo">
+        <img src="assets/images/Spotify_icon.svg" alt="Spotify Logo" />
+      </div>
+      <div class="spfTextWrapper">
+        <div id="spfloggedIn">Log In</div>
+        <div id="spfloggedOut"></div>
+      </div>
     </div>
-    <script src="scripts/spotify.js"></script>
+  </div>
+  <script src="scripts/spotify.js"></script>
 </header>
+<script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.87/darkreader.min.js"></script>
+<script>
+  document.getElementById("darkModeToggle").checked =
+    localStorage.getItem("darkModeEnabled");
+  function updateDarkMode() {
+    useDarkMode = document.getElementById("darkModeToggle").checked;
+    localStorage.setItem("darkModeEnabled", useDarkMode);
+    console.log(localStorage.getItem("darkModeEnabled"));
+    if (!useDarkMode) {
+      DarkReader.enable({
+        brightness: 100,
+        contrast: 90,
+      });
+    } else {
+      DarkReader.disable();
+    }
+  }
+  updateDarkMode();
+</script>
