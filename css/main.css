@@ -25,7 +25,7 @@ body {
   overflow: hidden;
 }
 
-embed {
+embed, iframe {
     display: block;
     width: 100%;
     padding: 0;
@@ -89,7 +89,7 @@ a:hover {
     text-decoration: underline;
 }
 
-footer embed {
+footer embed, footer embed {
   height: 80px;
 }
 
@@ -109,7 +109,7 @@ footer {
     color: red;
 }
 
-embed {
+embed, iframe {
   background-color: #f9f9f9;
 }
 

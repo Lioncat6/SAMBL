@@ -43,7 +43,7 @@
     window.parent.document.head.appendChild(script);
 
     // Iterate through all embeds in the parent document
-    const embeds = window.parent.document.getElementsByTagName("embed");
+    const embeds = window.parent.document.getElementsByTagName("iframe");
     for (let i = 0; i < embeds.length; i++) {
       const embedDoc =
         embeds[i].contentDocument || embeds[i].contentWindow.document;
@@ -70,7 +70,7 @@
     }
 
     // Iterate through all embeds in the parent document
-    const embeds = window.parent.document.getElementsByTagName("embed");
+    const embeds = window.parent.document.getElementsByTagName("iframe");
     for (let i = 0; i < embeds.length; i++) {
       const embedDoc =
         embeds[i].contentDocument || embeds[i].contentWindow.document;
