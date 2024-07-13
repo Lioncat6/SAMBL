@@ -29,21 +29,28 @@
   <script src="scripts/spotify.js"></script>
 </header>
 <script>
-  document.getElementById("darkModeToggle").checked =
-    localStorage.getItem("darkModeEnabled");
-  function updateDarkMode() {
-    window.top.import('https://cdn.jsdelivr.net/npm/darkreader@4.9.87/darkreader.min.js')
-    useDarkMode = document.getElementById("darkModeToggle").checked;
-    localStorage.setItem("darkModeEnabled", useDarkMode);
-    console.log(localStorage.getItem("darkModeEnabled"));
-    if (!useDarkMode) {
-        window.top.DarkReader.enable({
-        brightness: 100,
-        contrast: 90,
-      });
-    } else {
-        window.top.DarkReader.disable();
+    document.getElementById("darkModeToggle").checked = localStorage.getItem("darkModeEnabled");
+  
+    function updateDarkMode() {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/darkreader@4.9.87/darkreader.min.js';
+      document.head.appendChild(script);
+  
+      script.onload = () => {
+        const useDarkMode = document.getElementById("darkModeToggle").checked;
+        localStorage.setItem("darkModeEnabled", useDarkMode);
+        console.log(localStorage.getItem("darkModeEnabled"));
+  
+        if (useDarkMode) {
+          window.top.DarkReader.enable({
+            brightness: 100,
+            contrast: 90,
+          });
+        } else {
+          window.top.DarkReader.disable();
+        }
+      };
     }
-  }
-  updateDarkMode();
-</script>
+  
+    updateDarkMode();
+  </script>
