@@ -9,17 +9,6 @@
     <h1>SAMBL</h1>
     <div class="subdesc">Spotify Artist MusicBrainz Lookup</div>
   </div>
-  <div class="darkModeSwitch">
-    <label>
-      <input
-        title="Dark mode"
-        onclick="updateDarkMode()"
-        id="darkModeToggle"
-        type="checkbox"
-      />
-      <span class="slider"></span>
-    </label>
-  </div>
   <div class="spotifyStatus">
     <div class="spfButton" onclick="spfButton()">
       <div class="spotifyLogo">
@@ -33,64 +22,3 @@
   </div>
   <script src="scripts/spotify.js"></script>
 </header>
-<script>
-  // Function to load DarkReader script
-  function loadDarkReader(callback) {
-    const script = document.createElement("script");
-    script.src =
-      "https://cdn.jsdelivr.net/npm/darkreader@4.9.87/darkreader.min.js";
-    script.onload = callback;
-    window.parent.document.head.appendChild(script);
-
-    // Iterate through all embeds in the parent document
-    const embeds = window.parent.document.getElementsByTagName("iframe");
-    for (let i = 0; i < embeds.length; i++) {
-      const embedDoc =
-        embeds[i].contentDocument || embeds[i].contentWindow.document;
-      const embedScript = document.createElement("script");
-      embedScript.src =
-        "https://cdn.jsdelivr.net/npm/darkreader@4.9.87/darkreader.min.js";
-      embedDoc.head.appendChild(embedScript);
-    }
-  }
-
-  // Function to update dark mode
-  function updateDarkMode() {
-    const useDarkMode = document.getElementById("darkModeToggle").checked;
-    localStorage.setItem("darkModeEnabled", useDarkMode);
-    console.log(localStorage.getItem("darkModeEnabled"));
-
-    if (useDarkMode) {
-      window.parent.DarkReader.enable({
-        brightness: 100,
-        contrast: 90,
-      });
-    } else {
-      window.parent.DarkReader.disable();
-    }
-
-    // Iterate through all embeds in the parent document
-    const embeds = window.parent.document.getElementsByTagName("iframe");
-    for (let i = 0; i < embeds.length; i++) {
-      const embedDoc =
-        embeds[i].contentDocument || embeds[i].contentWindow.document;
-      if (embedDoc && embedDoc.DarkReader) {
-        if (useDarkMode) {
-          embedDoc.DarkReader.enable({
-            brightness: 100,
-            contrast: 90,
-          });
-        } else {
-          embedDoc.DarkReader.disable();
-        }
-      }
-    }
-  }
-
-  // Initialize dark mode setting
-  document.getElementById("darkModeToggle").checked =
-    localStorage.getItem("darkModeEnabled") === "true";
-
-  // Load DarkReader and update dark mode
-  loadDarkReader(updateDarkMode);
-</script>
