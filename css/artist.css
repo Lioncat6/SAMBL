@@ -124,7 +124,7 @@
   height: 30px;
   border: 1px solid black;
   margin: 10px 10px 2px 10px;
-  width: calc(100% - 200px);
+  width: calc(100% - 32px);
   padding: 0px 5px;
 }
 
