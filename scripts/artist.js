@@ -214,6 +214,7 @@ function processAlbums() {
     for (x in spotifyAlbumList){
         var albumStatus = "red"
         var albumMBUrl = ""
+        var pillTooltipText = ""
         var currentAlbum = spotifyAlbumList[x]
         var spotifyUrl = currentAlbum["external_urls"]["spotify"]
         var spotifyId = currentAlbum["id"]
@@ -240,10 +241,13 @@ function processAlbums() {
         }
         total++
         if (albumStatus == "green") {
+            pillTooltipText = "This album has a MB release with a matching Spotify URL"
             green++
         } else if(albumStatus == "orange") {
+            pillTooltipText = "This album has a MB release with a matching name but no associated link"
             orange++
         } else {
+            pillTooltipText = "This album has no MB release with a matching name or URL"
             red++
         }
         var mbLinkHtml = ""
@@ -262,7 +266,7 @@ function processAlbums() {
             var artistUrl = currentArtist["external_urls"]["spotify"]
             spArtistsHtml +="<a href=\""+artistUrl+"\" target=\"_blank\">"+artistName+"</a>"
         }
-        var htmlToAppend = "<div class=\"album listItem\"><div class=\"statusPill "+albumStatus+"\"></div><div class=\"albumCover\"><a href=\""+spotifyImageURL+"\" target=\"_blank\"><img src=\""+spotifyImageURL+"\" /></a></div><div class=\"textContainer\"><div class=\"albumTitle\"><a href=\""+spotifyUrl+"\" target=\"_blank\" >"+spotifyName+"</a>"+mbLinkHtml+"</div><div class=\"artists\">"+spArtistsHtml+"</div></div><a class=\"aTisketButton\" href=\"https://atisket.pulsewidth.org.uk/?spf_id="+spotifyId+"&preferred_vendor=spf\" target=\"_blank\"><div>A-tisket</div></a></div>"
+        var htmlToAppend = "<div class=\"album listItem\"><div class=\"statusPill "+albumStatus+"\" title=\""+pillTooltipText+"\"></div><div class=\"albumCover\"><a href=\""+spotifyImageURL+"\" target=\"_blank\"><img src=\""+spotifyImageURL+"\" /></a></div><div class=\"textContainer\"><div class=\"albumTitle\"><a href=\""+spotifyUrl+"\" target=\"_blank\" >"+spotifyName+"</a>"+mbLinkHtml+"</div><div class=\"artists\">"+spArtistsHtml+"</div></div><a class=\"aTisketButton\" href=\"https://atisket.pulsewidth.org.uk/?spf_id="+spotifyId+"&preferred_vendor=spf\" target=\"_blank\"><div>A-tisket</div></a></div>"
         var htmlObject = document.createElement('div');
         htmlObject.innerHTML = htmlToAppend
         document.getElementById("albumList").append(htmlObject)
