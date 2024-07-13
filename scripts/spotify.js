@@ -77,6 +77,7 @@ async function getProfile(accessToken) {
             }
         }
     } catch {
+        localStorage.setItem("spfName", "")
         window.open("https://docs.google.com/forms/d/e/1FAIpQLSdlm7HHwNsyfqS0O9tErxevwFGlAEzAexLGl1gxpKW6graLDA/viewform")
     }
     

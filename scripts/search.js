@@ -4,10 +4,11 @@ function lookup() {
     document.getElementById("searchEnter").innerHTML="<div class=\"lds-ellipsis\"><div></div><div></div><div></div><div></div></div>"
     const query = document.getElementById('searchbox').value;
     var spftoken = localStorage.getItem("spfAccessToken") 
+    var spfName = localStorage.getItem("spfName")
     if (!spftoken) {
         spftoken = "";
     }
-    if (spftoken != undefined & spftoken.length > 10) {
+    if (spftoken != undefined && spftoken.length > 10 && spfName != "") {
         if (query != "") {
             const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
             if(query.includes("https://open.spotify.com/artist/")) {
