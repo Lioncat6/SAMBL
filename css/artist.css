@@ -15,6 +15,11 @@
   flex-direction: column;
 }
 
+#artistName {
+  margin-bottom: 0;
+  text-wrap: nowrap;
+}
+
 .spIcon,
 .mbIcon {
   width: 40px;
@@ -26,11 +31,13 @@
 }
 
 .spURLContainer {
-  padding: 8% 5%;
+  padding: 7% 3% 0 2%;
+  margin-bottom: 0;
 }
 
 .mbURLContainer {
-  padding: 7% 0;
+  padding: 6% 0 0 0;
+  margin-bottom: 0;
 }
 
 #loadingText {
