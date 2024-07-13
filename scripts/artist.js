@@ -234,6 +234,7 @@ function processAlbums() {
             if (albumStatus == "green") {
                 break
             } else if (mbReleaseName.toUpperCase() == spotifyName.toUpperCase()){
+                albumMBUrl = "https://musicbrainz.org/release/"+currentMBRelease["id"]
                 albumStatus = "orange"
             } 
         }
@@ -246,8 +247,10 @@ function processAlbums() {
             red++
         }
         var mbLinkHtml = ""
-        if (albumMBUrl) {
+        if (albumMBUrl && albumStatus == "green") {
             var mbLinkHtml = "<a href=\""+albumMBUrl+"\" target=\"_blank\"><img class=\"albumMB\" src=\"../assets/images/MusicBrainz_logo_icon.svg\" /></a>"
+        } else if (albumMBUrl) {
+            var mbLinkHtml = "<a href=\""+albumMBUrl+"\" target=\"_blank\"><img class=\"albumMB\" src=\"../assets/images/MB_Error.svg\" /></a>"
         }
         var spArtistsHtml = ""
         for (x in spotifyAlbumArtists){
