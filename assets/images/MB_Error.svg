@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg viewBox="0 0 27 30" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
   <defs>
-    <filter id="grayscale-filter-0" color-interpolation-filters="sRGB" x="-50%" y="-50%" width="200%" height="200%" bx:preset="grayscale 1 0.5">
-      <feColorMatrix type="matrix" values="0.606 0.358 0.036 0 0 0.106 0.858 0.036 0 0 0.106 0.358 0.536 0 0 0 0 0 1 0"/>
+    <filter id="grayscale-filter-0" color-interpolation-filters="sRGB" x="-50%" y="-50%" width="200%" height="200%" bx:preset="grayscale 1 0.8">
+      <feColorMatrix type="matrix" values="0.37 0.572 0.058 0 0 0.17 0.772 0.058 0 0 0.17 0.572 0.258 0 0 0 0 0 1 0"/>
     </filter>
-    <filter id="grayscale-filter-1" color-interpolation-filters="sRGB" x="-50%" y="-50%" width="200%" height="200%" bx:preset="grayscale 1 0.5">
-      <feColorMatrix type="matrix" values="0.606 0.358 0.036 0 0 0.106 0.858 0.036 0 0 0.106 0.358 0.536 0 0 0 0 0 1 0"/>
+    <filter id="grayscale-filter-1" color-interpolation-filters="sRGB" x="-50%" y="-50%" width="200%" height="200%" bx:preset="grayscale 1 0.8">
+      <feColorMatrix type="matrix" values="0.37 0.572 0.058 0 0 0.17 0.772 0.058 0 0 0.17 0.572 0.258 0 0 0 0 0 1 0"/>
     </filter>
     <filter id="drop-shadow-filter-0" color-interpolation-filters="sRGB" x="-50%" y="-50%" width="200%" height="200%" bx:preset="drop-shadow 1 1 1 1 0.85 rgba(0,0,0,0.3)">
       <title>Drop shadow</title>
