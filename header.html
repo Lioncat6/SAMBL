@@ -37,12 +37,12 @@
     localStorage.setItem("darkModeEnabled", useDarkMode);
     console.log(localStorage.getItem("darkModeEnabled"));
     if (!useDarkMode) {
-      DarkReader.enable({
+        window.top.DarkReader.enable({
         brightness: 100,
         contrast: 90,
       });
     } else {
-      DarkReader.disable();
+        window.top.DarkReader.disable();
     }
   }
   updateDarkMode();
