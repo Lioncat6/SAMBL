@@ -10,6 +10,11 @@
   width: 50%;
 }
 
+#artistTextContainer{
+  display: flex;
+  flex-direction: column;
+}
+
 .spIcon,
 .mbIcon {
   width: 40px;
@@ -221,3 +226,4 @@
   color: grey;
   padding: 5px;
 }
+

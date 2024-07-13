@@ -19,6 +19,9 @@ async function fetchSpotifyArtist(artist) {
         }
         const spArtistName = data["name"]
         const spArtistUrl = data["external_urls"]["spotify"]
+        const spGenres = data["genres"]
+        const spFollowerCount = data["followers"]["total"]
+        const spPopularity = data["popularity"]
         console.log(spArtistName)
         console.log(spArtistUrl)
         console.log(spImgUrl)
@@ -26,6 +29,7 @@ async function fetchSpotifyArtist(artist) {
         document.getElementById("spURL").setAttribute("href", spArtistUrl);
         document.getElementById("artistName").innerHTML=spArtistName
         document.getElementsByTagName("title")[0].innerHTML="SAMBL • "+spArtistName
+        document.getElementById("artistFollowerCount").innerHTML = `<h2>${spFollowerCount} Followers</h2>`
         downloadSpotifyAlbums(artist)
     } else {
         if (response.status == 404) {
