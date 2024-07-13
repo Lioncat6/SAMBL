@@ -338,3 +338,20 @@
   -webkit-user-select: none;
   user-select: none;
 }
+
+.checkbox-wrapper{
+  padding: 5px;
+}
+
+#applyfilter{
+  position: relative;
+    margin: 10px 10px 2px 0px;
+    padding: 10px;
+    height: 32px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    transition: 0.2s all;
+    background: transparent;
+    color: black;
+    text-align: center;
+}
