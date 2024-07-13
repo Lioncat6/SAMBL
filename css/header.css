@@ -40,6 +40,7 @@ header {
     overflow: hidden;
     display: flex;
     flex-direction: row;
+    background-color: #f9f9f9;
 }
 
 .spotifyStatus {
