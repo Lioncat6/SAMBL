@@ -28,11 +28,11 @@
   </div>
   <script src="scripts/spotify.js"></script>
 </header>
-<script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.87/darkreader.min.js"></script>
 <script>
   document.getElementById("darkModeToggle").checked =
     localStorage.getItem("darkModeEnabled");
   function updateDarkMode() {
+    window.top.import('https://cdn.jsdelivr.net/npm/darkreader@4.9.87/darkreader.min.js')
     useDarkMode = document.getElementById("darkModeToggle").checked;
     localStorage.setItem("darkModeEnabled", useDarkMode);
     console.log(localStorage.getItem("darkModeEnabled"));

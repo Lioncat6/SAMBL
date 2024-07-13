@@ -81,8 +81,9 @@ header {
 
 /* dark mode slider */
 .darkModeSwitch {
-  position: relative;
+  position: absolute;
   width: 80px;
+  right: 150px;
 }
 
 .darkModeSwitch label {
