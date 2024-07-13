@@ -254,7 +254,7 @@ function processAlbums() {
         if (albumMBUrl && albumStatus == "green") {
             var mbLinkHtml = "<a href=\""+albumMBUrl+"\" target=\"_blank\"><img class=\"albumMB\" src=\"../assets/images/MusicBrainz_logo_icon.svg\" /></a>"
         } else if (albumMBUrl) {
-            var mbLinkHtml = "<a href=\""+albumMBUrl+"\" target=\"_blank\"><img class=\"albumMB\" src=\"../assets/images/MB_Error.svg\" title=\"Warning: This could be the incorrect MB Release for this album!\" /></a>"
+            var mbLinkHtml = "<a href=\""+albumMBUrl+"\" target=\"_blank\"><img class=\"albumMB\" src=\"../assets/images/MB_Error.svg\" title=\"Warning: This could be the incorrect MB release for this album!\" /></a>"
         }
         var spArtistsHtml = ""
         for (x in spotifyAlbumArtists){
