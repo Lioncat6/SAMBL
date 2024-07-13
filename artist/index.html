@@ -1,44 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SAMBL</title>
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/artist.css">
-    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">  
-    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
-</head>
-<body id="body">
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/artist.css" />
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+  </head>
+  <body id="body">
     <div id="main">
-        <embed type="text/html" src="../header.html">
-        <div id="err"> </div>
-        <div id="artistContainer"> 
-            <div id="artistImageContainer"></div>
-            <div id="artistTextContainer">
-                <div class="nameContainer">
-                    <h1 id="artistName"></h1>
-                    <div class="spURLContainer"><a id="spURL" target="_blank"><img alt="Spotify Icon" class="spIcon" src="../assets/images/Spotify_icon.svg"></a></div>
-                    <div class="mbURLContainer"><a id="mbURL" target="_blank"><img alt="MusicBrainz Icon" class="mbIcon" src="../assets/images/MusicBrainz_Logo.svg"></a></div>
-                </div>
-                <div id="artistFollowerCount"></div>
-                <div id="artistGenres"></div>
+      <embed type="text/html" src="../header.html" />
+      <div id="err"></div>
+      <div id="artistContainer">
+        <div id="artistImageContainer"></div>
+        <div id="artistTextContainer">
+          <div class="nameContainer">
+            <h1 id="artistName"></h1>
+            <div class="spURLContainer">
+              <a id="spURL" target="_blank"
+                ><img
+                  alt="Spotify Icon"
+                  class="spIcon"
+                  src="../assets/images/Spotify_icon.svg"
+              /></a>
             </div>
-        </div>
-        <div id="contentContainer">
-            <div id="loadingContainer"></div>
-            <div id="loadingText"></div>
-            <div id="albumContainer">
-                <div id="searchContainer"><input id="listSearch" onkeyup="searchList()" onkeydown="searchList()" placeholder="Search..."><button onclick="filter()" id="filterSearch"><div id="fbText">Filter</div></button></div>
-                <div id="albumList">
-                </div>
-                <div id="statusText"></div>
+            <div class="mbURLContainer">
+              <a id="mbURL" target="_blank"
+                ><img
+                  alt="MusicBrainz Icon"
+                  class="mbIcon"
+                  src="../assets/images/MusicBrainz_Logo.svg"
+              /></a>
             </div>
+          </div>
+          <div id="artistFollowerCount"></div>
+          <div id="artistGenres"></div>
         </div>
+      </div>
+      <div id="contentContainer">
+        <div id="loadingContainer"></div>
+        <div id="loadingText"></div>
+        <div id="albumContainer">
+          <div id="searchContainer">
+            <input
+              id="listSearch"
+              onkeyup="searchList()"
+              onkeydown="searchList()"
+              placeholder="Search..."
+            /><button onclick="filter()" id="filterSearch">
+              <div id="fbText">Filter</div>
+            </button>
+          </div>
+          <div id="albumList"></div>
+          <div id="statusText"></div>
+          <div id="filterList">
+            <h3>Filter List</h3>
+            <form id="filterBoxes">
+              <div class="checkbox-wrapper">
+                <input
+                  type="checkbox"
+                  id="showGreen"
+                  name="showGreen"
+                  value="Bike"
+                />
+                <label for="showGreen"> Show Green</label><br />
+              </div>
+              <div class="checkbox-wrapper">
+                <input
+                  type="checkbox"
+                  id="showOrange"
+                  name="showOrange"
+                  value="Car"
+                />
+                <label for="showOrange"> Show Orange</label><br />
+              </div>
+              <div class="checkbox-wrapper">
+                <input
+                  type="checkbox"
+                  id="showRed"
+                  name="showRed"
+                  value="Boat"
+                />
+                <label for="showRed"> Show Red</label><br /><br />
+              </div>
+              <input type="submit" value="Submit" onclick="applyFilter()" />
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-    <footer><embed type="text/html" src="../footer.html"></footer>
+    <footer><embed type="text/html" src="../footer.html" /></footer>
     <script src="../scripts/artist.js"></script>
-</body>
-
-    
+  </body>
 </html>
