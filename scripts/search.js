@@ -20,9 +20,11 @@ function lookup() {
                     
                 }
             } else if (uuidPattern.test(query)) {
-
+                invalidInput("MB Lookup isn't currently supported; Please enter a spotify artist link instead!")
+            } else if (query.includes("https://open.spotify.com/")) {
+                invalidInput("This type of link isn't currently supported; Please enter a spotify artist link instead!")
             } else {
-                invalidInput("Text searching is currently not supported!")
+                invalidInput("Text searching is currently not supported; Please enter a spotify artist link instead!")
             }
         } else {
             invalidInput("Please enter a query")
