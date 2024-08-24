@@ -5,6 +5,8 @@ Spotify Artist MusicBrainz Lookup
 
 ![image](https://github.com/user-attachments/assets/83037036-2f4d-4757-8279-7f191c9c674b)
 
+### If you are experiencing issues using SAMBL:
+Please make sure you've filled out this form: https://docs.google.com/forms/d/178zCbmaoWACBlM_JH9snkiuQFZ0eeZ6lNAACwBQpvJg/viewform
 
  ## Coming Soon:
 Rework on spotify linking involving some sort of backend because spotify is a *`REDACTED`*
