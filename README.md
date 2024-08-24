@@ -7,15 +7,3 @@ Spotify Artist MusicBrainz Lookup
 
 ### If you are experiencing issues using SAMBL:
 Please make sure you've filled out this form: https://docs.google.com/forms/d/178zCbmaoWACBlM_JH9snkiuQFZ0eeZ6lNAACwBQpvJg/viewform
-
- ## Coming Soon:
-Rework on spotify linking involving some sort of backend because spotify is a *`REDACTED`*
-
-![image](https://github.com/user-attachments/assets/36633b70-60d6-4940-ba9f-215fb4b05d2f)
-
-According to this ^, the primary purpose of SAMBL is against their developer terms... the amount of things that *arent* seems to be infinitely small...
-
-Which is especially dumb considering SPOTIFY LITERALLY USES MUSICBRAINZ for some of their database. [See here](https://metabrainz.org/supporters)
-![image](https://github.com/user-attachments/assets/18bd832e-e8b8-49cc-97b6-50146a801677)
-
-I'm this close to just using a secret key in a public facing piece of code because this is just stupid.
