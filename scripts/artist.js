@@ -1,5 +1,6 @@
-const { apiUrl } = require('./config.json');
 
+import apiUrl from './config.json';
+//const { apiUrl } = require('./config.json');
 
 function dispErr(error) {
   document.getElementById("err").innerHTML = error;
