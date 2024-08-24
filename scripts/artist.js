@@ -1,10 +1,13 @@
+const { apiUrl } = require('./config.json');
+
+
 function dispErr(error) {
   document.getElementById("err").innerHTML = error;
 }
 
 async function fetchSpotifyArtist(artist) {
   var fsatoken = localStorage.getItem("spfAccessToken");
-  const response = await fetch("https://api.spotify.com/v1/artists/" + artist, {
+  const response = await fetch(`${apiUrl}/v1/artists/` + artist, {
     headers: {
       Authorization: "Bearer " + fsatoken,
     },
@@ -76,7 +79,7 @@ async function downloadSpotifyAlbums(artist) {
 
   var fsatoken = localStorage.getItem("spfAccessToken");
   const response = await fetch(
-    "https://api.spotify.com/v1/artists/" + artist + "/albums?limit=50",
+    `${apiUrl}/v1/artists/` + artist + "/albums?limit=50",
     {
       headers: {
         Authorization: "Bearer " + fsatoken,
@@ -115,7 +118,7 @@ async function downloadSpotifyAlbums(artist) {
     await new Promise((r) => setTimeout(r, 500));
     var fsatoken = localStorage.getItem("spfAccessToken");
     const response = await fetch(
-      "https://api.spotify.com/v1/artists/" +
+      `${apiUrl}/v1/artists/` +
         artist +
         "/albums?limit=50&offset=" +
         currentOffset,
