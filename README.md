@@ -6,7 +6,7 @@ Spotify Artist MusicBrainz Lookup
 ![image](https://github.com/user-attachments/assets/83037036-2f4d-4757-8279-7f191c9c674b)
 
 
-Coming Soon:
+ ## Coming Soon:
 Rework on spotify linking involving some sort of backend because spotify is a *`REDACTED`*
 
 ![image](https://github.com/user-attachments/assets/36633b70-60d6-4940-ba9f-215fb4b05d2f)
