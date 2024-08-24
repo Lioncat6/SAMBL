@@ -17,3 +17,5 @@ According to this ^, the primary purpose of SAMBL is against their developer ter
 
 Which is especially dumb considering SPOTIFY LITERALLY USES MUSICBRAINZ for some of their database. [See here](https://metabrainz.org/supporters)
 ![image](https://github.com/user-attachments/assets/18bd832e-e8b8-49cc-97b6-50146a801677)
+
+I'm this close to just using a secret key in a public facing piece of code because this is just stupid.
