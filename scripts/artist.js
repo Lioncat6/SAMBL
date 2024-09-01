@@ -1,4 +1,4 @@
-let apiUrl = "https://api.spotify.com/"
+let apiUrl = "https://api.spotify.com"
 
 function dispErr(error) {
   document.getElementById("err").innerHTML = error;
