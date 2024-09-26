@@ -8,7 +8,8 @@ function lookup() {
     if (!spftoken) {
         spftoken = "";
     }
-    if (spftoken != undefined && spftoken.length > 10 && spfName != "") {
+    //spftoken != undefined && spftoken.length > 10 && spfName != ""
+    if (true) {
         if (query != "") {
             const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
             if(query.includes("https://open.spotify.com/artist/")) {
