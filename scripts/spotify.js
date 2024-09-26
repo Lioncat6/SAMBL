@@ -84,7 +84,8 @@ async function getProfile(accessToken) {
 }
 
 function spfButton(){
-    linkSpotify()
+    console.log("The client side spotify auth flow has been replaced with a server");
+    //linkSpotify()
 }
 
 const bc = new BroadcastChannel("sambl");
@@ -96,6 +97,7 @@ bc.onmessage = (event) => {
     }
 };
 
+/*
 if (window.location.href.includes("/callback")) {
     callback()
 } else if (window.location.href.includes("header")) {
@@ -110,5 +112,6 @@ if (window.location.href.includes("/callback")) {
         } else {
             document.getElementById("spfloggedIn").innerHTML=localStorage.getItem("spfName")
         }
+        */
     }
 }
