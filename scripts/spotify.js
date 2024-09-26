@@ -112,6 +112,8 @@ if (window.location.href.includes("/callback")) {
         } else {
             document.getElementById("spfloggedIn").innerHTML=localStorage.getItem("spfName")
         }
-        */
+        
     }
+    
 }
+*/
