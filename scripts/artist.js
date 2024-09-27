@@ -276,6 +276,7 @@ async function downloadMusicBrainzAlbums2() {
   processAlbums();
 }
 
+
 function processAlbums() {
   var green = 0;
   var red = 0;
@@ -419,6 +420,12 @@ if (spid && mbid) {
   dispErr("Incomplete Url!");
 }
 
+
+let showGreen = true
+let showOrange = true
+let showRed = true
+
+
 function searchList() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("listSearch");
@@ -429,9 +436,13 @@ function searchList() {
     td = tr[i]
       .getElementsByClassName("albumTitle")[0]
       .getElementsByTagName("a")[0];
+    color = tr[i].getElementsByClassName("statusPill")[0].classList[1]
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        if (((showGreen && color == "green") || !showGreen) && ((showOrange && color == "orange") || !showOrange) && ((showRed && color == "red") || !showRed)){
+
+        }
         tr[i].style.display = "";
       } else {
         tr[i].style.display = "none";
@@ -440,12 +451,21 @@ function searchList() {
   }
 }
 
+
 function filter() {
+  
     document.getElementById("filterList").style.display = "block";
+    document.getElementById("showGreen").checked = showGreen;
+    document.getElementById("showOrange").checked = showOrange;
+    document.getElementById("showRed").checked = showRed;
 }
 
 function applyFilter(){
-
+  document.getElementById("filterList").style.display = "none";
+  showGreen = document.getElementById("showGreen").checked
+  showOrange = document.getElementById("showOrange").checked
+  showRed = document.getElementById("showRed").checked
+  searchList()
 }
 
 function closeFilter(){
