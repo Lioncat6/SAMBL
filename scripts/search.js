@@ -42,9 +42,15 @@ function lookup() {
 function invalidInput(reason){
     document.getElementById("err").innerHTML=reason
     document.getElementById("searchEnter").innerHTML="Search"
+    document.getElementById("loadingMsg").innerHTML=" "
+}
+
+function loadingMessage(str){
+    document.getElementById("loadingMsg").innerHTML=str
 }
 
 async function fetchSpotifyArtist(artist) {
+    loadingMessage("Fetching Spotify Artist...")
     var fsatoken = localStorage.getItem("spfAccessToken") 
     const response = await fetch(apiUrl+'/v1/artists/' + artist, {
       headers: {
@@ -78,6 +84,7 @@ async function fetchSpotifyArtist(artist) {
 }
 
 async function fetchMBArtist(id) {
+    loadingMessage("Searching MusicBrainz For Artist...")
     const response = await fetch('https://musicbrainz.org/ws/2/url?limit=1&inc=artist-rels+label-rels+release-rels&fmt=json&resource=https://open.spotify.com/artist/' + id);
     const data = await response.json();
     if (response.status == 200){

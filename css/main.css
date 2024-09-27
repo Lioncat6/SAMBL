@@ -109,6 +109,10 @@ footer {
     color: red;
 }
 
+#loadingMsg {
+  color: grey;
+}
+
 embed, iframe {
   background-color: #f9f9f9;
 }
