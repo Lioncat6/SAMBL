@@ -12,6 +12,7 @@ function lookup() {
     if (true) {
         if (query != "") {
             const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+            const spfPattern = /^[A-Za-z0-9]{22}$/;
             if(query.includes("https://open.spotify.com/artist/")) {
                 const match = query.match(/\/artist\/([^/?]+)/);
                 if (match) {
@@ -20,6 +21,9 @@ function lookup() {
                 } else {
                     
                 }
+            } else if (spfPattern.test(query)) {
+                const spfId = query
+                fetchSpotifyArtist(spfId)
             } else if (uuidPattern.test(query)) {
                 invalidInput("MB Lookup isn't currently supported; Please enter a spotify artist link instead!")
             } else if (query.includes("https://open.spotify.com/")) {
