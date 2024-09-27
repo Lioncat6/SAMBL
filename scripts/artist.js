@@ -440,7 +440,7 @@ function searchList() {
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        if (((showGreen && color == "green") || !showGreen) && ((showOrange && color == "orange") || !showOrange) && ((showRed && color == "red") || !showRed)){
+        if ((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red")){
           tr[i].style.display = "";
         } else {
           tr[i].style.display = "none";
