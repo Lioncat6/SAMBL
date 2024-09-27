@@ -368,7 +368,7 @@ function processAlbums() {
       spArtistsHtml +
       '</div></div><a class="aTisketButton" href="https://atisket.pulsewidth.org.uk/?spf_id=' +
       spotifyId +
-      '&preferred_vendor=spf" target="_blank"><div>A-tisket</div></a></div>';
+      '&preferred_vendor=spf" target="_blank"><div>A-tisket</div></a></div> <a class="harmonyButton" href="'+spotifyUrl+'&spotify=" target="_blank"><div>Harmony</div></a>' ;
     var htmlObject = document.createElement("div");
     htmlObject.innerHTML = htmlToAppend;
     document.getElementById("albumList").append(htmlObject);

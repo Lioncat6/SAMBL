@@ -97,6 +97,26 @@
   color: #704100;
 }
 
+.harmonyButton {
+  position: relative;
+  margin-top: 12px;
+  margin-right: 5px;
+  padding: 10px;
+  height: 15px;
+  border: 1px solid black;
+  border-radius: 20px;
+  transition: 0.2s all;
+  text-decoration: none !important;
+}
+
+.harmonyButton:hover {
+  border: 1px solid #eabf48;
+  transition: 0.2s all;
+  background-color: #898cad;
+  text-decoration: none;
+  color: #eabf48;
+}
+
 .red {
   background-color: red;
 }
