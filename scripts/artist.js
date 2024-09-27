@@ -441,9 +441,11 @@ function searchList() {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
         if (((showGreen && color == "green") || !showGreen) && ((showOrange && color == "orange") || !showOrange) && ((showRed && color == "red") || !showRed)){
-
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
         }
-        tr[i].style.display = "";
+        
       } else {
         tr[i].style.display = "none";
       }
