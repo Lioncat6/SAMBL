@@ -110,11 +110,11 @@
 }
 
 .harmonyButton:hover {
-  border: 1px solid #eabf48;
+  border: 1px solid #333440;
   transition: 0.2s all;
-  background-color: #898cad;
+  background-color: #eabf48;
   text-decoration: none;
-  color: #eabf48;
+  color: #333440;
 }
 
 .red {
