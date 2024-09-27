@@ -1,4 +1,4 @@
-let apiUrl = "https://us2.bot-hosting.net:20683"
+let apiUrl = "https://s-api.lioncat6.com:20683"
 
 function dispErr(error) {
   document.getElementById("err").innerHTML = error;
