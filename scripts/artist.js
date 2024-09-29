@@ -440,7 +440,7 @@ function searchList() {
       .getElementsByClassName("albumTitle")[0]
       .getElementsByTagName("a")[0];
     color = tr[i].getElementsByClassName("statusPill")[0].classList[1]
-    artistString = tr[i].getElementsByClassName("artists")[0]
+    artistString = tr[i].getElementsByClassName("artists")[0].innerHTML
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
