@@ -404,7 +404,10 @@ function addListItem() {}
 
 const params = new URLSearchParams(new URL(window.location.href).search);
 const spid = params.get("spid");
-const mbid = params.get("mbid");
+let mbid = params.get("mbid");
+if (!mbid){
+  mbid = params.get("artist_mbid")
+}
 var spotifyAlbumList = [];
 var mbAlbumList = [];
 if (spid && mbid) {

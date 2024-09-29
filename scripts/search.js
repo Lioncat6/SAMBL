@@ -91,7 +91,7 @@ async function fetchMBArtist(id) {
         const mbid = data["relations"][0]["artist"]["id"]
         console.log(mbid)
         invalidInput(" ");
-        location.assign("https://lioncat6.github.io/SAMBL/artist?spid="+id+"&mbid="+mbid);
+        location.assign("https://lioncat6.github.io/SAMBL/artist?spid="+id+"&artist_mbid="+mbid);
     } else if (data["error"]="Not Found" || response.status == 404) {
         console.log("add artist")
         invalidInput(" ")
