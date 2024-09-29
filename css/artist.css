@@ -275,6 +275,7 @@
 	border: 1px solid black;
 	border-radius: 10px;
 	width: 20%;
+	min-width: 250px;
 }
 
 /* Checkbox styling */
