@@ -1,6 +1,9 @@
 # SAMBL
 Spotify Artist MusicBrainz Lookup
 
+### MetaBrainz Thread:
+https://community.metabrainz.org/t/sambl-spotify-artist-musicbrainz-lookup/716550
+
 ### Update:
  - SAMBL no longer requires a spotify user login!
 
