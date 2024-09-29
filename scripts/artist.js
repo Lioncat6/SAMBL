@@ -444,7 +444,7 @@ function searchList() {
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        if ((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red") || (!hideVarious && artistString.includes("Various Artists"))){
+        if (((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red") ) && !(hideVarious && artistString.includes("Various Artists"))){
           tr[i].style.display = "";
         } else {
           tr[i].style.display = "none";
