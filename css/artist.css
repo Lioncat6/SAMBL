@@ -275,7 +275,6 @@
 	border: 1px solid black;
 	border-radius: 10px;
 	width: 20%;
-	height: 20%;
 }
 
 /* Checkbox styling */
@@ -367,19 +366,18 @@
 }
 
 #applyfilter {
-	position: absolute;
-	margin: 2px;
-	left: 0;
-	height: 32px;
-	border: 1px solid gray;
-	border-radius: 10px;
-	transition: 0.2s all;
-	background: transparent;
-	color: black;
-	bottom: 0;
-	display: inline-flex;
-	align-items: center;
-	width: 98%;
-	align-content: center;
-	justify-content: center;
+    margin: 2px;
+    left: 0;
+    height: 32px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    transition: 0.2s all;
+    background: transparent;
+    color: black;
+    bottom: 0;
+    display: inline-flex;
+    align-items: center;
+    width: calc(100% - 4px);
+    align-content: center;
+    justify-content: center;
 }

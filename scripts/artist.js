@@ -425,6 +425,9 @@ let showGreen = true
 let showOrange = true
 let showRed = true
 
+let hideVarious = true
+
+
 
 function searchList() {
   var input, filter, table, tr, td, i, txtValue;
@@ -437,10 +440,11 @@ function searchList() {
       .getElementsByClassName("albumTitle")[0]
       .getElementsByTagName("a")[0];
     color = tr[i].getElementsByClassName("statusPill")[0].classList[1]
+    artistString = tr[i].getElementsByClassName("artists")[0]
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        if ((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red")){
+        if ((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red") || (hideVarious && artistString.includes("Various Artists"))){
           tr[i].style.display = "";
         } else {
           tr[i].style.display = "none";
@@ -460,6 +464,7 @@ function filter() {
     document.getElementById("showGreen").checked = showGreen;
     document.getElementById("showOrange").checked = showOrange;
     document.getElementById("showRed").checked = showRed;
+    document.getElementById("hideVarious").checked= hideVarious;
 }
 
 function applyFilter(){
@@ -467,9 +472,12 @@ function applyFilter(){
   showGreen = document.getElementById("showGreen").checked
   showOrange = document.getElementById("showOrange").checked
   showRed = document.getElementById("showRed").checked
+  hideVarious = document.getElementById("hideVarious").checked
   searchList()
 }
 
 function closeFilter(){
     document.getElementById("filterList").style.display = "none";
 }
+
+searchList()
