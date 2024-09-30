@@ -114,7 +114,7 @@ async function downloadSpotifyAlbums(artist) {
   }
   while (currentOffset + 50 < albumCount) {
     currentOffset += 50;
-    await new Promise((r) => setTimeout(r, 500));
+    await new Promise((r) => setTimeout(r, 250));
     var fsatoken = localStorage.getItem("spfAccessToken");
     const response = await fetch(
       `${apiUrl}/v1/artists/` +
