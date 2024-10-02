@@ -462,7 +462,6 @@ function searchList() {
 
 
 function filter() {
-  
     document.getElementById("filterList").style.display = "block";
     document.getElementById("showGreen").checked = showGreen;
     document.getElementById("showOrange").checked = showOrange;
