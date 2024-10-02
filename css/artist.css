@@ -137,9 +137,9 @@
 }
 
 .textContainer {
-	flex: 1;
-    display: flex;
-    align-items: center;
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .albumTitle,
@@ -154,8 +154,9 @@
 
 .artists {
 	text-align: left;
-	font-size: small;
-	font-weight: normal;
+    font-size: small;
+    font-weight: normal;
+    margin-top: 2px;
 }
 
 #albumList {
