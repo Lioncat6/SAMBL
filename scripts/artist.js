@@ -293,6 +293,9 @@ function processAlbums() {
     var spotifyName = currentAlbum["name"];
     var spotifyImageURL = currentAlbum["images"][0]["url"];
     var spotifyAlbumArtists = currentAlbum["artists"];
+    var spotifyReleaseDate = currentAlbum["release_date"]
+    var spotifyTrackCount = currentAlbum["total_tracks"]
+    var spotifyAlbumType = currentAlbum["album_type"]
     for (y in mbAlbumList) {
       var currentMBRelease = mbAlbumList[y];
       var mbReleaseName = currentMBRelease["title"];
