@@ -137,26 +137,21 @@
 }
 
 .textContainer {
+	padding: 8px 0 0 8px;
 	display: flex;
-    flex-direction: column;
-    justify-content: center;
+	flex-direction: column;
 }
 
 .albumTitle,
 .albumTitle a {
 	text-align: left;
-    font-weight: bold !important;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: calc(100% - 60px);
+	font-weight: bold !important;
 }
 
 .artists {
 	text-align: left;
-    font-size: small;
-    font-weight: normal;
-    margin-top: 2px;
+	font-size: small;
+	font-weight: normal;
 }
 
 #albumList {
@@ -214,11 +209,10 @@
 
 .albumMB {
 	margin-top: -20px;
-    margin-left: 4px;
-    transform: translateY(4.5px);
-    width: 16px;
-    height: 20px;
-    flex-shrink: 0;
+	margin-left: 4px;
+	transform: translateY(4.5px);
+	width: 16px;
+	height: 20px;
 }
 
 #albumList a {
