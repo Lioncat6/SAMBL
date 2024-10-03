@@ -44,15 +44,19 @@ function capFirst(string) {
 }
 
 async function fetchMBArtist(id) {
-	const response = await fetch("https://musicbrainz.org/ws/2/url?limit=1&inc=artist-rels+label-rels+release-rels&fmt=json&resource=https://open.spotify.com/artist/" + id);
-	const data = await response.json();
-	if (response.status == 200) {
-		const mbid = data["relations"][0]["artist"]["id"];
-		return "https://lioncat6.github.io/SAMBL/artist?spid=" + id + "&artist_mbid=" + mbid;
-	} else if ((data["error"] = "Not Found" || response.status == 404)) {
-		return "https://lioncat6.github.io/SAMBL/newartist?spid=" + id;
-	} else {
-		console.log("MusicBrainz Error: " + data["error"]);
+	try {
+		const response = await fetch("https://musicbrainz.org/ws/2/url?limit=1&inc=artist-rels+label-rels+release-rels&fmt=json&resource=https://open.spotify.com/artist/" + id);
+		const data = await response.json();
+		if (response.status == 200) {
+			const mbid = data["relations"][0]["artist"]["id"];
+			return "https://lioncat6.github.io/SAMBL/artist?spid=" + id + "&artist_mbid=" + mbid;
+		} else if ((data["error"] = "Not Found" || response.status == 404)) {
+			return "https://lioncat6.github.io/SAMBL/newartist?spid=" + id;
+		} else {
+			console.log("MusicBrainz Error: " + data["error"]);
+			return null;
+		}
+	} catch {
 		return null;
 	}
 }
@@ -101,7 +105,7 @@ async function processArtists() {
 		var htmlObject = document.createElement("div");
 		htmlObject.innerHTML = htmlToAppend;
 		document.getElementById("artistList").append(htmlObject);
-		await new Promise((r) => setTimeout(r, 500));
+		await new Promise((r) => setTimeout(r, 400));
 	}
 }
 
