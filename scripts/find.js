@@ -29,7 +29,11 @@ function lookup() {
             } else if (query.includes("https://open.spotify.com/")) {
                 invalidInput("This type of link isn't currently supported; Please enter a spotify artist link instead!")
             } else {
-                invalidInput("Text searching is currently not supported; Please enter a spotify artist link instead!")
+                if (query.includes("https")){
+                    invalidInput("This type of link isn't currently supported!")
+                } else {
+                    location.assign("https://lioncat6.github.io/SAMBL/search/?query="+query);
+                }
             }
         } else {
             invalidInput("Please enter a query")
