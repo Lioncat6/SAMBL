@@ -95,7 +95,7 @@ async function processArtists() {
 			" Followers" +
 			'</div><div class="artistGenres">' +
 			spGenresString +
-			"</div></div></div>";
+			"</div></div></a></div>";
 		var htmlObject = document.createElement("div");
 		htmlObject.innerHTML = htmlToAppend;
 		document.getElementById("artistList").append(htmlObject);
