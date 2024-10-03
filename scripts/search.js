@@ -96,7 +96,7 @@ async function processArtists() {
 			"</div></div></div>";
 		var htmlObject = document.createElement("div");
 		htmlObject.innerHTML = htmlToAppend;
-		document.getElementById("albumList").append(htmlObject);
+		document.getElementById("artistList").append(htmlObject);
 	}
 }
 
