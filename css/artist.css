@@ -141,6 +141,7 @@
 }
 
 .albumTitle {
+	font-weight: bold !important;
 	display: flex;
 	align-items: center;
 	width: 100%;
@@ -151,7 +152,6 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	flex-grow: 1;
 }
 
 .albumTitle .albumMB {
@@ -224,6 +224,7 @@
 	vertical-align: middle;
 }
 #albumList a {
+	text-align: left;
 	color: #333;
 	text-decoration: none;
 	font-weight: normal;
