@@ -149,6 +149,7 @@
 }
 
 .albumTitle a:first-child {
+	font-weight: bold !important;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
