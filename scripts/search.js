@@ -101,6 +101,7 @@ async function processArtists() {
 		var htmlObject = document.createElement("div");
 		htmlObject.innerHTML = htmlToAppend;
 		document.getElementById("artistList").append(htmlObject);
+		await new Promise((r) => setTimeout(r, 500));
 	}
 }
 
@@ -115,6 +116,6 @@ const query = params.get("query");
 if (!query) {
 	dispErr("Malformed url; Lacking a query!");
 } else {
-    document.getElementById("searchFor").innerHTML="Search for "+query
+    document.getElementById("searchFor").innerHTML="Search Results for "+query
     searchSpotify(query)
 }
