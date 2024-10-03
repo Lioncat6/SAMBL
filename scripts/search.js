@@ -15,9 +15,9 @@ async function searchSpotify(query) {
 	const data = await response.json();
 	console.log(data);
 	if (!data["error"]) {
-		for (x in data["items"]) {
+		for (x in data["artists"]["items"]) {
 			console.log(x)
-			spotifyArtistList.push(data["items"][x]);
+			spotifyArtistList.push(data["artists"]["items"][x]);
 		}
 	} else {
 		if (data["error"]["status"] == 404) {
