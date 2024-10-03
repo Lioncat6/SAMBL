@@ -77,26 +77,10 @@
 }
 
 .aTisketButton {
-	position: relative;
 	margin-left: auto;
-	margin-top: 12px;
-	margin-right: 5px;
-	padding: 10px;
-	height: 15px;
-	border: 1px solid black;
-	border-radius: 20px;
-	transition: 0.2s all;
-	text-decoration: none !important;
 }
 
-.aTisketButton:hover {
-	border: 1px solid #ffc470;
-	transition: 0.2s all;
-	background-color: #ffeea8;
-	text-decoration: none;
-	color: #704100;
-}
-
+.aTisketButton,
 .harmonyButton {
 	position: relative;
 	margin-top: 12px;
@@ -107,6 +91,19 @@
 	border-radius: 20px;
 	transition: 0.2s all;
 	text-decoration: none !important;
+	white-space: nowrap;
+}
+
+.aTisketButton {
+	margin-left: auto;
+}
+
+.aTisketButton:hover {
+	border: 1px solid #ffc470;
+	transition: 0.2s all;
+	background-color: #ffeea8;
+	text-decoration: none;
+	color: #704100;
 }
 
 .harmonyButton:hover {
@@ -140,12 +137,26 @@
 	padding: 8px 0 0 8px;
 	display: flex;
 	flex-direction: column;
+	width: calc(100% - 200px);
 }
 
-.albumTitle,
-.albumTitle a {
-	text-align: left;
-	font-weight: bold !important;
+.albumTitle {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	overflow: hidden;
+}
+
+.albumTitle a:first-child {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	flex-grow: 1;
+}
+
+.albumTitle .albumMB {
+	flex-shrink: 0;
+	margin-left: 4px;
 }
 
 .artists {
@@ -208,13 +219,10 @@
 }
 
 .albumMB {
-	margin-top: -20px;
-	margin-left: 4px;
-	transform: translateY(4.5px);
 	width: 16px;
 	height: 20px;
+	vertical-align: middle;
 }
-
 #albumList a {
 	color: #333;
 	text-decoration: none;
@@ -367,18 +375,18 @@
 }
 
 #applyfilter {
-    margin: 2px;
-    left: 0;
-    height: 32px;
-    border: 1px solid gray;
-    border-radius: 10px;
-    transition: 0.2s all;
-    background: transparent;
-    color: black;
-    bottom: 0;
-    display: inline-flex;
-    align-items: center;
-    width: calc(100% - 4px);
-    align-content: center;
-    justify-content: center;
+	margin: 2px;
+	left: 0;
+	height: 32px;
+	border: 1px solid gray;
+	border-radius: 10px;
+	transition: 0.2s all;
+	background: transparent;
+	color: black;
+	bottom: 0;
+	display: inline-flex;
+	align-items: center;
+	width: calc(100% - 4px);
+	align-content: center;
+	justify-content: center;
 }
