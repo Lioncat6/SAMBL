@@ -58,7 +58,6 @@ async function fetchMBArtist(id) {
 }
 
 async function processArtists() {
-	console.log("processartists")
 	var total = 0;
 	displayList();
 	for (x in spotifyArtistList) {
@@ -66,7 +65,10 @@ async function processArtists() {
 		var spotifyUrl = currentArtist["external_urls"]["spotify"];
 		var spotifyId = currentArtist["id"];
 		var spotifyName = currentArtist["name"];
-		var spotifyImageURL = currentArtist["images"][0]["url"];
+		var spotifyImageURL = ""
+		if (currentArtist["images"][0]){
+			spotifyImageURL = currentArtist["images"][0]["url"];
+		}
 		var spotifyFollowers = currentArtist["followers"]["total"];
 		const spGenres = currentArtist["genres"];
 		var spGenresString = "";
@@ -79,9 +81,7 @@ async function processArtists() {
 		total++;
 
 		var htmlToAppend =
-			'<div class="album listItem"><a href="' +
-			await fetchMBArtist(spotifyId) +
-			'"><div class="artistIcon"><a href="' +
+			'<div class="album listItem"><div class="artistIcon"><a href="' +
 			spotifyImageURL +
 			'" target="_blank"><img src="' +
 			spotifyImageURL +
@@ -95,9 +95,10 @@ async function processArtists() {
 			" Followers" +
 			'</div><div class="artistGenres">' +
 			spGenresString +
-			'</div></div></a></div>';
+			'</div></div><a class="openArtist" href="' +
+			await fetchMBArtist(spotifyId) +
+			'"></a></div>';
 		var htmlObject = document.createElement("div");
-		console.log(htmlToAppend)
 		htmlObject.innerHTML = htmlToAppend;
 		document.getElementById("artistList").append(htmlObject);
 	}

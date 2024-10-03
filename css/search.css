@@ -33,7 +33,10 @@
 	padding: 8px 0 0 8px;
 	display: flex;
 	flex-direction: column;
-	width: calc(100% - 260px);
+}
+
+.openArtist{
+	width: -webkit-fill-available;
 }
 
 .artistName {
@@ -108,6 +111,7 @@
 }
 
 #artistList a {
+	font-weight: bold !important;
 	text-align: left;
 	color: #333;
 	text-decoration: none;
