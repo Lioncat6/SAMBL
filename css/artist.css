@@ -137,7 +137,7 @@
 	padding: 8px 0 0 8px;
 	display: flex;
 	flex-direction: column;
-	width: calc(100% - 200px);
+	width: calc(100% - 260px);
 }
 
 .albumTitle {
