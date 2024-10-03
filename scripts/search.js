@@ -16,6 +16,7 @@ async function searchSpotify(query) {
 	console.log(data);
 	if (!data["error"]) {
 		for (x in data["items"]) {
+			console.log(x)
 			spotifyArtistList.push(data["items"][x]);
 		}
 	} else {
@@ -57,6 +58,7 @@ async function fetchMBArtist(id) {
 }
 
 async function processArtists() {
+	console.log("processartists")
 	var total = 0;
 	displayList();
 	for (x in spotifyArtistList) {
