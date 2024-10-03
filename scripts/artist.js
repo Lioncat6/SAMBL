@@ -276,6 +276,9 @@ async function downloadMusicBrainzAlbums2() {
   processAlbums();
 }
 
+function capFirst(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 function processAlbums() {
   var green = 0;
@@ -295,6 +298,10 @@ function processAlbums() {
     var spotifyAlbumArtists = currentAlbum["artists"];
     var spotifyReleaseDate = currentAlbum["release_date"]
     var spotifyTrackCount = currentAlbum["total_tracks"]
+    var spotifyTrackString = spotifyTrackCount + " Track"
+    if (spotifyTrackCount > 1){
+      spotifyTrackString = spotifyTrackCount + " Tracks"
+    }
     var spotifyAlbumType = currentAlbum["album_type"]
     for (y in mbAlbumList) {
       var currentMBRelease = mbAlbumList[y];
@@ -370,6 +377,8 @@ function processAlbums() {
       mbLinkHtml +
       '</div><div class="artists">' +
       spArtistsHtml +
+      '</div><div class="albumInfo">'+
+      spotifyReleaseDate +" • "+capFirst(spotifyAlbumType)+ " • "+spotifyTrackString+
       '</div></div><a class="aTisketButton" href="https://atisket.pulsewidth.org.uk/?spf_id=' +
       spotifyId +
       '&preferred_vendor=spf" target="_blank"><div>A-tisket</div></a> <a class="harmonyButton" href="https://harmony.pulsewidth.org.uk/release?url='+spotifyUrl+'&deezer=&itunes=&spotify=&tidal=&beatport=" target="_blank"><div>Harmony</div></a></div>' ;

@@ -166,6 +166,14 @@
 	font-weight: normal;
 }
 
+.albumInfo {
+	color: lightgray;
+	text-align: left;
+	font-size: small;
+	font-weight: normal;
+}
+
+
 #albumList {
 	border-radius: 10px;
 	height: 100%;
