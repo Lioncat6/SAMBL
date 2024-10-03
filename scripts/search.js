@@ -3,7 +3,7 @@ let apiUrl = "https://s-api.lioncat6.com:20683";
 function dispErr(error) {
 	document.getElementById("err").innerHTML = error;
 }
-
+var spotifyArtistList = [];
 async function searchSpotify(query) {
 	var fsatoken = localStorage.getItem("spfAccessToken");
 	const response = await fetch(`${apiUrl}/v1/search?q=` + query + "&type=artist&limit=20", {
