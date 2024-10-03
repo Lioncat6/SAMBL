@@ -36,7 +36,7 @@
 }
 
 .openArtist{
-	width: -webkit-fill-available;
+	flex-grow: 1;
 }
 
 .artistName {
