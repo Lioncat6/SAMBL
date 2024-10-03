@@ -1,0 +1,125 @@
+#titleContainer {
+	
+}
+
+#loadingText {
+	color: grey;
+}
+
+.listItem {
+	border: 1px solid gray;
+	display: flex;
+	flex-direction: row;
+	border-radius: 10px;
+	height: 64px;
+	margin: 3px 3px;
+}
+
+.listItem:hover {
+	border: 1px solid black;
+	transition: 0.5s all;
+}
+
+
+.artistIcon img {
+    margin: 2px 0 0 0;
+    border-radius: 10px;
+    width: 60px;
+    height: 60px;
+    padding-left: 5px;
+}
+
+.textContainer {
+	padding: 8px 0 0 8px;
+	display: flex;
+	flex-direction: column;
+	width: calc(100% - 260px);
+}
+
+.artistName {
+    font-size: larger;
+	font-weight: bold !important;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+
+.artistInfo {
+	text-align: left;
+	font-size: small;
+	font-weight: normal;
+}
+
+.artistGenres {
+	color: lightgray;
+	text-align: left;
+	font-size: small;
+	font-weight: normal;
+}
+
+
+#artistList {
+	border-radius: 10px;
+	height: 100%;
+	border: 1px solid black;
+	overflow-y: auto;
+	margin: 0 10px 0 10px;
+}
+
+
+#artistContainer {
+	display: none;
+	flex-direction: column;
+	height: calc(100% - 90px);
+}
+
+#artistContainer ::-webkit-scrollbar {
+	width: 15px;
+}
+
+#artistContainer ::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+#artistContainer ::-webkit-scrollbar-thumb {
+	border: 4px solid rgba(0, 0, 0, 0);
+	background-clip: padding-box;
+	border-radius: 9999px;
+	background-color: #aaa;
+}
+
+#artistContainer ::-webkit-scrollbar-thumb:hover {
+	background-color: #555;
+}
+
+#body {
+	height: 100%;
+	overflow: hidden;
+}
+
+#contentContainer {
+	height: 100%;
+	/* max-height: 40%; */
+	overflow: hidden;
+}
+
+#artistList a {
+	text-align: left;
+	color: #333;
+	text-decoration: none;
+	font-weight: normal;
+}
+
+#artistList a:hover {
+	text-decoration: underline;
+}
+
+#statusText {
+	color: grey;
+	padding: 5px;
+}
+
