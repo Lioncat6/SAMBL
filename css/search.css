@@ -1,5 +1,4 @@
 #titleContainer {
-	
 }
 
 #loadingText {
@@ -20,13 +19,12 @@
 	transition: 0.5s all;
 }
 
-
 .artistIcon img {
-    margin: 2px 0 0 0;
-    border-radius: 10px;
-    width: 60px;
-    height: 60px;
-    padding-left: 5px;
+	margin: 2px 0 0 0;
+	border-radius: 10px;
+	width: 60px;
+	height: 60px;
+	padding-left: 5px;
 }
 
 .textContainer {
@@ -35,12 +33,12 @@
 	flex-direction: column;
 }
 
-.openArtist{
+.openArtist {
 	flex-grow: 1;
 }
 
 .artistName {
-    font-size: larger;
+	font-size: larger;
 	font-weight: bold !important;
 	display: flex;
 	align-items: center;
@@ -49,7 +47,6 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
-
 
 .artistInfo {
 	text-align: left;
@@ -64,7 +61,6 @@
 	font-weight: normal;
 }
 
-
 #artistList {
 	border-radius: 10px;
 	height: 100%;
@@ -72,7 +68,6 @@
 	overflow-y: auto;
 	margin: 0 10px 0 10px;
 }
-
 
 #artistContainer {
 	display: none;
@@ -127,3 +122,24 @@
 	padding: 5px;
 }
 
+#viewButton {
+	height: -webkit-fill-available;
+	align-content: center;
+	text-align: center;
+	width: 150px;
+	margin: 5px;
+	border-radius: 10px;
+	padding: 10px;
+	border: 1px solid black;
+	transition: 0.2s all;
+	text-decoration: none !important;
+	white-space: nowrap;
+}
+
+#viewButton div {
+	transform: translateY(1.5px);
+}
+
+#viewButton div img {
+	transform: translateY(-1px);
+}
