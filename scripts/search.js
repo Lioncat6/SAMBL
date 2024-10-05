@@ -49,15 +49,15 @@ async function fetchMBArtist(id) {
 		const data = await response.json();
 		if (response.status == 200) {
 			const mbid = data["relations"][0]["artist"]["id"];
-			return "https://lioncat6.github.io/SAMBL/artist?spid=" + id + "&artist_mbid=" + mbid;
+			return [true, "https://lioncat6.github.io/SAMBL/artist?spid=" + id + "&artist_mbid=" + mbid];
 		} else if ((data["error"] = "Not Found" || response.status == 404)) {
-			return "https://lioncat6.github.io/SAMBL/newartist?spid=" + id;
+			return [false, "https://lioncat6.github.io/SAMBL/newartist?spid=" + id];
 		} else {
 			console.log("MusicBrainz Error: " + data["error"]);
-			return null;
+			return [null, "https://lioncat6.github.io/SAMBL/newartist?spid=" + id];
 		}
 	} catch {
-		return null;
+		return [null, "https://lioncat6.github.io/SAMBL/newartist?spid=" + id];
 	}
 }
 
@@ -84,6 +84,15 @@ async function processArtists() {
 		}
 		total++;
 
+		var viewButtonHtml = ""
+		let mbUrlData = await fetchMBArtist(spotifyId)
+		if (mbUrlData[0] ==  true){
+			viewButtonHtml = '<a class="viewButton" href="' +mbUrlData[1] +'" target="_blank"><div>View Artist</div></a>'
+		} else {
+			viewButtonHtml = '<a class="viewButton" href="' +mbUrlData[1] +'" target="_blank"><div>Add <img class="albumMB" src="../assets/images/MusicBrainz_logo_icon.svg"></div></a>'
+		}
+		
+
 		var htmlToAppend =
 			'<div class="album listItem"><div class="artistIcon"><a href="' +
 			spotifyImageURL +
@@ -99,13 +108,11 @@ async function processArtists() {
 			" Followers" +
 			'</div><div class="artistGenres">' +
 			spGenresString +
-			'</div></div><a class="openArtist" href="' +
-			await fetchMBArtist(spotifyId) +
-			'"></a></div>';
+			'</div></div>'+viewButtonHtml+'</div>';
 		var htmlObject = document.createElement("div");
 		htmlObject.innerHTML = htmlToAppend;
 		document.getElementById("artistList").append(htmlObject);
-		await new Promise((r) => setTimeout(r, 400));
+		await new Promise((r) => setTimeout(r, 500));
 	}
 }
 
