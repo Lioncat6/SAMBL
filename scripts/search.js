@@ -92,13 +92,13 @@ async function processArtists() {
 			viewButtonHtml = '<a class="viewButton" href="' +mbUrlData[1] +'" target="_blank"><div>Add <img class="artistMB" src="../assets/images/MusicBrainz_logo_icon.svg"></div></a>'
 		}
 		
+		var spotifyImgHtml = ""
+		if (!(!spotifyImageURL || spotifyImageURL == "")){
+			spotifyImgHtml = '<div class="artistIcon"><a href="' + spotifyImageURL + '" target="_blank"><img src="' + spotifyImageURL +'" /></a></div>'
+		}
 
 		var htmlToAppend =
-			'<div class="album listItem"><div class="artistIcon"><a href="' +
-			spotifyImageURL +
-			'" target="_blank"><img src="' +
-			spotifyImageURL +
-			'" /></a></div><div class="textContainer"><div class="artistName"><a href="' +
+			'<div class="album listItem">'+spotifyImgHtml+'<div class="textContainer"><div class="artistName"><a href="' +
 			spotifyUrl +
 			'" target="_blank" >' +
 			spotifyName +
