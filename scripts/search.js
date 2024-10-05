@@ -89,7 +89,7 @@ async function processArtists() {
 		if (mbUrlData[0] ==  true){
 			viewButtonHtml = '<a class="viewButton" href="' +mbUrlData[1] +'" target="_blank"><div>View Artist</div></a>'
 		} else {
-			viewButtonHtml = '<a class="viewButton" href="' +mbUrlData[1] +'" target="_blank"><div>Add <img class="albumMB" src="../assets/images/MusicBrainz_logo_icon.svg"></div></a>'
+			viewButtonHtml = '<a class="viewButton" href="' +mbUrlData[1] +'" target="_blank"><div>Add <img class="artistMB" src="../assets/images/MusicBrainz_logo_icon.svg"></div></a>'
 		}
 		
 

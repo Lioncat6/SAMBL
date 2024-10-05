@@ -48,6 +48,10 @@
 	text-overflow: ellipsis;
 }
 
+.artistName a {
+	font-weight: bold !important;
+}
+
 .artistInfo {
 	text-align: left;
 	font-size: small;
@@ -106,7 +110,6 @@
 }
 
 #artistList a {
-	font-weight: bold !important;
 	text-align: left;
 	color: #333;
 	text-decoration: none;
@@ -123,17 +126,19 @@
 }
 
 .viewButton {
-	height: -webkit-fill-available;
-	align-content: center;
-	text-align: center;
-	width: 150px;
-	margin: 5px;
-	border-radius: 10px;
-	padding: 10px;
-	border: 1px solid black;
-	transition: 0.2s all;
-	text-decoration: none !important;
-	white-space: nowrap;
+    margin-left: auto !important;
+    height: -webkit-fill-available;
+    align-content: center;
+    text-align: center !important;
+    width: 150px;
+    margin: 5px;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid black;
+    transition: 0.2s all;
+    text-decoration: none !important;
+    white-space: nowrap;
+    font-weight: normal;
 }
 
 .viewButton div {
@@ -142,4 +147,11 @@
 
 .viewButton div img {
 	transform: translateY(-1px);
+}
+
+.artistMB {
+    width: 16px;
+    height: 20px;
+    vertical-align: middle;
+	margin-left: 4px;
 }
