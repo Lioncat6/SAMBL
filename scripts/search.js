@@ -127,6 +127,7 @@ const query = params.get("query");
 if (!query) {
 	dispErr("Malformed url; Lacking a query!");
 } else {
-    document.getElementById("searchFor").innerHTML="Search Results for "+query
+    document.getElementById("searchFor").innerHTML="Search Results for \""+query+"\""
+	document.title="SAMBL • Results for \""+query+"\""
     searchSpotify(query)
 }
