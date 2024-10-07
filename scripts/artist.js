@@ -222,112 +222,131 @@ function capFirst(string) {
 }
 
 function processAlbums() {
-	var green = 0;
-	var red = 0;
-	var orange = 0;
-	var total = 0;
-	displayList();
-	for (x in spotifyAlbumList) {
-		var albumStatus = "red";
-		var albumMBUrl = "";
-		var pillTooltipText = "";
-		var currentAlbum = spotifyAlbumList[x];
-		var spotifyUrl = currentAlbum["external_urls"]["spotify"];
-		var spotifyId = currentAlbum["id"];
-		var spotifyName = currentAlbum["name"];
-		var spotifyImageURL = currentAlbum["images"][0]["url"];
-		var spotifyAlbumArtists = currentAlbum["artists"];
-		var spotifyReleaseDate = currentAlbum["release_date"];
-		var spotifyTrackCount = currentAlbum["total_tracks"];
-		var spotifyTrackString = spotifyTrackCount + " Track";
-		if (spotifyTrackCount > 1) {
-			spotifyTrackString = spotifyTrackCount + " Tracks";
-		}
-		var spotifyAlbumType = currentAlbum["album_type"];
-		for (y in mbAlbumList) {
-			var currentMBRelease = mbAlbumList[y];
-			var mbReleaseName = currentMBRelease["title"];
-			var mbReleaseUrls = currentMBRelease["relations"];
-			for (z in mbReleaseUrls) {
-				if (mbReleaseUrls[z]["url"]["resource"] == spotifyUrl) {
-					albumMBUrl = "https://musicbrainz.org/release/" + currentMBRelease["id"];
-					albumStatus = "green";
-					break;
-				}
-			}
-			if (albumStatus == "green") {
-				break;
-			} else if (mbReleaseName.toUpperCase() == spotifyName.toUpperCase()) {
-				albumMBUrl = "https://musicbrainz.org/release/" + currentMBRelease["id"];
-				albumStatus = "orange";
-			}
-		}
-		total++;
-		if (albumStatus == "green") {
-			pillTooltipText = "This album has a MB release with a matching Spotify URL";
-			green++;
-		} else if (albumStatus == "orange") {
-			pillTooltipText = "This album has a MB release with a matching name but no associated link";
-			orange++;
-		} else {
-			pillTooltipText = "This album has no MB release with a matching name or URL";
-			red++;
-		}
-		var mbLinkHtml = "";
-		if (albumMBUrl && albumStatus == "green") {
-			var mbLinkHtml = '<a href="' + albumMBUrl + '" target="_blank"><img class="albumMB" src="../assets/images/MusicBrainz_logo_icon.svg" /></a>';
-		} else if (albumMBUrl) {
-			var mbLinkHtml = '<a href="' + albumMBUrl + '" target="_blank"><img class="albumMB" src="../assets/images/MB_Error.svg" title="Warning: This could be the incorrect MB release for this album!" /></a>';
-		}
-		var spArtistsHtml = "";
-		for (x in spotifyAlbumArtists) {
-			if (x > 0) {
-				spArtistsHtml += ", ";
-			}
-			var currentArtist = spotifyAlbumArtists[x];
-			var artistName = currentArtist["name"];
-			var artistUrl = currentArtist["external_urls"]["spotify"];
-			spArtistsHtml += '<a href="' + artistUrl + '" target="_blank">' + artistName + "</a>";
-		}
-		var htmlToAppend =
-			'<div class="album listItem"><div class="statusPill ' +
-			albumStatus +
-			'" title="' +
-			pillTooltipText +
-			'"></div><div class="albumCover"><a href="' +
-			spotifyImageURL +
-			'" target="_blank"><img src="' +
-			spotifyImageURL +
-			'" /></a></div><div class="textContainer"><div class="albumTitle"><a href="' +
-			spotifyUrl +
-			'" target="_blank" >' +
-			spotifyName +
-			"</a>" +
-			mbLinkHtml +
-			'</div><div class="artists">' +
-			spArtistsHtml +
-			'</div><div class="albumInfo">' +
-			spotifyReleaseDate +
-			" • " +
-			capFirst(spotifyAlbumType) +
-			" • " +
-			spotifyTrackString +
-			'</div></div><a class="aTisketButton" href="https://atisket.pulsewidth.org.uk/?spf_id=' +
-			spotifyId +
-			'&preferred_vendor=spf" target="_blank"><div>A-tisket</div></a> <a class="harmonyButton" href="https://harmony.pulsewidth.org.uk/release?url=' +
-			spotifyUrl +
-			'&deezer=&itunes=&spotify=&tidal=&beatport=" target="_blank"><div>Harmony</div></a></div>';
-		var htmlObject = document.createElement("div");
-		htmlObject.innerHTML = htmlToAppend;
-		document.getElementById("albumList").append(htmlObject);
-	}
-	if (orange == 1) {
-		document.getElementById("statusText").innerHTML = "Albums on musicBrainz: " + green + "/" + total + " ~ 1 album has a matching name but no associated link";
-	} else if (orange > 0) {
-		document.getElementById("statusText").innerHTML = "Albums on musicBrainz: " + green + "/" + total + " ~ " + orange + " albums have matching names but no associated link";
-	} else {
-		document.getElementById("statusText").innerHTML = "Albums on musicBrainz: " + green + "/" + total;
-	}
+  var green = 0;
+  var red = 0;
+  var orange = 0;
+  var total = 0;
+  displayList();
+  for (x in spotifyAlbumList) {
+    var albumStatus = "red";
+    var albumMBUrl = "";
+    var pillTooltipText = "";
+    var currentAlbum = spotifyAlbumList[x];
+    var spotifyUrl = currentAlbum["external_urls"]["spotify"];
+    var spotifyId = currentAlbum["id"];
+    var spotifyName = currentAlbum["name"];
+    var spotifyImageURL = currentAlbum["images"][0]["url"];
+    var spotifyAlbumArtists = currentAlbum["artists"];
+    var spotifyReleaseDate = currentAlbum["release_date"]
+    var spotifyTrackCount = currentAlbum["total_tracks"]
+    var spotifyTrackString = spotifyTrackCount + " Track"
+    if (spotifyTrackCount > 1){
+      spotifyTrackString = spotifyTrackCount + " Tracks"
+    }
+    var spotifyAlbumType = currentAlbum["album_type"]
+    for (y in mbAlbumList) {
+      var currentMBRelease = mbAlbumList[y];
+      var mbReleaseName = currentMBRelease["title"];
+      var mbReleaseUrls = currentMBRelease["relations"];
+      for (z in mbReleaseUrls) {
+        if (mbReleaseUrls[z]["url"]["resource"] == spotifyUrl) {
+          albumMBUrl =
+            "https://musicbrainz.org/release/" + currentMBRelease["id"];
+          albumStatus = "green";
+          break;
+        }
+      }
+      if (albumStatus == "green") {
+        break;
+      } else if (mbReleaseName.toUpperCase().replace(/\s/g, '') == spotifyName.toUpperCase().replace(/\s/g, '')) {
+        albumMBUrl =
+          "https://musicbrainz.org/release/" + currentMBRelease["id"];
+        albumStatus = "orange";
+      }
+    }
+    total++;
+    if (albumStatus == "green") {
+      pillTooltipText =
+        "This album has a MB release with a matching Spotify URL";
+      green++;
+    } else if (albumStatus == "orange") {
+      pillTooltipText =
+        "This album has a MB release with a matching name but no associated link";
+      orange++;
+    } else {
+      pillTooltipText =
+        "This album has no MB release with a matching name or URL";
+      red++;
+    }
+    var mbLinkHtml = "";
+    if (albumMBUrl && albumStatus == "green") {
+      var mbLinkHtml =
+        '<a href="' +
+        albumMBUrl +
+        '" target="_blank"><img class="albumMB" src="../assets/images/MusicBrainz_logo_icon.svg" /></a>';
+    } else if (albumMBUrl) {
+      var mbLinkHtml =
+        '<a href="' +
+        albumMBUrl +
+        '" target="_blank"><img class="albumMB" src="../assets/images/MB_Error.svg" title="Warning: This could be the incorrect MB release for this album!" /></a>';
+    }
+    var spArtistsHtml = "";
+    for (x in spotifyAlbumArtists) {
+      if (x > 0) {
+        spArtistsHtml += ", ";
+      }
+      var currentArtist = spotifyAlbumArtists[x];
+      var artistName = currentArtist["name"];
+      var artistUrl = currentArtist["external_urls"]["spotify"];
+      spArtistsHtml +=
+        '<a href="' + artistUrl + '" target="_blank">' + artistName + "</a>";
+    }
+    var htmlToAppend =
+      '<div class="album listItem"><div class="statusPill ' +
+      albumStatus +
+      '" title="' +
+      pillTooltipText +
+      '"></div><div class="albumCover"><a href="' +
+      spotifyImageURL +
+      '" target="_blank"><img src="' +
+      spotifyImageURL +
+      '" /></a></div><div class="textContainer"><div class="albumTitle"><a href="' +
+      spotifyUrl +
+      '" target="_blank" >' +
+      spotifyName +
+      "</a>" +
+      mbLinkHtml +
+      '</div><div class="artists">' +
+      spArtistsHtml +
+      '</div><div class="albumInfo">'+
+      spotifyReleaseDate +" • "+capFirst(spotifyAlbumType)+ " • "+spotifyTrackString+
+      '</div></div><a class="aTisketButton" href="https://atisket.pulsewidth.org.uk/?spf_id=' +
+      spotifyId +
+      '&preferred_vendor=spf" target="_blank"><div>A-tisket</div></a> <a class="harmonyButton" href="https://harmony.pulsewidth.org.uk/release?url='+spotifyUrl+'&deezer=&itunes=&spotify=&tidal=&beatport=" target="_blank"><div>Harmony</div></a></div>' ;
+    var htmlObject = document.createElement("div");
+    htmlObject.innerHTML = htmlToAppend;
+    document.getElementById("albumList").append(htmlObject);
+  }
+  if (orange == 1) {
+    document.getElementById("statusText").innerHTML =
+      "Albums on musicBrainz: " +
+      green +
+      "/" +
+      total +
+      " ~ 1 album has a matching name but no associated link";
+  } else if (orange > 0) {
+    document.getElementById("statusText").innerHTML =
+      "Albums on musicBrainz: " +
+      green +
+      "/" +
+      total +
+      " ~ " +
+      orange +
+      " albums have matching names but no associated link";
+  } else {
+    document.getElementById("statusText").innerHTML =
+      "Albums on musicBrainz: " + green + "/" + total;
+  }
 }
 
 function displayList() {

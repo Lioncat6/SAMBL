@@ -87,9 +87,9 @@ async function processArtists() {
 		var viewButtonHtml = ""
 		let mbUrlData = await fetchMBArtist(spotifyId)
 		if (mbUrlData[0] ==  true){
-			viewButtonHtml = '<a class="viewButton" href="' +mbUrlData[1] +'" target="_blank"><div>View Artist</div></a>'
+			viewButtonHtml = '<a class="viewButton" href="' +mbUrlData[1] +'"><div>View Artist</div></a>'
 		} else {
-			viewButtonHtml = '<a class="viewButton" href="' +mbUrlData[1] +'" target="_blank"><div>Add <img class="artistMB" src="../assets/images/MusicBrainz_logo_icon.svg"></div></a>'
+			viewButtonHtml = '<a class="viewButton" href="' +mbUrlData[1] +'"><div>Add <img class="artistMB" src="../assets/images/MusicBrainz_logo_icon.svg"></div></a>'
 		}
 		
 		var spotifyImgHtml = ""

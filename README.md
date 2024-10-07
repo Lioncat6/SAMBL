@@ -13,5 +13,8 @@ https://community.metabrainz.org/t/sambl-spotify-artist-musicbrainz-lookup/71655
 
 
 ## Todo:
-  - Add MB seaching to search page (This will probably use the status pill to indicate artist status)
   - Add indicators to each album about the associated releases statuses
+
+### Long term:
+  - Recode in electron or react 
+  - Server side caching and mb fetching 
