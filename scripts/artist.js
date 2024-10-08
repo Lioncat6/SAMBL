@@ -141,7 +141,7 @@ async function downloadMusicBrainzAlbums() {
 	var albumCount = 0;
 	var currentOffset = 0;
 	document.getElementById("loadingText").innerHTML = "Downloading MusicBrainz Albums 1/2...";
-	const response = await fetch("https://musicbrainz.org/ws/2/release?artist=" + mbid + "&inc=url-rels&fmt=json&offset=" + currentOffset);
+	const response = await fetch("https://musicbrainz.org/ws/2/release?artist=" + mbid + "&inc=url-rels&fmt=json&limit=50&offset=" + currentOffset);
 	const data = await response.json();
 	if (response.status == 200) {
 		console.log(data);
@@ -156,10 +156,10 @@ async function downloadMusicBrainzAlbums() {
 		dispErr("MusicBrainz Error: " + data["error"]);
 	}
 
-	while (currentOffset + 15 < albumCount) {
-		currentOffset += 15;
+	while (currentOffset + 50 < albumCount) {
+		currentOffset += 50;
 		await new Promise((r) => setTimeout(r, 500));
-		const response = await fetch("https://musicbrainz.org/ws/2/release?artist=" + mbid + "&inc=url-rels&fmt=json&offset=" + currentOffset);
+		const response = await fetch("https://musicbrainz.org/ws/2/release?artist=" + mbid + "&inc=url-rels&fmt=json&limit=50&offset=" + currentOffset);
 		const data = await response.json();
 		if (response.status == 200) {
 			console.log(data);
@@ -180,7 +180,7 @@ async function downloadMusicBrainzAlbums2() {
 	var albumCount = 0;
 	var currentOffset = 0;
 	document.getElementById("loadingText").innerHTML = "Downloading MusicBrainz Albums 2/2...";
-	const response = await fetch("https://musicbrainz.org/ws/2/release?track_artist=" + mbid + "&inc=url-rels&fmt=json&offset=" + currentOffset);
+	const response = await fetch("https://musicbrainz.org/ws/2/release?track_artist=" + mbid + "&inc=url-rels&fmt=json&limit=50&offset=" + currentOffset);
 	const data = await response.json();
 	if (response.status == 200) {
 		console.log(data);
@@ -195,10 +195,10 @@ async function downloadMusicBrainzAlbums2() {
 		dispErr("MusicBrainz Error: " + data["error"]);
 	}
 
-	while (currentOffset + 15 < albumCount) {
-		currentOffset += 15;
+	while (currentOffset + 50 < albumCount) {
+		currentOffset += 50;
 		await new Promise((r) => setTimeout(r, 500));
-		const response = await fetch("https://musicbrainz.org/ws/2/release?track_artist=" + mbid + "&inc=url-rels&fmt=json&offset=" + currentOffset);
+		const response = await fetch("https://musicbrainz.org/ws/2/release?track_artist=" + mbid + "&inc=url-rels&fmt=json&limit=50&offset=" + currentOffset);
 		const data = await response.json();
 		if (response.status == 200) {
 			console.log(data);
