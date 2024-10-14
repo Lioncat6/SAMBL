@@ -410,9 +410,9 @@ function filter() {
 	document.getElementById("showOrange").checked = showOrange;
 	document.getElementById("showRed").checked = showRed;
 	document.getElementById("hideVarious").checked = hideVarious;
-	document.getElementById("greenLabel").innerHTML = ` Show Green <i>${green}</i>`
-	document.getElementById("orangeLabel").innerHTML = ` Show Orange <i>${orange}</i>`
-	document.getElementById("redLabel").innerHTML = ` Show Red <i>${red}</i>`
+	document.getElementById("greenLabel").innerHTML = ` Show Green (<i>${green}</i>)`
+	document.getElementById("orangeLabel").innerHTML = ` Show Orange (<i>${orange}</i>)`
+	document.getElementById("redLabel").innerHTML = ` Show Red (<i>${red}</i>)`
 }
 
 function applyFilter() {
