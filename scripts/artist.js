@@ -379,6 +379,8 @@ let showRed = true;
 
 let hideVarious = false;
 
+const variousArtistsList = ["Various Artists", "Artistes Variés", "Verschiedene Künstler", "Varios Artistas", "ヴァリアス・アーティスト"];
+
 function searchList() {
 	var input, filter, table, tr, td, i, txtValue;
 	input = document.getElementById("listSearch");
@@ -392,7 +394,9 @@ function searchList() {
 		if (td) {
 			txtValue = td.textContent || td.innerText;
 			if (txtValue.toUpperCase().indexOf(filter) > -1) {
-				if (((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red")) && !(hideVarious && artistString.includes("Various Artists"))) {
+				
+				const isVariousArtists = variousArtistsList.some(artist => artistString.includes(artist));
+				if (((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red")) && !(hideVarious && isVariousArtists)) {
 					tr[i].style.display = "";
 				} else {
 					tr[i].style.display = "none";
