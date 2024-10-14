@@ -221,11 +221,12 @@ function capFirst(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+var green = 0;
+var red = 0;
+var orange = 0;
+var total = 0;
 function processAlbums() {
-  var green = 0;
-  var red = 0;
-  var orange = 0;
-  var total = 0;
+
   displayList();
   for (x in spotifyAlbumList) {
     var albumStatus = "red";
@@ -409,6 +410,9 @@ function filter() {
 	document.getElementById("showOrange").checked = showOrange;
 	document.getElementById("showRed").checked = showRed;
 	document.getElementById("hideVarious").checked = hideVarious;
+	document.getElementById("greenLabel").innerHTML = ` Show Green <i>${green}</i>`
+	document.getElementById("orangeLabel").innerHTML = ` Show Orange <i>${orange}</i>`
+	document.getElementById("redLabel").innerHTML = ` Show Red <i>${red}</i>`
 }
 
 function applyFilter() {
