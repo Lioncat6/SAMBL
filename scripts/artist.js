@@ -323,7 +323,7 @@ function processAlbums() {
       spotifyReleaseDate +" • "+capFirst(spotifyAlbumType)+ " • "+spotifyTrackString+
       '</div></div><a class="aTisketButton" href="https://atisket.pulsewidth.org.uk/?spf_id=' +
       spotifyId +
-      '&preferred_vendor=spf" target="_blank"><div>A-tisket</div></a> <a class="harmonyButton" href="https://harmony.pulsewidth.org.uk/release?url='+spotifyUrl+'&deezer=&itunes=&spotify=&tidal=&beatport=" target="_blank"><div>Harmony</div></a></div>' ;
+      '&preferred_vendor=spf" target="_blank"><div>A-tisket</div></a> <a class="harmonyButton" href="https://harmony.pulsewidth.org.uk/release?url='+spotifyUrl+'&musicbrainz=&deezer=&itunes=&spotify=&tidal=&beatport=" target="_blank"><div>Harmony</div></a></div>' ;
     var htmlObject = document.createElement("div");
     htmlObject.innerHTML = htmlToAppend;
     document.getElementById("albumList").append(htmlObject);
