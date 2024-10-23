@@ -156,8 +156,8 @@ async function downloadMusicBrainzAlbums() {
 		dispErr("MusicBrainz Error: " + data["error"]);
 	}
 
-	while (currentOffset + 50 < albumCount) {
-		currentOffset += 50;
+	while (currentOffset + 100 < albumCount) {
+		currentOffset += 100;
 		await new Promise((r) => setTimeout(r, 500));
 		const response = await fetch("https://musicbrainz.org/ws/2/release?artist=" + mbid + "&inc=url-rels&fmt=json&limit=50&offset=" + currentOffset);
 		const data = await response.json();
@@ -195,8 +195,8 @@ async function downloadMusicBrainzAlbums2() {
 		dispErr("MusicBrainz Error: " + data["error"]);
 	}
 
-	while (currentOffset + 50 < albumCount) {
-		currentOffset += 50;
+	while (currentOffset + 100 < albumCount) {
+		currentOffset += 100;
 		await new Promise((r) => setTimeout(r, 500));
 		const response = await fetch("https://musicbrainz.org/ws/2/release?track_artist=" + mbid + "&inc=url-rels&fmt=json&limit=50&offset=" + currentOffset);
 		const data = await response.json();
