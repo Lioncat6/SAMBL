@@ -74,6 +74,7 @@
 	width: 12px;
 	height: 56px;
 	border-radius: 10px;
+	cursor: help;
 }
 
 .aTisketButton {
@@ -421,4 +422,11 @@
 
 label i {
 	color: gray;
+}
+
+.upcIcon {
+	margin-left: 5px;
+    width: 27px;
+    transform: translateY(3px);
+    cursor: help;
 }
