@@ -241,6 +241,7 @@ function processAlbums() {
     var spotifyReleaseDate = currentAlbum["release_date"]
     var spotifyTrackCount = currentAlbum["total_tracks"]
     var spotifyTrackString = spotifyTrackCount + " Track"
+    var spotifyAlbumUPC = "";  //unused for now 
     if (spotifyTrackCount > 1){
       spotifyTrackString = spotifyTrackCount + " Tracks"
     }
@@ -249,6 +250,7 @@ function processAlbums() {
       var currentMBRelease = mbAlbumList[y];
       var mbReleaseName = currentMBRelease["title"];
       var mbReleaseUrls = currentMBRelease["relations"];
+      var albumMBUPC = currentMBRelease["barcode"];
       for (z in mbReleaseUrls) {
         if (mbReleaseUrls[z]["url"]["resource"] == spotifyUrl) {
           albumMBUrl =
@@ -302,6 +304,10 @@ function processAlbums() {
       spArtistsHtml +=
         '<a href="' + artistUrl + '" target="_blank">' + artistName + "</a>";
     }
+    var iconsHtml = "";
+    if (!albumMBUPC || albumMBUPC == null){
+	iconsHtml+= '<img class="upcIcon" src="../assets/images/noUPC.svg title="This release is missing a UPC!">'
+    }
     var htmlToAppend =
       '<div class="album listItem"><div class="statusPill ' +
       albumStatus +
@@ -320,7 +326,7 @@ function processAlbums() {
       '</div><div class="artists">' +
       spArtistsHtml +
       '</div><div class="albumInfo">'+
-      spotifyReleaseDate +" • "+capFirst(spotifyAlbumType)+ " • "+spotifyTrackString+
+      spotifyReleaseDate +" • "+capFirst(spotifyAlbumType)+ " • "+spotifyTrackString+iconsHtml+
       '</div></div><a class="aTisketButton" href="https://atisket.pulsewidth.org.uk/?spf_id=' +
       spotifyId +
       '&preferred_vendor=spf" target="_blank"><div>A-tisket</div></a> <a class="harmonyButton" href="https://harmony.pulsewidth.org.uk/release?url='+spotifyUrl+'&musicbrainz=&deezer=&itunes=&spotify=&tidal=&beatport=" target="_blank"><div>Harmony</div></a></div>' ;
