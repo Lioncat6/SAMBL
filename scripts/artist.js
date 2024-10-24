@@ -306,7 +306,7 @@ function processAlbums() {
     }
     var iconsHtml = "";
     if (!albumMBUPC || albumMBUPC == null){
-	iconsHtml+= '<img class="upcIcon" src="../assets/images/noUPC.svg title="This release is missing a UPC!">'
+	iconsHtml+= '<img class="upcIcon" src="../assets/images/noUPC.svg" title="This release is missing a UPC!">'
     }
     var htmlToAppend =
       '<div class="album listItem"><div class="statusPill ' +
