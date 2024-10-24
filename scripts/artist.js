@@ -141,7 +141,7 @@ async function downloadMusicBrainzAlbums() {
 	var albumCount = 0;
 	var currentOffset = 0;
 	document.getElementById("loadingText").innerHTML = "Downloading MusicBrainz Albums 1/2...";
-	const response = await fetch("https://musicbrainz.org/ws/2/release?artist=" + mbid + "&inc=url-rels&fmt=json&limit=50&offset=" + currentOffset);
+	const response = await fetch("https://musicbrainz.org/ws/2/release?artist=" + mbid + "&inc=url-rels&fmt=json&limit=100&offset=" + currentOffset);
 	const data = await response.json();
 	if (response.status == 200) {
 		console.log(data);
@@ -156,10 +156,10 @@ async function downloadMusicBrainzAlbums() {
 		dispErr("MusicBrainz Error: " + data["error"]);
 	}
 
-	while (currentOffset + 50 < albumCount) {
-		currentOffset += 50;
+	while (currentOffset + 100 < albumCount) {
+		currentOffset += 100;
 		await new Promise((r) => setTimeout(r, 500));
-		const response = await fetch("https://musicbrainz.org/ws/2/release?artist=" + mbid + "&inc=url-rels&fmt=json&limit=50&offset=" + currentOffset);
+		const response = await fetch("https://musicbrainz.org/ws/2/release?artist=" + mbid + "&inc=url-rels&fmt=json&limit=100&offset=" + currentOffset);
 		const data = await response.json();
 		if (response.status == 200) {
 			console.log(data);
@@ -195,8 +195,8 @@ async function downloadMusicBrainzAlbums2() {
 		dispErr("MusicBrainz Error: " + data["error"]);
 	}
 
-	while (currentOffset + 50 < albumCount) {
-		currentOffset += 50;
+	while (currentOffset + 100 < albumCount) {
+		currentOffset += 100;
 		await new Promise((r) => setTimeout(r, 500));
 		const response = await fetch("https://musicbrainz.org/ws/2/release?track_artist=" + mbid + "&inc=url-rels&fmt=json&limit=50&offset=" + currentOffset);
 		const data = await response.json();
@@ -414,9 +414,9 @@ function filter() {
 	document.getElementById("showOrange").checked = showOrange;
 	document.getElementById("showRed").checked = showRed;
 	document.getElementById("hideVarious").checked = hideVarious;
-	document.getElementById("greenLabel").innerHTML = ` Show Green (<i>${green}</i>)`
-	document.getElementById("orangeLabel").innerHTML = ` Show Orange (<i>${orange}</i>)`
-	document.getElementById("redLabel").innerHTML = ` Show Red (<i>${red}</i>)`
+	document.getElementById("greenLabel").innerHTML = ` Show Green <i>(${green})</i>`
+	document.getElementById("orangeLabel").innerHTML = ` Show Orange <i>(${orange})</i>`
+	document.getElementById("redLabel").innerHTML = ` Show Red <i>(${red})</i>`
 }
 
 function applyFilter() {
