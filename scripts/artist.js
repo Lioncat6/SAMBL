@@ -141,7 +141,7 @@ async function downloadMusicBrainzAlbums() {
 	var albumCount = 0;
 	var currentOffset = 0;
 	document.getElementById("loadingText").innerHTML = "Downloading MusicBrainz Albums 1/2...";
-	const response = await fetch("https://musicbrainz.org/ws/2/release?artist=" + mbid + "&inc=url-rels+recordings+isrcs&fmt=json&limit=100&offset=" + currentOffset);
+	const response = await fetch("https://musicbrainz.org/ws/2/release?artist=" + mbid + "&inc=url-rels&fmt=json&limit=100&offset=" + currentOffset);
 	const data = await response.json();
 	if (response.status == 200) {
 		console.log(data);
@@ -159,7 +159,7 @@ async function downloadMusicBrainzAlbums() {
 	while (currentOffset + 100 < albumCount) {
 		currentOffset += 100;
 		await new Promise((r) => setTimeout(r, 500));
-		const response = await fetch("https://musicbrainz.org/ws/2/release?artist=" + mbid + "&inc=url-rels+recordings+isrcs&fmt=json&limit=100&offset=" + currentOffset);
+		const response = await fetch("https://musicbrainz.org/ws/2/release?artist=" + mbid + "&inc=url-rels&fmt=json&limit=100&offset=" + currentOffset);
 		const data = await response.json();
 		if (response.status == 200) {
 			console.log(data);
@@ -180,7 +180,7 @@ async function downloadMusicBrainzAlbums2() {
 	var albumCount = 0;
 	var currentOffset = 0;
 	document.getElementById("loadingText").innerHTML = "Downloading MusicBrainz Albums 2/2...";
-	const response = await fetch("https://musicbrainz.org/ws/2/release?track_artist=" + mbid + "&inc=url-rels+recordings+isrcs&fmt=json&limit=100&offset=" + currentOffset);
+	const response = await fetch("https://musicbrainz.org/ws/2/release?track_artist=" + mbid + "&inc=url-rels&fmt=json&limit=100&offset=" + currentOffset);
 	const data = await response.json();
 	if (response.status == 200) {
 		console.log(data);
@@ -198,7 +198,7 @@ async function downloadMusicBrainzAlbums2() {
 	while (currentOffset + 100 < albumCount) {
 		currentOffset += 100;
 		await new Promise((r) => setTimeout(r, 500));
-		const response = await fetch("https://musicbrainz.org/ws/2/release?track_artist=" + mbid + "&inc=url-rels+recordings+isrcs&fmt=json&limit=100&offset=" + currentOffset);
+		const response = await fetch("https://musicbrainz.org/ws/2/release?track_artist=" + mbid + "&inc=url-rels&fmt=json&limit=100&offset=" + currentOffset);
 		const data = await response.json();
 		if (response.status == 200) {
 			console.log(data);
@@ -250,20 +250,7 @@ function processAlbums() {
       var currentMBRelease = mbAlbumList[y];
       var mbReleaseName = currentMBRelease["title"];
       var mbReleaseUrls = currentMBRelease["relations"];
-      var mbAlbumUPC = currentMBRelease["barcode"];
-	  var mbAlbumTracks = currentMBRelease["media"][0]["tracks"]
-	  var mbAlbumIRSCs = []
-	  var mbAlbumHasAllIRSCs = true
-	  for (track of mbAlbumTracks){
-		IRSCs = track["isrcs"]
-		if (IRSCs){
-			mbAlbumIRSCs = IRSCs[0]
-		} else {
-			mbAlbumHasAllIRSCs = false;
-		}
-	  }
-	  
-	  
+      var albumMBUPC = currentMBRelease["barcode"];
       for (z in mbReleaseUrls) {
         if (mbReleaseUrls[z]["url"]["resource"] == spotifyUrl) {
           albumMBUrl =
@@ -318,12 +305,9 @@ function processAlbums() {
         '<a href="' + artistUrl + '" target="_blank">' + artistName + "</a>";
     }
     var iconsHtml = "";
-    if (!mbAlbumUPC || mbAlbumUPC == null){
+    if (!albumMBUPC || albumMBUPC == null){
 	iconsHtml+= '<img class="upcIcon" src="../assets/images/noUPC.svg" title="This release is missing a UPC/Barcode!">'
     }
-	if (!mbAlbumHasAllIRSCs){
-		iconsHtml+= '<img class="isrcIcon" src="../assets/images/noISRC.svg" title="This release has one or more tracks missing an ISRC!">'
-	}
     var htmlToAppend =
       '<div class="album listItem"><div class="statusPill ' +
       albumStatus +
