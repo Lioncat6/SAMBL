@@ -256,7 +256,7 @@ function processAlbums() {
 	  var mbAlbumHasAllIRSCs = true
 	  for (track of mbAlbumTracks){
 		IRSCs = track["isrcs"]
-		if (IRSCs.length > 0){
+		if (IRSCs){
 			mbAlbumIRSCs = IRSCs[0]
 		} else {
 			mbAlbumHasAllIRSCs = false;
