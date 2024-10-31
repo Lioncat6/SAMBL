@@ -430,3 +430,10 @@ label i {
     transform: translateY(3px);
     cursor: help;
 }
+
+.ISRCIcon {
+	margin-left: 5px;
+    width: 36px;
+    transform: translateY(3px);
+    cursor: help;
+}

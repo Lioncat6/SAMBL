@@ -250,7 +250,20 @@ function processAlbums() {
       var currentMBRelease = mbAlbumList[y];
       var mbReleaseName = currentMBRelease["title"];
       var mbReleaseUrls = currentMBRelease["relations"];
-      var albumMBUPC = currentMBRelease["barcode"];
+      var mbAlbumUPC = currentMBRelease["barcode"];
+	  var mbAlbumTracks = currentMBRelease["media"][0]["tracks"]
+	  var mbAlbumIRSCs = []
+	  var mbAlbumHasAllIRSCs = true
+	  for (track of mbAlbumTracks){
+		IRSCs = track["isrcs"]
+		if (IRSCs.length > 0){
+			mbAlbumIRSCs = IRSCs[0]
+		} else {
+			mbAlbumHasAllIRSCs = false;
+		}
+	  }
+	  
+	  
       for (z in mbReleaseUrls) {
         if (mbReleaseUrls[z]["url"]["resource"] == spotifyUrl) {
           albumMBUrl =
@@ -305,9 +318,12 @@ function processAlbums() {
         '<a href="' + artistUrl + '" target="_blank">' + artistName + "</a>";
     }
     var iconsHtml = "";
-    if (!albumMBUPC || albumMBUPC == null){
+    if (!mbAlbumUPC || mbAlbumUPC == null){
 	iconsHtml+= '<img class="upcIcon" src="../assets/images/noUPC.svg" title="This release is missing a UPC/Barcode!">'
     }
+	if (!mbAlbumHasAllIRSCs){
+		iconsHtml+= '<img class="isrcIcon" src="../assets/images/noISRC.svg" title="This release has one or more tracks missing an ISRC!">'
+	}
     var htmlToAppend =
       '<div class="album listItem"><div class="statusPill ' +
       albumStatus +
