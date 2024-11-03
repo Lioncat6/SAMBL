@@ -325,8 +325,8 @@ function processAlbums() {
       mbLinkHtml +
       '</div><div class="artists">' +
       spArtistsHtml +
-      '</div><div class="albumInfo"><p>'+
-      spotifyReleaseDate +" • "+capFirst(spotifyAlbumType)+ " • "+spotifyTrackString+'</p>'+iconsHtml+
+      '</div><div class="albumInfo"><div>'+
+      spotifyReleaseDate +" • "+capFirst(spotifyAlbumType)+ " • "+spotifyTrackString+'</div>'+iconsHtml+
       '</div></div><a class="aTisketButton" href="https://atisket.pulsewidth.org.uk/?spf_id=' +
       spotifyId +
       '&preferred_vendor=spf" target="_blank"><div>A-tisket</div></a> <a class="harmonyButton" href="https://harmony.pulsewidth.org.uk/release?url='+spotifyUrl+'&musicbrainz=&deezer=&itunes=&spotify=&tidal=&beatport=" target="_blank"><div>Harmony</div></a></div>' ;
