@@ -169,9 +169,19 @@
 
 .albumInfo {
 	color: lightgray;
-	text-align: left;
-	font-size: small;
-	font-weight: normal;
+    text-align: left;
+    font-size: small;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+}
+
+.albumInfo a:first-child {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 #albumList {
@@ -427,7 +437,6 @@ label i {
 .upcIcon {
 	margin-left: 5px;
     width: 27px;
-    transform: translateY(3px);
     cursor: help;
 }
 
