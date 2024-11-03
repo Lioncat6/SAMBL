@@ -178,7 +178,7 @@
     overflow: hidden;
 }
 
-.albumInfo a:first-child {
+.albumInfo div:first-child {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
