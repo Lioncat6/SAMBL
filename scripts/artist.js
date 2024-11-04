@@ -4,72 +4,72 @@ function dispErr(error) {
 	document.getElementById("err").innerHTML = error;
 }
 
-let multiple = false
+let multiple = false;
 
 async function fetchSpotifyArtists(artists) {
-	multiple = true
-	const artistIds = artists.split(',');
-	console.log(artistIds)
-	let firstValidArtist = null;
+	multiple = true;
+	const artistIds = artists.split(",");
+	console.log(artistIds);
+	let mostPopularArtist = null;
+	let mostPAFCount = 0;
 	let allArtistNames = [];
 	let allArtistUrls = [];
-    let totalFollowers = 0;
+	let totalFollowers = 0;
 	for (const artistId of artistIds) {
-	  const fsatoken = localStorage.getItem("spfAccessToken");
-	  const response = await fetch(`${apiUrl}/v1/artists/${artistId.trim()}`, {
-		headers: {
-		  Authorization: "Bearer " + fsatoken,
-		},
-	  });
-	  const data = await response.json();
-	  
-	  totalFollowers = totalFollowers + data["followers"]["total"];
+		const fsatoken = localStorage.getItem("spfAccessToken");
+		const response = await fetch(`${apiUrl}/v1/artists/${artistId.trim()}`, {
+			headers: {
+				Authorization: "Bearer " + fsatoken,
+			},
+		});
+		const data = await response.json();
 
-	  if (!data["error"]) {
-		if (!allArtistNames.includes(data["name"])){
-			allArtistNames.push(data["name"]);
+		totalFollowers = totalFollowers + data["followers"]["total"];
+
+		if (!data["error"]) {
+			if (!allArtistNames.includes(data["name"])) {
+				allArtistNames.push(data["name"]);
+			}
+			allArtistUrls.push(data["external_urls"]["spotify"]);
+
+			if (!mostPopularArtist && data["images"].length > 0 && data["followers"]["total"] > mostPAFCount) {
+				mostPAFCount = data["followers"]["total"];
+				mostPopularArtist = data;
+			}
+
+			await downloadSpotifyAlbums(artistId.trim());
+			await new Promise((resolve) => setTimeout(resolve, 1000)); // Delay to avoid rate limiting
+		} else {
+			console.error(`Error fetching artist ${artistId}: ${data["error"]}`);
 		}
-		allArtistUrls.push(data["external_urls"]["spotify"]);
-  
-		if (!firstValidArtist && data["images"].length > 0) {
-		  firstValidArtist = data;
-		}
-  
-		await downloadSpotifyAlbums(artistId.trim());
-		await new Promise(resolve => setTimeout(resolve, 1000)); // Delay to avoid rate limiting
-	  } else {
-		console.error(`Error fetching artist ${artistId}: ${data["error"]}`);
-	  }
 	}
-  
-	if (firstValidArtist) {
-	  updateArtistInfo(firstValidArtist, allArtistNames, allArtistUrls, totalFollowers);
+
+	if (mostPopularArtist) {
+		updateArtistInfo(mostPopularArtist, allArtistNames, allArtistUrls, totalFollowers);
 	} else {
-	  dispErr("No valid artist data found with images");
+		dispErr("No valid artist data found with images");
 	}
-	await downloadMusicBrainzAlbums()
+	await downloadMusicBrainzAlbums();
 	processAlbums();
-  }
-  
-  function updateArtistInfo(artist, allNames, allUrls, totalFollowers) {
+}
+
+function updateArtistInfo(artist, allNames, allUrls, totalFollowers) {
 	const spImgUrl = artist["images"][0]["url"];
-	const spArtistName = allNames.join(' / ');
+	const spArtistName = allNames.join(" / ");
 	const spGenres = artist["genres"];
 	const spGenresString = spGenres.join(", ");
 	const spPopularity = artist["popularity"];
-  
+
 	document.getElementById("artistImageContainer").innerHTML = `<a href="${spImgUrl}" target="_blank"><img src="${spImgUrl}"></a>`;
 	document.getElementById("artistName").innerHTML = spArtistName;
 	document.title = "SAMBL • " + spArtistName;
 	document.getElementById("artistFollowerCount").innerHTML = `<h2>${totalFollowers} Followers</h2>`;
 	document.getElementById("artistGenres").innerHTML = `<p>${spGenresString}</p>`;
-  
+
 	// Create Spotify icons for each artist URL
-	const spotifyIconsHtml = allUrls.map(url => 
-	  `<a href="${url}" target="_blank"><img src="../assets/images/Spotify_icon.svg" alt="Spotify" class="spIcon"></a>`
-	).join('');
+	const spotifyIconsHtml = allUrls.map((url) => `<a href="${url}" target="_blank"><img src="../assets/images/Spotify_icon.svg" alt="Spotify" class="spIcon"></a>`).join("");
 	document.getElementsByClassName("spURLContainer")[0].innerHTML = spotifyIconsHtml;
-  }
+}
 
 async function fetchSpotifyArtist(artist) {
 	var fsatoken = localStorage.getItem("spfAccessToken");
@@ -200,7 +200,7 @@ async function downloadSpotifyAlbums(artist) {
 			}
 		}
 	}
-	if (!multiple){
+	if (!multiple) {
 		downloadMusicBrainzAlbums();
 	}
 }
@@ -282,7 +282,7 @@ async function downloadMusicBrainzAlbums2() {
 	}
 	document.getElementById("loadingContainer").innerHTML = "";
 	document.getElementById("loadingText").innerHTML = "";
-	if (!multiple){
+	if (!multiple) {
 		processAlbums();
 	}
 }
@@ -296,134 +296,116 @@ var red = 0;
 var orange = 0;
 var total = 0;
 function processAlbums() {
-
-  displayList();
-  for (x in spotifyAlbumList) {
-    var albumStatus = "red";
-    var albumMBUrl = "";
-    var pillTooltipText = "";
-    var currentAlbum = spotifyAlbumList[x];
-    var spotifyUrl = currentAlbum["external_urls"]["spotify"];
-    var spotifyId = currentAlbum["id"];
-    var spotifyName = currentAlbum["name"];
-    var spotifyImageURL = currentAlbum["images"][0]["url"];
-    var spotifyAlbumArtists = currentAlbum["artists"];
-    var spotifyReleaseDate = currentAlbum["release_date"]
-    var spotifyTrackCount = currentAlbum["total_tracks"]
-    var spotifyTrackString = spotifyTrackCount + " Track"
-    var spotifyAlbumUPC = "";  //unused for now 
-    if (spotifyTrackCount > 1){
-      spotifyTrackString = spotifyTrackCount + " Tracks"
-    }
-    var spotifyAlbumType = currentAlbum["album_type"]
-    for (y in mbAlbumList) {
-      var currentMBRelease = mbAlbumList[y];
-      var mbReleaseName = currentMBRelease["title"];
-      var mbReleaseUrls = currentMBRelease["relations"];
-      var albumMBUPC = currentMBRelease["barcode"];
-      for (z in mbReleaseUrls) {
-        if (mbReleaseUrls[z]["url"]["resource"] == spotifyUrl) {
-          albumMBUrl =
-            "https://musicbrainz.org/release/" + currentMBRelease["id"];
-          albumStatus = "green";
-          break;
-        }
-      }
-      if (albumStatus == "green") {
-        break;
-      } else if (mbReleaseName.toUpperCase().replace(/\s/g, '') == spotifyName.toUpperCase().replace(/\s/g, '')) {
-        albumMBUrl =
-          "https://musicbrainz.org/release/" + currentMBRelease["id"];
-        albumStatus = "orange";
-      }
-    }
-    total++;
-    if (albumStatus == "green") {
-      pillTooltipText =
-        "This album has a MB release with a matching Spotify URL";
-      green++;
-    } else if (albumStatus == "orange") {
-      pillTooltipText =
-        "This album has a MB release with a matching name but no associated link";
-      orange++;
-    } else {
-      pillTooltipText =
-        "This album has no MB release with a matching name or URL";
-      red++;
-    }
-    var mbLinkHtml = "";
-    if (albumMBUrl && albumStatus == "green") {
-      var mbLinkHtml =
-        '<a href="' +
-        albumMBUrl +
-        '" target="_blank"><img class="albumMB" src="../assets/images/MusicBrainz_logo_icon.svg" /></a>';
-    } else if (albumMBUrl) {
-      var mbLinkHtml =
-        '<a href="' +
-        albumMBUrl +
-        '" target="_blank"><img class="albumMB" src="../assets/images/MB_Error.svg" title="Warning: This could be the incorrect MB release for this album!" /></a>';
-    }
-    var spArtistsHtml = "";
-    for (x in spotifyAlbumArtists) {
-      if (x > 0) {
-        spArtistsHtml += ", ";
-      }
-      var currentArtist = spotifyAlbumArtists[x];
-      var artistName = currentArtist["name"];
-      var artistUrl = currentArtist["external_urls"]["spotify"];
-      spArtistsHtml +=
-        '<a href="' + artistUrl + '" target="_blank">' + artistName + "</a>";
-    }
-    var iconsHtml = "";
-    if (!albumMBUPC || albumMBUPC == null){
-	iconsHtml+= '<img class="upcIcon" src="../assets/images/noUPC.svg" title="This release is missing a UPC/Barcode!">'
-    }
-    var htmlToAppend =
-      '<div class="album listItem"><div class="statusPill ' +
-      albumStatus +
-      '" title="' +
-      pillTooltipText +
-      '"></div><div class="albumCover"><a href="' +
-      spotifyImageURL +
-      '" target="_blank"><img src="' +
-      spotifyImageURL +
-      '" /></a></div><div class="textContainer"><div class="albumTitle"><a href="' +
-      spotifyUrl +
-      '" target="_blank" >' +
-      spotifyName +
-      "</a>" +
-      mbLinkHtml +
-      '</div><div class="artists">' +
-      spArtistsHtml +
-      '</div><div class="albumInfo"><div>'+
-      spotifyReleaseDate +" • "+capFirst(spotifyAlbumType)+ " • "+spotifyTrackString+'</div>'+iconsHtml+
-      '</div></div><a class="aTisketButton" href="https://atisket.pulsewidth.org.uk/?spf_id=' +
-      spotifyId +
-      '&preferred_vendor=spf" target="_blank"><div>A-tisket</div></a> <a class="harmonyButton" href="https://harmony.pulsewidth.org.uk/release?url='+spotifyUrl+'&musicbrainz=&deezer=&itunes=&spotify=&tidal=&beatport=" target="_blank"><div>Harmony</div></a></div>' ;
-    var htmlObject = document.createElement("div");
-    htmlObject.innerHTML = htmlToAppend;
-    document.getElementById("albumList").append(htmlObject);
-  }
-  if (orange == 1) {
-    document.getElementById("statusText").innerHTML =
-      "Albums on musicBrainz: " +
-      green +
-      "/" +
-      total +
-      " ~ 1 album has a matching name but no associated link";
-  } else if (orange > 0) {
-    document.getElementById("statusText").innerHTML =
-      "Albums on musicBrainz: " +
-      green +
-      "/" +
-      total +
-      " ~ " +
-      orange +
-      " albums have matching names but no associated link";
-  } else {
-    document.getElementById("statusText").innerHTML =
-      "Albums on musicBrainz: " + green + "/" + total;
-  }
+	displayList();
+	for (x in spotifyAlbumList) {
+		var albumStatus = "red";
+		var albumMBUrl = "";
+		var pillTooltipText = "";
+		var currentAlbum = spotifyAlbumList[x];
+		var spotifyUrl = currentAlbum["external_urls"]["spotify"];
+		var spotifyId = currentAlbum["id"];
+		var spotifyName = currentAlbum["name"];
+		var spotifyImageURL = currentAlbum["images"][0]["url"];
+		var spotifyAlbumArtists = currentAlbum["artists"];
+		var spotifyReleaseDate = currentAlbum["release_date"];
+		var spotifyTrackCount = currentAlbum["total_tracks"];
+		var spotifyTrackString = spotifyTrackCount + " Track";
+		var spotifyAlbumUPC = ""; //unused for now
+		if (spotifyTrackCount > 1) {
+			spotifyTrackString = spotifyTrackCount + " Tracks";
+		}
+		var spotifyAlbumType = currentAlbum["album_type"];
+		for (y in mbAlbumList) {
+			var currentMBRelease = mbAlbumList[y];
+			var mbReleaseName = currentMBRelease["title"];
+			var mbReleaseUrls = currentMBRelease["relations"];
+			var albumMBUPC = currentMBRelease["barcode"];
+			for (z in mbReleaseUrls) {
+				if (mbReleaseUrls[z]["url"]["resource"] == spotifyUrl) {
+					albumMBUrl = "https://musicbrainz.org/release/" + currentMBRelease["id"];
+					albumStatus = "green";
+					break;
+				}
+			}
+			if (albumStatus == "green") {
+				break;
+			} else if (mbReleaseName.toUpperCase().replace(/\s/g, "") == spotifyName.toUpperCase().replace(/\s/g, "")) {
+				albumMBUrl = "https://musicbrainz.org/release/" + currentMBRelease["id"];
+				albumStatus = "orange";
+			}
+		}
+		total++;
+		if (albumStatus == "green") {
+			pillTooltipText = "This album has a MB release with a matching Spotify URL";
+			green++;
+		} else if (albumStatus == "orange") {
+			pillTooltipText = "This album has a MB release with a matching name but no associated link";
+			orange++;
+		} else {
+			pillTooltipText = "This album has no MB release with a matching name or URL";
+			red++;
+		}
+		var mbLinkHtml = "";
+		if (albumMBUrl && albumStatus == "green") {
+			var mbLinkHtml = '<a href="' + albumMBUrl + '" target="_blank"><img class="albumMB" src="../assets/images/MusicBrainz_logo_icon.svg" /></a>';
+		} else if (albumMBUrl) {
+			var mbLinkHtml = '<a href="' + albumMBUrl + '" target="_blank"><img class="albumMB" src="../assets/images/MB_Error.svg" title="Warning: This could be the incorrect MB release for this album!" /></a>';
+		}
+		var spArtistsHtml = "";
+		for (x in spotifyAlbumArtists) {
+			if (x > 0) {
+				spArtistsHtml += ", ";
+			}
+			var currentArtist = spotifyAlbumArtists[x];
+			var artistName = currentArtist["name"];
+			var artistUrl = currentArtist["external_urls"]["spotify"];
+			spArtistsHtml += '<a href="' + artistUrl + '" target="_blank">' + artistName + "</a>";
+		}
+		var iconsHtml = "";
+		if (!albumMBUPC || albumMBUPC == null) {
+			iconsHtml += '<img class="upcIcon" src="../assets/images/noUPC.svg" title="This release is missing a UPC/Barcode!">';
+		}
+		var htmlToAppend =
+			'<div class="album listItem"><div class="statusPill ' +
+			albumStatus +
+			'" title="' +
+			pillTooltipText +
+			'"></div><div class="albumCover"><a href="' +
+			spotifyImageURL +
+			'" target="_blank"><img src="' +
+			spotifyImageURL +
+			'" /></a></div><div class="textContainer"><div class="albumTitle"><a href="' +
+			spotifyUrl +
+			'" target="_blank" >' +
+			spotifyName +
+			"</a>" +
+			mbLinkHtml +
+			'</div><div class="artists">' +
+			spArtistsHtml +
+			'</div><div class="albumInfo"><div>' +
+			spotifyReleaseDate +
+			" • " +
+			capFirst(spotifyAlbumType) +
+			" • " +
+			spotifyTrackString +
+			"</div>" +
+			iconsHtml +
+			'</div></div><a class="aTisketButton" href="https://atisket.pulsewidth.org.uk/?spf_id=' +
+			spotifyId +
+			'&preferred_vendor=spf" target="_blank"><div>A-tisket</div></a> <a class="harmonyButton" href="https://harmony.pulsewidth.org.uk/release?url=' +
+			spotifyUrl +
+			'&musicbrainz=&deezer=&itunes=&spotify=&tidal=&beatport=" target="_blank"><div>Harmony</div></a></div>';
+		var htmlObject = document.createElement("div");
+		htmlObject.innerHTML = htmlToAppend;
+		document.getElementById("albumList").append(htmlObject);
+	}
+	if (orange == 1) {
+		document.getElementById("statusText").innerHTML = "Albums on musicBrainz: " + green + "/" + total + " ~ 1 album has a matching name but no associated link";
+	} else if (orange > 0) {
+		document.getElementById("statusText").innerHTML = "Albums on musicBrainz: " + green + "/" + total + " ~ " + orange + " albums have matching names but no associated link";
+	} else {
+		document.getElementById("statusText").innerHTML = "Albums on musicBrainz: " + green + "/" + total;
+	}
 }
 
 function displayList() {
@@ -434,7 +416,7 @@ function addListItem() {}
 
 const params = new URLSearchParams(new URL(window.location.href).search);
 const spid = params.get("spid");
-const spids = params.get("spids")
+const spids = params.get("spids");
 let mbid = params.get("mbid");
 if (!mbid) {
 	mbid = params.get("artist_mbid");
@@ -459,7 +441,6 @@ if (spid) {
 	dispErr("Incomplete Url! Missing Spotify ID!");
 }
 
-
 let showGreen = true;
 let showOrange = true;
 let showRed = true;
@@ -481,8 +462,7 @@ function searchList() {
 		if (td) {
 			txtValue = td.textContent || td.innerText;
 			if (txtValue.toUpperCase().indexOf(filter) > -1) {
-				
-				const isVariousArtists = variousArtistsList.some(artist => artistString.includes(artist));
+				const isVariousArtists = variousArtistsList.some((artist) => artistString.includes(artist));
 				if (((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red")) && !(hideVarious && isVariousArtists)) {
 					tr[i].style.display = "";
 				} else {
@@ -501,9 +481,9 @@ function filter() {
 	document.getElementById("showOrange").checked = showOrange;
 	document.getElementById("showRed").checked = showRed;
 	document.getElementById("hideVarious").checked = hideVarious;
-	document.getElementById("greenLabel").innerHTML = ` Show Green <i>(${green})</i>`
-	document.getElementById("orangeLabel").innerHTML = ` Show Orange <i>(${orange})</i>`
-	document.getElementById("redLabel").innerHTML = ` Show Red <i>(${red})</i>`
+	document.getElementById("greenLabel").innerHTML = ` Show Green <i>(${green})</i>`;
+	document.getElementById("orangeLabel").innerHTML = ` Show Orange <i>(${orange})</i>`;
+	document.getElementById("redLabel").innerHTML = ` Show Red <i>(${red})</i>`;
 }
 
 function applyFilter() {
