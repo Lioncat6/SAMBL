@@ -43,7 +43,7 @@ async function fetchSpotifyArtists(artists) {
 	}
   
 	if (firstValidArtist) {
-	  updateArtistInfo(firstValidArtist, allArtistNames, allArtistUrls);
+	  updateArtistInfo(firstValidArtist, allArtistNames, allArtistUrls, totalFollowers);
 	} else {
 	  dispErr("No valid artist data found with images");
 	}
@@ -51,7 +51,7 @@ async function fetchSpotifyArtists(artists) {
 	processAlbums();
   }
   
-  function updateArtistInfo(artist, allNames, allUrls) {
+  function updateArtistInfo(artist, allNames, allUrls, totalFollowers) {
 	const spImgUrl = artist["images"][0]["url"];
 	const spArtistName = allNames.join(' / ');
 	const spGenres = artist["genres"];
