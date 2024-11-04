@@ -1,6 +1,9 @@
 # SAMBL
 Spotify Artist MusicBrainz Lookup
 
+## [Get The Userscript!](https://github.com/Lioncat6/MusicBrainz-UserScripts?tab=readme-ov-file#musicbrainz-artist-sambl-button)
+![image](https://github.com/user-attachments/assets/ea547dce-168a-4aaa-bdb6-eee3542735be)
+
 ### MetaBrainz Thread:
 https://community.metabrainz.org/t/sambl-spotify-artist-musicbrainz-lookup/716550
 
@@ -11,8 +14,7 @@ https://community.metabrainz.org/t/sambl-spotify-artist-musicbrainz-lookup/71655
 
 ![image](https://github.com/user-attachments/assets/932af203-8955-4f84-957f-0030398f5e18)
 
-### [Add a sambl button to artist pages!](https://github.com/Lioncat6/MusicBrainz-UserScripts?tab=readme-ov-file#musicbrainz-artist-sambl-button)
-![image](https://github.com/user-attachments/assets/ea547dce-168a-4aaa-bdb6-eee3542735be)
+
 
 
 ## Todo:
