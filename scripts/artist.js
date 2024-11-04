@@ -4,8 +4,12 @@ function dispErr(error) {
 	document.getElementById("err").innerHTML = error;
 }
 
+let multiple = false
+
 async function fetchSpotifyArtists(artists) {
+	multiple = true
 	const artistIds = artists.split(',');
+	console.log(artistIds)
 	let firstValidArtist = null;
 	let allArtistNames = [];
 	let allArtistUrls = [];
@@ -39,7 +43,7 @@ async function fetchSpotifyArtists(artists) {
 	} else {
 	  dispErr("No valid artist data found with images");
 	}
-  
+	await downloadMusicBrainzAlbums()
 	processAlbums();
   }
   
@@ -193,8 +197,9 @@ async function downloadSpotifyAlbums(artist) {
 			}
 		}
 	}
-
-	downloadMusicBrainzAlbums();
+	if (!multiple){
+		downloadMusicBrainzAlbums();
+	}
 }
 
 async function downloadMusicBrainzAlbums() {
@@ -274,7 +279,9 @@ async function downloadMusicBrainzAlbums2() {
 	}
 	document.getElementById("loadingContainer").innerHTML = "";
 	document.getElementById("loadingText").innerHTML = "";
-	processAlbums();
+	if (!multiple){
+		processAlbums();
+	}
 }
 
 function capFirst(string) {
