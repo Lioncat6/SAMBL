@@ -15,6 +15,7 @@ async function fetchSpotifyArtists(artists) {
 	let allArtistNames = [];
 	let allArtistUrls = [];
 	let totalFollowers = 0;
+	let currentArtist = null
 	for (const artistId of artistIds) {
 		const fsatoken = localStorage.getItem("spfAccessToken");
 		const response = await fetch(`${apiUrl}/v1/artists/${artistId.trim()}`, {
@@ -27,6 +28,7 @@ async function fetchSpotifyArtists(artists) {
 		totalFollowers = totalFollowers + data["followers"]["total"];
 
 		if (!data["error"]) {
+			currentArtist = data
 			if (!allArtistNames.includes(data["name"])) {
 				allArtistNames.push(data["name"]);
 			}
@@ -47,6 +49,7 @@ async function fetchSpotifyArtists(artists) {
 	if (mostPopularArtist) {
 		updateArtistInfo(mostPopularArtist, allArtistNames, allArtistUrls, totalFollowers);
 	} else {
+		updateArtistInfo(currentArtist, allArtistNames, allArtistUrls, totalFollowers);
 		dispErr("No valid artist data found with images");
 	}
 	await downloadMusicBrainzAlbums();
