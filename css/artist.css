@@ -41,6 +41,8 @@
 }
 
 .spURLContainer {
+	display: flex;
+    flex-direction: row;
 	padding: 7% 3% 0 2%;
 	margin-bottom: 0;
 }

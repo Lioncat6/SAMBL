@@ -66,7 +66,7 @@ async function fetchSpotifyArtists(artists) {
   
 	// Create Spotify icons for each artist URL
 	const spotifyIconsHtml = allUrls.map(url => 
-	  `<a href="${url}" target="_blank"><img src="../assets/images/Spotify_icon.svg" alt="Spotify" class="spotify-icon"></a>`
+	  `<a href="${url}" target="_blank"><img src="../assets/images/Spotify_icon.svg" alt="Spotify" class="spIcon"></a>`
 	).join('');
 	document.getElementById("spURL").innerHTML = spotifyIconsHtml;
   }
