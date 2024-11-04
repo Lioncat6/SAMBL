@@ -4,6 +4,66 @@ function dispErr(error) {
 	document.getElementById("err").innerHTML = error;
 }
 
+async function fetchSpotifyArtists(artists) {
+	const artistIds = artists.split(',');
+	let firstValidArtist = null;
+	let allArtistNames = [];
+	let allArtistUrls = [];
+  
+	for (const artistId of artistIds) {
+	  const fsatoken = localStorage.getItem("spfAccessToken");
+	  const response = await fetch(`${apiUrl}/v1/artists/${artistId.trim()}`, {
+		headers: {
+		  Authorization: "Bearer " + fsatoken,
+		},
+	  });
+	  const data = await response.json();
+  
+	  if (!data["error"]) {
+		allArtistNames.push(data["name"]);
+		allArtistUrls.push(data["external_urls"]["spotify"]);
+  
+		if (!firstValidArtist && data["images"].length > 0) {
+		  firstValidArtist = data;
+		}
+  
+		await downloadSpotifyAlbums(artistId.trim());
+		await new Promise(resolve => setTimeout(resolve, 1000)); // Delay to avoid rate limiting
+	  } else {
+		console.error(`Error fetching artist ${artistId}: ${data["error"]}`);
+	  }
+	}
+  
+	if (firstValidArtist) {
+	  updateArtistInfo(firstValidArtist, allArtistNames, allArtistUrls);
+	} else {
+	  dispErr("No valid artist data found with images");
+	}
+  
+	processAlbums();
+  }
+  
+  function updateArtistInfo(artist, allNames, allUrls) {
+	const spImgUrl = artist["images"][0]["url"];
+	const spArtistName = allNames.join(' / ');
+	const spGenres = artist["genres"];
+	const spGenresString = spGenres.join(", ");
+	const spFollowerCount = artist["followers"]["total"];
+	const spPopularity = artist["popularity"];
+  
+	document.getElementById("artistImageContainer").innerHTML = `<a href="${spImgUrl}" target="_blank"><img src="${spImgUrl}"></a>`;
+	document.getElementById("artistName").innerHTML = spArtistName;
+	document.title = "SAMBL • " + spArtistName;
+	document.getElementById("artistFollowerCount").innerHTML = `<h2>${spFollowerCount} Followers</h2>`;
+	document.getElementById("artistGenres").innerHTML = `<p>${spGenresString}</p>`;
+  
+	// Create Spotify icons for each artist URL
+	const spotifyIconsHtml = allUrls.map(url => 
+	  `<a href="${url}" target="_blank"><img src="../assets/images/Spotify_Icon_RGB_Green.png" alt="Spotify" class="spotify-icon"></a>`
+	).join('');
+	document.getElementById("spURL").innerHTML = spotifyIconsHtml;
+  }
+
 async function fetchSpotifyArtist(artist) {
 	var fsatoken = localStorage.getItem("spfAccessToken");
 	const response = await fetch(`${apiUrl}/v1/artists/` + artist, {
@@ -364,20 +424,31 @@ function addListItem() {}
 
 const params = new URLSearchParams(new URL(window.location.href).search);
 const spid = params.get("spid");
+const spids = params.get("spids")
 let mbid = params.get("mbid");
 if (!mbid) {
 	mbid = params.get("artist_mbid");
 }
 var spotifyAlbumList = [];
 var mbAlbumList = [];
-if (spid && mbid) {
+if (spid) {
+	if (mbid) {
+		document.getElementById("mbURL").setAttribute("href", "https://musicbrainz.org/artist/" + mbid);
+		document.getElementById("loadingContainer").innerHTML = '<div class="lds-facebook"><div></div><div></div><div></div></div>';
+		document.getElementById("loadingText").innerHTML = "Loading albums from spotify...";
+		fetchSpotifyArtist(spid);
+	} else {
+		dispErr("Incomplete Url! Missing Musicbrainz ID!");
+	}
+} else if (spids) {
 	document.getElementById("mbURL").setAttribute("href", "https://musicbrainz.org/artist/" + mbid);
 	document.getElementById("loadingContainer").innerHTML = '<div class="lds-facebook"><div></div><div></div><div></div></div>';
-	document.getElementById("loadingText").innerHTML = "Loading albums from spotify...";
-	fetchSpotifyArtist(spid);
+	document.getElementById("loadingText").innerHTML = "Loading multiple spotify artists...";
+	fetchSpotifyArtists(spids);
 } else {
-	dispErr("Incomplete Url!");
+	dispErr("Incomplete Url! Missing Spotify ID!");
 }
+
 
 let showGreen = true;
 let showOrange = true;
