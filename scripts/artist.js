@@ -59,7 +59,10 @@ async function fetchSpotifyArtists(artists) {
 }
 
 function updateArtistInfo(artist, allNames, allUrls, totalFollowers) {
-	const spImgUrl = artist["images"][0]["url"];
+	var spImgUrl = "";
+		if (artist["images"].length > 0) {
+			spImgUrl = artist["images"][0]["url"];
+		}
 	const spArtistName = allNames.join(" / ");
 	const spGenres = artist["genres"];
 	const spGenresString = spGenres.join(", ");
