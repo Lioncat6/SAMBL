@@ -68,7 +68,7 @@ async function fetchSpotifyArtists(artists) {
 	const spotifyIconsHtml = allUrls.map(url => 
 	  `<a href="${url}" target="_blank"><img src="../assets/images/Spotify_icon.svg" alt="Spotify" class="spIcon"></a>`
 	).join('');
-	document.getElementById("spURLContainer").innerHTML = spotifyIconsHtml;
+	document.getElementByClassName("spURLContainer")[0].innerHTML = spotifyIconsHtml;
   }
 
 async function fetchSpotifyArtist(artist) {
