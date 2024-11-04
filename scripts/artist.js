@@ -38,7 +38,7 @@ async function fetchSpotifyArtists(artists) {
 			}
 
 			await downloadSpotifyAlbums(artistId.trim());
-			await new Promise((resolve) => setTimeout(resolve, 1000)); // Delay to avoid rate limiting
+			await new Promise((resolve) => setTimeout(resolve, 500)); // Delay to avoid rate limiting
 		} else {
 			console.error(`Error fetching artist ${artistId}: ${data["error"]}`);
 		}
