@@ -32,7 +32,7 @@ async function fetchSpotifyArtists(artists) {
 			}
 			allArtistUrls.push(data["external_urls"]["spotify"]);
 
-			if (!mostPopularArtist && data["images"].length > 0 && data["followers"]["total"] > mostPAFCount) {
+			if (data["images"].length > 0 && data["followers"]["total"] > mostPAFCount) {
 				mostPAFCount = data["followers"]["total"];
 				mostPopularArtist = data;
 			}
