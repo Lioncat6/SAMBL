@@ -13,7 +13,7 @@ async function fetchSpotifyArtists(artists) {
 	let firstValidArtist = null;
 	let allArtistNames = [];
 	let allArtistUrls = [];
-  
+    let totalFollowers = 0;
 	for (const artistId of artistIds) {
 	  const fsatoken = localStorage.getItem("spfAccessToken");
 	  const response = await fetch(`${apiUrl}/v1/artists/${artistId.trim()}`, {
@@ -22,9 +22,11 @@ async function fetchSpotifyArtists(artists) {
 		},
 	  });
 	  const data = await response.json();
-  
+	  
+	  totalFollowers = totalFollowers + data["followers"]["total"];
+
 	  if (!data["error"]) {
-		if (!allArtistNames.find(data["name"])){
+		if (!allArtistNames.includes(data["name"])){
 			allArtistNames.push(data["name"]);
 		}
 		allArtistUrls.push(data["external_urls"]["spotify"]);
@@ -54,13 +56,12 @@ async function fetchSpotifyArtists(artists) {
 	const spArtistName = allNames.join(' / ');
 	const spGenres = artist["genres"];
 	const spGenresString = spGenres.join(", ");
-	const spFollowerCount = artist["followers"]["total"];
 	const spPopularity = artist["popularity"];
   
 	document.getElementById("artistImageContainer").innerHTML = `<a href="${spImgUrl}" target="_blank"><img src="${spImgUrl}"></a>`;
 	document.getElementById("artistName").innerHTML = spArtistName;
 	document.title = "SAMBL • " + spArtistName;
-	document.getElementById("artistFollowerCount").innerHTML = `<h2>${spFollowerCount} Followers</h2>`;
+	document.getElementById("artistFollowerCount").innerHTML = `<h2>${totalFollowers} Followers</h2>`;
 	document.getElementById("artistGenres").innerHTML = `<p>${spGenresString}</p>`;
   
 	// Create Spotify icons for each artist URL
