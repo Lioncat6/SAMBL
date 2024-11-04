@@ -54,8 +54,7 @@ async function fetchSpotifyArtists(artists) {
 		updateArtistInfo(mostPopularArtistWithOutImage, allArtistNames, allArtistUrls, totalFollowers);
 		//dispErr("No valid artist data found with images");
 	}
-	await downloadMusicBrainzAlbums();
-	processAlbums();
+	downloadMusicBrainzAlbums();
 }
 
 function updateArtistInfo(artist, allNames, allUrls, totalFollowers) {
@@ -290,9 +289,7 @@ async function downloadMusicBrainzAlbums2() {
 	}
 	document.getElementById("loadingContainer").innerHTML = "";
 	document.getElementById("loadingText").innerHTML = "";
-	if (!multiple) {
-		processAlbums();
-	}
+	processAlbums();
 }
 
 function capFirst(string) {
