@@ -24,7 +24,9 @@ async function fetchSpotifyArtists(artists) {
 	  const data = await response.json();
   
 	  if (!data["error"]) {
-		allArtistNames.push(data["name"]);
+		if (!allArtistNames.find(data["name"])){
+			allArtistNames.push(data["name"]);
+		}
 		allArtistUrls.push(data["external_urls"]["spotify"]);
   
 		if (!firstValidArtist && data["images"].length > 0) {
@@ -63,7 +65,7 @@ async function fetchSpotifyArtists(artists) {
   
 	// Create Spotify icons for each artist URL
 	const spotifyIconsHtml = allUrls.map(url => 
-	  `<a href="${url}" target="_blank"><img src="../assets/images/Spotify_Icon_RGB_Green.png" alt="Spotify" class="spotify-icon"></a>`
+	  `<a href="${url}" target="_blank"><img src="../assets/images/Spotify_icon.svg" alt="Spotify" class="spotify-icon"></a>`
 	).join('');
 	document.getElementById("spURL").innerHTML = spotifyIconsHtml;
   }
