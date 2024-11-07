@@ -43,8 +43,12 @@
 .spURLContainer {
 	display: flex;
     flex-direction: row;
-	padding: 1.2vh 3% 0 2%;
+	padding: 1.2vh 0 0 2%;
 	margin-bottom: 0;
+}
+
+.spURLContainer a {
+    padding: 0 3px 0 0;
 }
 
 .mbURLContainer {
