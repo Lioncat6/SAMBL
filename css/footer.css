@@ -31,10 +31,11 @@ a:hover {
 
 /* HTML: <div class="loader"></div> */
 .loader {
-    width: 16px;
+    display: inline-block;
+    width: 8px;
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 8px solid #514b82;
+    border: 3px solid black;
     animation:
       l20-1 0.8s infinite linear alternate,
       l20-2 1.6s infinite linear;
@@ -57,6 +58,7 @@ a:hover {
 
   .offline {
     color: red;
+    font-weight: bold;
 }
 .online {
     color: lightgray;
