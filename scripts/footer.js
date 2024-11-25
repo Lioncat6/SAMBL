@@ -4,7 +4,7 @@ function checkServerStatus() {
     fetch(`${apiUrl}/uptime`)
         .then(response => response.json())
         .then(data => {
-            statusElement.innerHTML = `Server Online - Uptime: ${data.human_readable}`;
+            statusElement.innerHTML = `Server Online: ${data.human_readable}`;
             statusElement.className = 'online';
         })
         .catch(() => {
