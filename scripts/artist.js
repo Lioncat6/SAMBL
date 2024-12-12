@@ -451,7 +451,7 @@ let showOrange = true;
 let showRed = true;
 
 let hideVarious = false;
-
+let missingUPC = false;
 const variousArtistsList = ["Various Artists", "Artistes Variés", "Verschiedene Künstler", "Varios Artistas", "ヴァリアス・アーティスト"];
 
 function searchList() {
@@ -464,11 +464,12 @@ function searchList() {
 		td = tr[i].getElementsByClassName("albumTitle")[0].getElementsByTagName("a")[0];
 		color = tr[i].getElementsByClassName("statusPill")[0].classList[1];
 		artistString = tr[i].getElementsByClassName("artists")[0].innerHTML;
+		let hasNoUpc = (tr[i].getElementsByClassName("upcIcon").length > 0);
 		if (td) {
 			txtValue = td.textContent || td.innerText;
 			if (txtValue.toUpperCase().indexOf(filter) > -1) {
 				const isVariousArtists = variousArtistsList.some((artist) => artistString.includes(artist));
-				if (((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red")) && !(hideVarious && isVariousArtists)) {
+				if (((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red")) && !(hideVarious && isVariousArtists) && !(missingUPC && !hasNoUpc)) {
 					tr[i].style.display = "";
 				} else {
 					tr[i].style.display = "none";
@@ -486,6 +487,7 @@ function filter() {
 	document.getElementById("showOrange").checked = showOrange;
 	document.getElementById("showRed").checked = showRed;
 	document.getElementById("hideVarious").checked = hideVarious;
+	document.getElementById("missingUPC").checked = missingUPC;
 	document.getElementById("greenLabel").innerHTML = ` Show Green <i>(${green})</i>`;
 	document.getElementById("orangeLabel").innerHTML = ` Show Orange <i>(${orange})</i>`;
 	document.getElementById("redLabel").innerHTML = ` Show Red <i>(${red})</i>`;
@@ -497,6 +499,7 @@ function applyFilter() {
 	showOrange = document.getElementById("showOrange").checked;
 	showRed = document.getElementById("showRed").checked;
 	hideVarious = document.getElementById("hideVarious").checked;
+	missingUPC = document.getElementById("missingUPC").checked;
 	searchList();
 }
 
