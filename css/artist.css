@@ -333,6 +333,8 @@
 
 #filterListHeader {
 	cursor: move;
+	margin: 0;
+  	padding: 19px;
 }
 
 /* Checkbox styling */
