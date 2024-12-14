@@ -98,7 +98,7 @@ async function processArtists() {
 		}
 	
 		var htmlToAppend =
-			'<div class="album listItem" style="background-image: url(' + spotifyImageURL + ');">' + spotifyImgHtml +
+			'<div class="album listItem" style="--background-image: url(' + spotifyImageURL + ');">' + spotifyImgHtml +
 			'<div class="textContainer">' +
 			'<div class="artistName"><a href="' + spotifyUrl + '" target="_blank">' + spotifyName + '</a></div>' +
 			'<div class="artistInfo">' + spotifyFollowers + ' Followers</div>' +
@@ -109,8 +109,7 @@ async function processArtists() {
 		htmlObject.innerHTML = htmlToAppend;
 		document.getElementById("artistList").append(htmlObject);
 		await new Promise((r) => setTimeout(r, 500));
-	}
-	
+	}	
 }
 
 function displayList() {
