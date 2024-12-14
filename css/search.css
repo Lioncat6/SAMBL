@@ -155,3 +155,36 @@
     vertical-align: middle;
 	margin-left: 4px;
 }
+
+.listItem {
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center; /* Center the image */
+}
+
+.listItem::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat;
+    opacity: 0.15; /* Adjust opacity as needed */
+    filter: blur(3px); /* Apply blur effect */
+    z-index: 1;
+	transition: opacity .2s linear;
+}
+
+.listItem:hover::before {
+    opacity: .4;
+    
+}
+
+.listItem > * {
+    position: relative;
+    z-index: 2;
+}
