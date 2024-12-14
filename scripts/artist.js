@@ -451,7 +451,7 @@ let showOrange = true;
 let showRed = true;
 
 let hideVarious = false;
-
+let missingUPC = false;
 const variousArtistsList = ["Various Artists", "Artistes Variés", "Verschiedene Künstler", "Varios Artistas", "ヴァリアス・アーティスト"];
 
 function searchList() {
@@ -464,11 +464,12 @@ function searchList() {
 		td = tr[i].getElementsByClassName("albumTitle")[0].getElementsByTagName("a")[0];
 		color = tr[i].getElementsByClassName("statusPill")[0].classList[1];
 		artistString = tr[i].getElementsByClassName("artists")[0].innerHTML;
+		let hasNoUpc = (tr[i].getElementsByClassName("upcIcon").length > 0);
 		if (td) {
 			txtValue = td.textContent || td.innerText;
 			if (txtValue.toUpperCase().indexOf(filter) > -1) {
 				const isVariousArtists = variousArtistsList.some((artist) => artistString.includes(artist));
-				if (((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red")) && !(hideVarious && isVariousArtists)) {
+				if (((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red")) && !(hideVarious && isVariousArtists) && !(missingUPC && !hasNoUpc)) {
 					tr[i].style.display = "";
 				} else {
 					tr[i].style.display = "none";
@@ -486,6 +487,7 @@ function filter() {
 	document.getElementById("showOrange").checked = showOrange;
 	document.getElementById("showRed").checked = showRed;
 	document.getElementById("hideVarious").checked = hideVarious;
+	document.getElementById("missingUPC").checked = missingUPC;
 	document.getElementById("greenLabel").innerHTML = ` Show Green <i>(${green})</i>`;
 	document.getElementById("orangeLabel").innerHTML = ` Show Orange <i>(${orange})</i>`;
 	document.getElementById("redLabel").innerHTML = ` Show Red <i>(${red})</i>`;
@@ -497,6 +499,7 @@ function applyFilter() {
 	showOrange = document.getElementById("showOrange").checked;
 	showRed = document.getElementById("showRed").checked;
 	hideVarious = document.getElementById("hideVarious").checked;
+	missingUPC = document.getElementById("missingUPC").checked;
 	searchList();
 }
 
@@ -504,4 +507,46 @@ function closeFilter() {
 	document.getElementById("filterList").style.display = "none";
 }
 
+function dragElement(elmnt) { //from w3 schools
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "Header")) {
+    /* if present, the header is where you move the DIV from:*/
+    document.getElementById(elmnt.id + "Header").onmousedown = dragMouseDown;
+  } else {
+    /* otherwise, move the DIV from anywhere inside the DIV:*/
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+
 searchList();
+dragElement(document.getElementById("filterList"));

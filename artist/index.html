@@ -56,7 +56,7 @@
           <div id="albumList"></div>
           <div id="statusText"></div>
           <div id="filterList">
-            <h3>Filter List</h3>
+            <h3 id="filterListHeader">Filter List</h3>
             <form id="filterBoxes">
               <div class="checkbox-wrapper">
                 <input
@@ -89,10 +89,19 @@
                 <input
                   type="checkbox"
                   id="hideVarious"
-                  name="showRed"
+                  name="hideVarious"
                   class="substituted"
                 />
-                <label for="hideVarious" id="variousLabel"> Ignore Various Artists</label><br /><br />
+                <label for="hideVarious" id="variousLabel"> Ignore Various Artists</label><br />
+              </div>
+              <div class="checkbox-wrapper">
+                <input
+                  type="checkbox"
+                  id="missingUPC"
+                  name="missingUPC"
+                  class="substituted"
+                />
+                <label for="missingUPC" id="missingLabel"> Only Missing UPCs</label><br /><br />
               </div>
               <button id="applyfilter" type="button" onclick="applyFilter()">Apply</button>
             </form>

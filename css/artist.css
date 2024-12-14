@@ -331,6 +331,12 @@
 	min-width: 250px;
 }
 
+#filterListHeader {
+	cursor: move;
+	margin: 0;
+  	padding: 19px;
+}
+
 /* Checkbox styling */
 .checkbox-wrapper *,
 .checkbox-wrapper ::after,
