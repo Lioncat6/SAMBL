@@ -1,27 +1,26 @@
-const statusElement = document.getElementById('serverStatus');
+const statusElement = document.getElementById("serverStatus");
 let apiUrl = "https://s-api.lioncat6.com:20683";
 function checkServerStatus() {
-    fetch(`${apiUrl}/uptime`)
-        .then(response => response.json())
-        .then(data => {
-            if (response.ok){
-                statusElement.innerHTML = `Server Online: ${data.human_readable}`;
-                statusElement.className = 'online';
-            } else {
-                throw new Error(response.status);
-            }
-            
-        })
-        .catch(() => {
-            if (response.status == 503) {
-                console
-                statusElement.innerHTML = `⚠️ Server failed to connect to Spotify`;
-                statusElement.className = 'offline';
-            } else {
-                statusElement.innerHTML = '⚠️ Server Unreachable';
-                statusElement.className = 'offline';
-            }
-        });
+	fetch(`${apiUrl}/uptime`)
+		.then((response) => response.json())
+		.then((data) => {
+			if (response.ok) {
+				statusElement.innerHTML = `Server Online: ${data.human_readable}`;
+				statusElement.className = "online";
+			} else {
+				throw new Error(response.status);
+			}
+		})
+		.catch((error) => {
+			if (error == 503) {
+				console;
+				statusElement.innerHTML = `⚠️ Server failed to connect to Spotify`;
+				statusElement.className = "offline";
+			} else {
+				statusElement.innerHTML = "⚠️ Server Unreachable";
+				statusElement.className = "offline";
+			}
+		});
 }
 
 // Check status immediately and then every 30 seconds
