@@ -4,21 +4,23 @@ function checkServerStatus() {
     fetch(`${apiUrl}/uptime`)
         .then(response => response.json())
         .then(data => {
-            if (response.status == 200){
+            if (response.ok){
                 statusElement.innerHTML = `Server Online: ${data.human_readable}`;
                 statusElement.className = 'online';
-            } else if (response.status == 503) {
-                statusElement.innerHTML = `⚠️ Server failed to connect to Spotify`;
-                statusElement.className = 'offline';
             } else {
-                statusElement.innerHTML = `⚠️ Unknown Server Error`;
-                statusElement.className = 'offline';
+                throw new Error(response.status);
             }
             
         })
         .catch(() => {
-            statusElement.innerHTML = '⚠️ Server Unreachable';
-            statusElement.className = 'offline';
+            if (response.status == 503) {
+                console
+                statusElement.innerHTML = `⚠️ Server failed to connect to Spotify`;
+                statusElement.className = 'offline';
+            } else {
+                statusElement.innerHTML = '⚠️ Server Unreachable';
+                statusElement.className = 'offline';
+            }
         });
 }
 
