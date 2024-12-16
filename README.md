@@ -2,7 +2,7 @@
 Spotify Artist MusicBrainz Lookup
 
 <details>
-<summary><h2>Add-Ons</h2></summary>
+<summary><h2>Userscripts</h2></summary>
 <h3><a href="https://github.com/Lioncat6/MusicBrainz-UserScripts?tab=readme-ov-file#musicbrainz-artist-sambl-button" target="_blank">Artist Page SAMBL Button</a> [Official]</h3>
 <img src="https://github.com/user-attachments/assets/ea547dce-168a-4aaa-bdb6-eee3542735be">
 <h3><a href="https://github.com/mistwyrm/MusicBrainzScripts/tree/main?tab=readme-ov-file#artist-image-helper" target="_blank">Artist Image Helper</a> [<a href="https://github.com/mistwyrm" target="_blank">mistwyrm</a>]</h3>
