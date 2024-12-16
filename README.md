@@ -1,8 +1,21 @@
 # SAMBL
 Spotify Artist MusicBrainz Lookup
 
-## [Get The Userscript!](https://github.com/Lioncat6/MusicBrainz-UserScripts?tab=readme-ov-file#musicbrainz-artist-sambl-button)
-![image](https://github.com/user-attachments/assets/ea547dce-168a-4aaa-bdb6-eee3542735be)
+<details>
+<summary><h2>Userscripts</h2></summary>
+<h3><a href="https://github.com/Lioncat6/MusicBrainz-UserScripts?tab=readme-ov-file#musicbrainz-artist-sambl-button" target="_blank">Artist Page SAMBL Button</a> [Official]</h3>
+<img src="https://github.com/user-attachments/assets/ea547dce-168a-4aaa-bdb6-eee3542735be">
+<h3><a href="https://github.com/mistwyrm/MusicBrainzScripts/tree/main?tab=readme-ov-file#artist-image-helper" target="_blank">Artist Image Helper</a> [<a href="https://github.com/mistwyrm" target="_blank">mistwyrm</a>]</h3>
+<img src="https://github.com/user-attachments/assets/84e6976c-7e21-4e5b-9d5a-4c7a7a82e217">
+ 
+Description from source:
+ 
+ > Prefills an archive.org picture url on MusicBrainz when the artist image on SAMBL is clicked.
+ > This should be used with the Wayback Machine browser plugin set to automatically archive web pages you visit. If you do not use the plugin, make sure you click the image link on MusicBrainz to make sure a snapshot of it exists.
+ > I recommend pairing this script with zabe40's MusicBrainz Entity Images script that displays images linked to entities on their MusicBrainz pages.
+</details>
+
+
 
 ### MetaBrainz Thread:
 https://community.metabrainz.org/t/sambl-spotify-artist-musicbrainz-lookup/716550
