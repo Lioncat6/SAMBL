@@ -25,6 +25,8 @@ https://community.metabrainz.org/t/sambl-spotify-artist-musicbrainz-lookup/71655
 
 ![image](https://github.com/Lioncat6/SAMBL/assets/95449321/832aad23-41fa-42bb-ad12-eac6c0db7fb7)
 
+![fancy artists page](https://github.com/user-attachments/assets/1d266147-9349-4571-bb4b-4e094ea7306d)
+
 ![image](https://github.com/user-attachments/assets/932af203-8955-4f84-957f-0030398f5e18)
 
 
