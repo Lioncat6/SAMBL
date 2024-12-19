@@ -63,3 +63,12 @@ a:hover {
 .online {
     color: lightgray;
 }
+
+#serverStatus {
+    display: inline-block;
+}
+
+#commitId {
+    display: inline-block;
+    color: lightgray;
+}
