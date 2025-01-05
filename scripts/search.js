@@ -62,74 +62,72 @@ async function fetchMBArtist(id) {
 }
 
 async function processArtists() {
-	var elements = [];
-	var total = 0;
-	displayList();
-	for (x in spotifyArtistList) {
-		var currentArtist = spotifyArtistList[x];
-		var spotifyUrl = currentArtist["external_urls"]["spotify"];
-		var spotifyId = currentArtist["id"];
-		var spotifyName = currentArtist["name"];
-		var spotifyImageURL = "";
-		if (currentArtist["images"][0]){
-			spotifyImageURL = currentArtist["images"][0]["url"];
-		}
-		var spotifyFollowers = currentArtist["followers"]["total"];
-		const spGenres = currentArtist["genres"];
-		var spGenresString = "";
-		for (x in spGenres) {
-			if (x > 0) {
-				spGenresString += ", ";
-			}
-			spGenresString += spGenres[x];
-		}
-		total++;
-	
-		var viewButtonHtml = "";
-		// let mbUrlData = await fetchMBArtist(spotifyId);
-		// if (mbUrlData[0] == true){
-		// 	viewButtonHtml = '<a class="viewButton" href="' + mbUrlData[1] + '"><div>View Artist</div></a>';
-		// } else {
-		// 	viewButtonHtml = '<a class="viewButton" href="' + mbUrlData[1] + '"><div>Add <img class="artistMB" src="../assets/images/MusicBrainz_logo_icon.svg"></div></a>';
-		// }
-		
-		viewButtonHtml = '<a class="viewButton"><div>Loading <div class="loader"></div></div></a>';
+    var elements = [];
+    var total = 0;
+    displayList();
+    for (x in spotifyArtistList) {
+        var currentArtist = spotifyArtistList[x];
+        var spotifyUrl = currentArtist["external_urls"]["spotify"];
+        var spotifyId = currentArtist["id"];
+        var spotifyName = currentArtist["name"];
+        var spotifyImageURL = "";
+        if (currentArtist["images"][0]){
+            spotifyImageURL = currentArtist["images"][0]["url"];
+        }
+        var spotifyFollowers = currentArtist["followers"]["total"];
+        const spGenres = currentArtist["genres"];
+        var spGenresString = "";
+        for (x in spGenres) {
+            if (x > 0) {
+                spGenresString += ", ";
+            }
+            spGenresString += spGenres[x];
+        }
+        total++;
+    
+        var viewButtonHtml = "";
+        // let mbUrlData = await fetchMBArtist(spotifyId);
+        // if (mbUrlData[0] == true){
+        //  viewButtonHtml = '<a class="viewButton" href="' + mbUrlData[1] + '"><div>View Artist</div></a>';
+        // } else {
+        //  viewButtonHtml = '<a class="viewButton" href="' + mbUrlData[1] + '"><div>Add <img class="artistMB" src="../assets/images/MusicBrainz_logo_icon.svg"></div></a>';
+        // }
+        
+        viewButtonHtml = '<a class="viewButton"><div>Loading <div class="loader"></div></div></a>';
 
-		var spotifyImgHtml = "";
-		if (!(!spotifyImageURL || spotifyImageURL == "")){
-			spotifyImgHtml = '<div class="artistIcon"><a href="' + spotifyImageURL + '" target="_blank"><img src="' + spotifyImageURL + '" /></a></div>';
-		}
-	
-		var htmlToAppend =
-			'<div class="album listItem" style="--background-image: url(' + spotifyImageURL + ');">' + spotifyImgHtml +
-			'<div class="textContainer">' +
-			'<div class="artistName"><a href="' + spotifyUrl + '" target="_blank">' + spotifyName + '</a></div>' +
-			'<div class="artistInfo">' + spotifyFollowers + ' Followers</div>' +
-			'<div class="artistGenres">' + spGenresString + '</div>' +
-			'</div>' + viewButtonHtml + '</div>';
-	
-		var htmlObject = document.createElement("div");
-		elements.push([htmlObject.getElementsByClassName('viewButton')[0], spotifyId])
-		htmlObject.innerHTML = htmlToAppend;
-		document.getElementById("artistList").append(htmlObject);
-		
-	}	
-	checkArtistStatus(elements);
+        var spotifyImgHtml = "";
+        if (!(!spotifyImageURL || spotifyImageURL == "")){
+            spotifyImgHtml = '<div class="artistIcon"><a href="' + spotifyImageURL + '" target="_blank"><img src="' + spotifyImageURL + '" /></a></div>';
+        }
+    
+        var htmlToAppend =
+            '<div class="album listItem" style="--background-image: url(' + spotifyImageURL + ');">' + spotifyImgHtml +
+            '<div class="textContainer">' +
+            '<div class="artistName"><a href="' + spotifyUrl + '" target="_blank">' + spotifyName + '</a></div>' +
+            '<div class="artistInfo">' + spotifyFollowers + ' Followers</div>' +
+            '<div class="artistGenres">' + spGenresString + '</div>' +
+            '</div>' + viewButtonHtml + '</div>';
+    
+        var htmlObject = document.createElement("div");
+        htmlObject.innerHTML = htmlToAppend;
+        document.getElementById("artistList").append(htmlObject);
+        elements.push([htmlObject.getElementsByClassName('viewButton')[0], spotifyId]);
+    }    
+    checkArtistStatus(elements);
 }
 
 async function checkArtistStatus(elements) {
-	for (let element of elements) {
-		let viewButton = element[0];
-		let spotifyId = element[1];
-		let mbUrlData = await fetchMBArtist(spotifyId);
-		if (mbUrlData[0] == true) {
-			viewButton.innerHTML = '<a class="viewButton" href="' + mbUrlData[1] + '"><div>View Artist</div></a>';
-		} else {
-			viewButton.innerHTML = '<a class="viewButton" href="' + mbUrlData[1] + '"><div>Add <img class="artistMB" src="../assets/images/MusicBrainz_logo_icon.svg"></div></a>';
-		}
-		await new Promise((r) => setTimeout(r, 500));
-	}
-	
+    for (let element of elements) {
+        let viewButton = element[0];
+        let spotifyId = element[1];
+        let mbUrlData = await fetchMBArtist(spotifyId);
+        if (mbUrlData[0] == true) {
+            viewButton.innerHTML = '<a class="viewButton" href="' + mbUrlData[1] + '"><div>View Artist</div></a>';
+        } else {
+            viewButton.innerHTML = '<a class="viewButton" href="' + mbUrlData[1] + '"><div>Add <img class="artistMB" src="../assets/images/MusicBrainz_logo_icon.svg"></div></a>';
+        }
+        await new Promise((r) => setTimeout(r, 500));
+    }
 }
 
 function displayList() {
