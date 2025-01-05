@@ -17,7 +17,8 @@ function checkServerStatus() {
                 statusElement.className = 'offline';
             }
         })
-        .catch(() => {
+        .catch(error => {
+            console.error(error);
             statusElement.innerHTML = '⚠️ Server Unreachable';
             statusElement.className = 'offline';
         });
