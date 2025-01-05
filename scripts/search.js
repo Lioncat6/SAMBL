@@ -121,10 +121,11 @@ async function checkArtistStatus(elements) {
         let viewButton = element[0];
         let spotifyId = element[1];
         let mbUrlData = await fetchMBArtist(spotifyId);
+		viewButton.href=mbUrlData[1];
         if (mbUrlData[0] == true) {
-            viewButton.innerHTML = '<a class="viewButton" href="' + mbUrlData[1] + '"><div>View Artist</div></a>';
+            viewButton.innerHTML = '<div>View Artist</div>';
         } else {
-            viewButton.innerHTML = '<a class="viewButton" href="' + mbUrlData[1] + '"><div>Add <img class="artistMB" src="../assets/images/MusicBrainz_logo_icon.svg"></div></a>';
+            viewButton.innerHTML = '<div>Add <img class="artistMB" src="../assets/images/MusicBrainz_logo_icon.svg"></div>';
         }
         await new Promise((r) => setTimeout(r, 500));
     }
