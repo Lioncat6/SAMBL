@@ -62,6 +62,7 @@ async function fetchMBArtist(id) {
 }
 
 async function processArtists() {
+	var elements = [];
 	var total = 0;
 	displayList();
 	for (x in spotifyArtistList) {
@@ -85,13 +86,15 @@ async function processArtists() {
 		total++;
 	
 		var viewButtonHtml = "";
-		let mbUrlData = await fetchMBArtist(spotifyId);
-		if (mbUrlData[0] == true){
-			viewButtonHtml = '<a class="viewButton" href="' + mbUrlData[1] + '"><div>View Artist</div></a>';
-		} else {
-			viewButtonHtml = '<a class="viewButton" href="' + mbUrlData[1] + '"><div>Add <img class="artistMB" src="../assets/images/MusicBrainz_logo_icon.svg"></div></a>';
-		}
-	
+		// let mbUrlData = await fetchMBArtist(spotifyId);
+		// if (mbUrlData[0] == true){
+		// 	viewButtonHtml = '<a class="viewButton" href="' + mbUrlData[1] + '"><div>View Artist</div></a>';
+		// } else {
+		// 	viewButtonHtml = '<a class="viewButton" href="' + mbUrlData[1] + '"><div>Add <img class="artistMB" src="../assets/images/MusicBrainz_logo_icon.svg"></div></a>';
+		// }
+		
+		viewButtonHtml = '<a class="viewButton"><div>Loading <div class="loader"></div></div></a>';
+
 		var spotifyImgHtml = "";
 		if (!(!spotifyImageURL || spotifyImageURL == "")){
 			spotifyImgHtml = '<div class="artistIcon"><a href="' + spotifyImageURL + '" target="_blank"><img src="' + spotifyImageURL + '" /></a></div>';
@@ -106,10 +109,27 @@ async function processArtists() {
 			'</div>' + viewButtonHtml + '</div>';
 	
 		var htmlObject = document.createElement("div");
+		elements.push([htmlObject.getElementsByClassName('viewButton')[0], spotifyId])
 		htmlObject.innerHTML = htmlToAppend;
 		document.getElementById("artistList").append(htmlObject);
-		await new Promise((r) => setTimeout(r, 500));
+		
 	}	
+	checkArtistStatus(elements);
+}
+
+async function checkArtistStatus(elements) {
+	for (let element of elements) {
+		let viewButton = element[0];
+		let spotifyId = element[1];
+		let mbUrlData = await fetchMBArtist(spotifyId);
+		if (mbUrlData[0] == true) {
+			viewButton.innerHTML = '<a class="viewButton" href="' + mbUrlData[1] + '"><div>View Artist</div></a>';
+		} else {
+			viewButton.innerHTML = '<a class="viewButton" href="' + mbUrlData[1] + '"><div>Add <img class="artistMB" src="../assets/images/MusicBrainz_logo_icon.svg"></div></a>';
+		}
+		await new Promise((r) => setTimeout(r, 500));
+	}
+	
 }
 
 function displayList() {
