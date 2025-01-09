@@ -20,6 +20,7 @@ async function fetchSpotifyArtist(artist) {
         }
         const spArtistName = data["name"]
         const spArtistUrl = data["external_urls"]["spotify"]
+        const spArtistId = data["id"]
         const spGenres = data["genres"]
         var spGenresString = ""
         for (x in spGenres) {
@@ -40,7 +41,7 @@ async function fetchSpotifyArtist(artist) {
         document.title="SAMBL • "+spArtistName
         document.getElementById("artistFollowerCount").innerHTML = `<h2>${spFollowerCount} Followers</h2>`
         document.getElementById("artistGenres").innerHTML = `<p>${spGenresString}</p>`
-        document.getElementById("contentContainer").innerHTML=`<a class=\"addToMBButton\" href=\"https://musicbrainz.org/artist/create?edit-artist.name=${spArtistName}&edit-artist.sort_name=${spArtistName}&edit-artist.url.0.text=${spArtistUrl}&edit-artist.url.0.link_type_id=194&edit-artist.edit_note=Artist sourced from Spotify using SAMBL ${spArtistUrl}\" target=\"_blank\"><div>Add to MusicBranz</div></a>`
+        document.getElementById("contentContainer").innerHTML=`<a class=\"addToMBButton\" href=\"https://musicbrainz.org/artist/create?edit-artist.name=${spArtistName}&edit-artist.sort_name=${spArtistName}&edit-artist.url.0.text=${spArtistUrl}&edit-artist.url.0.link_type_id=194&edit-artist.edit_note=Artist sourced from Spotify using SAMBL ${spArtistUrl}\" target=\"_blank\"><div>Add to MusicBranz</div></a><a class=\"addToMBButton\" href=\"https://lioncat6.github.io/SAMBL/artist/?${spArtistId}&newArtist=true\" target=\"_blank\"><div>View Artist Anyway</div></a>`
         fetchMBArtist(artist)
     } else {
         if (data["error"]["status"] == 404) {
