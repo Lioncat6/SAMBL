@@ -51,16 +51,7 @@ async function fetchSpotifyArtist(artist) {
 		} else if (data["error"]["status"] == 400) {
 			dispErr("Invalid artist id!");
 		} else {
-			fsatoken = localStorage.getItem("spfAccessToken");
-			console.log(fsatoken);
-			if (!fsatoken) {
-				fsatoken = "";
-			}
-			if (fsatoken & (fsatoken.length > 10)) {
-				linkSpotify();
-				dispErr("Spotify Timeout | Please reload");
-				location.reload();
-			}
+			dispErr("Spotify Timeout | Please reload");
 		}
 	}
 }
