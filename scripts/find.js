@@ -1,4 +1,4 @@
-let apiUrl = "https://s-api.lioncat6.com:20683"
+let apiUrl = "https://s-api.lioncat6.com"
 function lookup() {
     document.getElementById("err").innerHTML=" "
     document.getElementById("searchEnter").innerHTML="<div class=\"lds-ellipsis\"><div></div><div></div><div></div><div></div></div>"

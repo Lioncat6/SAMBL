@@ -1,5 +1,5 @@
 const statusElement = document.getElementById('serverStatus');
-let apiUrl = "https://s-api.lioncat6.com:20683";
+let apiUrl = "https://s-api.lioncat6.com";
 
 function checkServerStatus() {
     fetch(`${apiUrl}/uptime`)
