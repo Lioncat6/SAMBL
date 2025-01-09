@@ -437,6 +437,10 @@ if (spid) {
 		fetchSpotifyArtist(spid);
 	} else if (newArtist) {
 		dispErr("Displaying artist page without MBID");
+		document.getElementById("mbURL").setAttribute("href", "https://musicbrainz.org/artist/" + mbid);
+		document.getElementById("loadingContainer").innerHTML = '<div class="lds-facebook"><div></div><div></div><div></div></div>';
+		document.getElementById("loadingText").innerHTML = "Loading albums from spotify...";
+		fetchSpotifyArtist(spid);
 	} else {
 		dispErr("Incomplete Url! Missing Musicbrainz ID!");
 	}
