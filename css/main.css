@@ -221,3 +221,6 @@ embed, iframe {
   }
 }
 
+iframe {
+  width: fit-content !important;
+}
