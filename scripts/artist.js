@@ -422,6 +422,7 @@ function addListItem() {}
 const params = new URLSearchParams(new URL(window.location.href).search);
 const spid = params.get("spid");
 const spids = params.get("spids");
+const newArtist = params.get("newArtist")
 let mbid = params.get("mbid");
 if (!mbid) {
 	mbid = params.get("artist_mbid");
@@ -434,6 +435,8 @@ if (spid) {
 		document.getElementById("loadingContainer").innerHTML = '<div class="lds-facebook"><div></div><div></div><div></div></div>';
 		document.getElementById("loadingText").innerHTML = "Loading albums from spotify...";
 		fetchSpotifyArtist(spid);
+	} else if (newArtist) {
+		dispErr("Displaying artist page without MBID");
 	} else {
 		dispErr("Incomplete Url! Missing Musicbrainz ID!");
 	}
