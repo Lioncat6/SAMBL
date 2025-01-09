@@ -221,7 +221,8 @@ embed, iframe {
   }
 }
 
-iframe {
+/* ko-fi widget button */
+.floatingchat-container {
   width: fit-content !important;
   background: transparent !important;
 }
