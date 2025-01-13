@@ -458,3 +458,10 @@ label i {
     transform: translateY(3px);
     cursor: help;
 }
+
+
+@media (max-height: 725px) {
+    #filterList {
+		top: 30% !important;
+	}
+}
