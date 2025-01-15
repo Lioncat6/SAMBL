@@ -131,3 +131,9 @@ header {
   background-color: #28292c;
   box-shadow: none;
 }
+
+@media (max-width: 500px) {
+  .samblWrapper {
+    margin-right: 30px;
+  }
+}

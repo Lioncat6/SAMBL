@@ -226,3 +226,11 @@ embed, iframe {
   width: fit-content !important;
   background: transparent !important;
 }
+
+
+@media (max-width: 500px) {
+  #main {
+    min-width: 400px;
+    width: -webkit-fill-available;
+  }
+}

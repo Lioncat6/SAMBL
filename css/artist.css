@@ -171,6 +171,9 @@
 	text-align: left;
 	font-size: small;
 	font-weight: normal;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .albumInfo {
