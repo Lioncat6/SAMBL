@@ -222,7 +222,7 @@ embed, iframe {
 }
 
 /* ko-fi widget button */
-.floatingchat-container {
+.floatingchat-container, .floatingchat-container-mobi {
   width: fit-content !important;
   background: transparent !important;
 }
@@ -232,5 +232,11 @@ embed, iframe {
   #main {
     min-width: 400px;
     width: -webkit-fill-available;
+  }
+}
+
+@media (max-width: 950px) {
+  .floatingchat-container-wrap-mobi {
+   bottom: 60px !important;
   }
 }
