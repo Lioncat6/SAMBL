@@ -49,15 +49,15 @@ async function fetchSpotifyArtists(artists) {
 	}
 
 	if (mostPopularArtist) {
-		updateArtistInfo(mostPopularArtist, allArtistNames, allArtistUrls, totalFollowers);
+		updateArtistInfo(mostPopularArtist, allArtistNames, allArtistUrls, totalFollowers, true);
 	} else {
-		updateArtistInfo(mostPopularArtistWithOutImage, allArtistNames, allArtistUrls, totalFollowers);
+		updateArtistInfo(mostPopularArtistWithOutImage, allArtistNames, allArtistUrls, totalFollowers, false);
 		//dispErr("No valid artist data found with images");
 	}
 	downloadMusicBrainzAlbums();
 }
 
-function updateArtistInfo(artist, allNames, allUrls, totalFollowers) {
+function updateArtistInfo(artist, allNames, allUrls, totalFollowers, mostPopular) {
 	var spImgUrl = "";
 		if (artist["images"].length > 0) {
 			spImgUrl = artist["images"][0]["url"];
@@ -66,6 +66,13 @@ function updateArtistInfo(artist, allNames, allUrls, totalFollowers) {
 	const spGenres = artist["genres"];
 	const spGenresString = spGenres.join(", ");
 	const spPopularity = artist["popularity"];
+	
+	if (mostPopular){
+		const popularityBar = document.getElementById('artistPopularityFill');
+		const popularityLabel = document.getElementById('artistPopularity');
+		popularityBar.style.width = spPopularity + '%';
+	}
+	
 
 	document.getElementById("artistImageContainer").innerHTML = `<a href="${spImgUrl}" target="_blank"><img src="${spImgUrl}"></a>`;
 	document.getElementById("artistName").innerHTML = spArtistName;

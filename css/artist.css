@@ -42,13 +42,13 @@
 
 .spURLContainer {
 	display: flex;
-    flex-direction: row;
+	flex-direction: row;
 	padding: 1.2vh 0 0 2%;
 	margin-bottom: 0;
 }
 
 .spURLContainer a {
-    padding: 0 3px 0 0;
+	padding: 0 3px 0 0;
 }
 
 .mbURLContainer {
@@ -178,13 +178,13 @@
 
 .albumInfo {
 	color: lightgray;
-    text-align: left;
-    font-size: small;
-    font-weight: normal;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    overflow: hidden;
+	text-align: left;
+	font-size: small;
+	font-weight: normal;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	overflow: hidden;
 }
 
 .albumInfo div:first-child {
@@ -337,7 +337,7 @@
 #filterListHeader {
 	cursor: move;
 	margin: 0;
-  	padding: 19px;
+	padding: 19px;
 }
 
 /* Checkbox styling */
@@ -451,20 +451,53 @@ label i {
 
 .upcIcon {
 	margin-left: 5px;
-    width: 27px;
-    cursor: help;
+	width: 27px;
+	cursor: help;
 }
 
 .isrcIcon {
 	margin-left: 5px;
-    width: 36px;
-    transform: translateY(3px);
-    cursor: help;
+	width: 36px;
+	transform: translateY(3px);
+	cursor: help;
 }
 
-
 @media (max-height: 725px) {
-    #filterList {
+	#filterList {
 		top: 30% !important;
 	}
+}
+
+#artistPopularityBar {
+	width: 50%;
+	margin: auto;
+	display: flex;
+	align-items: start;
+	border: 1px solid darkgray;
+	border-radius: 10px;
+}
+
+#artistPopularityFill {
+	height: 8px;
+	width: 0;
+	border-radius: 5px;
+	background: gold;
+	border-right: aliceblue;
+}
+
+#artistPopularity {
+	font-size: smaller;
+	color: lightgrey;
+}
+
+.moveIcon {
+    color: lightgray;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    display: none;
+}
+
+#filterList:hover .moveIcon  {
+    display:block;
 }
