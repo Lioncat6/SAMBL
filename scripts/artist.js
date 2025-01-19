@@ -69,8 +69,9 @@ function updateArtistInfo(artist, allNames, allUrls, totalFollowers, mostPopular
 	
 	if (mostPopular){
 		const popularityBar = document.getElementById('artistPopularityFill');
-		const popularityLabel = document.getElementById('artistPopularity');
+		const popularityContainer = document.getElementById('artistPopularityContainer');
 		popularityBar.style.width = spPopularity + '%';
+		popularityContainer.title = "Popularity: " + spPopularity + '%';
 	}
 	
 
@@ -113,8 +114,9 @@ async function fetchSpotifyArtist(artist) {
 		const spFollowerCount = data["followers"]["total"];
 		const spPopularity = data["popularity"];
 		const popularityBar = document.getElementById('artistPopularityFill');
-		const popularityLabel = document.getElementById('artistPopularity');
+		const popularityContainer = document.getElementById('artistPopularityContainer');
 		popularityBar.style.width = spPopularity + '%';
+		popularityContainer.title = "Popularity: " + spPopularity + '%';
 		console.log(spArtistName);
 		console.log(spArtistUrl);
 		console.log(spImgUrl);
