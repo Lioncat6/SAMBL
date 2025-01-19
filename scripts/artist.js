@@ -112,6 +112,9 @@ async function fetchSpotifyArtist(artist) {
 		}
 		const spFollowerCount = data["followers"]["total"];
 		const spPopularity = data["popularity"];
+		const popularityBar = document.getElementById('artistPopularityFill');
+		const popularityLabel = document.getElementById('artistPopularity');
+		popularityBar.style.width = spPopularity + '%';
 		console.log(spArtistName);
 		console.log(spArtistUrl);
 		console.log(spImgUrl);
