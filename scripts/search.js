@@ -43,23 +43,7 @@ function capFirst(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-async function fetchMBArtist(id) {
-	try {
-		const response = await fetch("https://musicbrainz.org/ws/2/url?limit=1&inc=artist-rels+label-rels+release-rels&fmt=json&resource=https://open.spotify.com/artist/" + id);
-		const data = await response.json();
-		if (response.status == 200) {
-			const mbid = data["relations"][0]["artist"]["id"];
-			return [true, "https://lioncat6.github.io/SAMBL/artist?spid=" + id + "&artist_mbid=" + mbid];
-		} else if ((data["error"] = "Not Found" || response.status == 404)) {
-			return [false, "https://lioncat6.github.io/SAMBL/newartist?spid=" + id];
-		} else {
-			console.log("MusicBrainz Error: " + data["error"]);
-			return [null, "https://lioncat6.github.io/SAMBL/newartist?spid=" + id];
-		}
-	} catch {
-		return [null, "https://lioncat6.github.io/SAMBL/newartist?spid=" + id];
-	}
-}
+
 
 async function processArtists() {
     var elements = [];
@@ -116,18 +100,53 @@ async function processArtists() {
     checkArtistStatus(elements);
 }
 
+async function fetchMBArtist(id) {
+	try {
+		const response = await fetch("https://musicbrainz.org/ws/2/url?limit=1&inc=artist-rels+label-rels+release-rels&fmt=json&resource=https://open.spotify.com/artist/" + id);
+		const data = await response.json();
+		if (response.status == 200) {
+			const mbid = data["relations"][0]["artist"]["id"];
+			return [true, "https://lioncat6.github.io/SAMBL/artist?spid=" + id + "&artist_mbid=" + mbid];
+		} else if ((data["error"] = "Not Found" || response.status == 404)) {
+			return [false, "https://lioncat6.github.io/SAMBL/newartist?spid=" + id];
+		} else {
+			console.log("MusicBrainz Error: " + data["error"]);
+			throw new Error('MB Error');
+		}
+	} catch {
+		return [null, "https://lioncat6.github.io/SAMBL/newartist?spid=" + id];
+	}
+}
+
 async function checkArtistStatus(elements) {
     for (let element of elements) {
         let viewButton = element[0];
         let spotifyId = element[1];
-        let mbUrlData = await fetchMBArtist(spotifyId);
+        let tries = 0;
+        let timeout = 0;
+        let success = false
+        let mbUrlData
+        while (!success){
+            try {
+                mbUrlData = await fetchMBArtist(spotifyId);
+                tries = 0;
+                timeout = 0;
+                success = true
+            } catch {
+                tries++;
+                timeout = 500 * tries
+            }
+            await new Promise((r) => setTimeout(r, timeout));
+        }
+        
+        
 		viewButton.href=mbUrlData[1];
         if (mbUrlData[0] == true) {
             viewButton.innerHTML = '<div>View Artist</div>';
         } else {
             viewButton.innerHTML = '<div>Add <img class="artistMB" src="../assets/images/MusicBrainz_logo_icon.svg"></div>';
         }
-        await new Promise((r) => setTimeout(r, 500));
+        
     }
 }
 
