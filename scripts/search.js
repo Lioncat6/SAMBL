@@ -113,7 +113,8 @@ async function fetchMBArtist(id) {
 			console.log("MusicBrainz Error: " + data["error"]);
 			throw new Error('MB Error');
 		}
-	} catch {
+	} catch (error) {
+        console.log(error);
 		return [null, "https://lioncat6.github.io/SAMBL/newartist?spid=" + id];
 	}
 }
