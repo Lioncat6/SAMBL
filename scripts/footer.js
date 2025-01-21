@@ -7,7 +7,7 @@ function checkServerStatus() {
             if (response.status === 200) {
                 return response.json().then(data => {
                     if (data.motd) {
-                        statusElement.innerHTML = `Server Online: ${data.human_readable} | ${data.motd}`;
+                        statusElement.innerHTML = `Server Online: ${data.human_readable} | ${decodeURIComponent(data.motd)}`;
                     } else {
                         statusElement.innerHTML = `Server Online: ${data.human_readable}`;
                     }
