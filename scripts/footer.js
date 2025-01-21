@@ -6,7 +6,11 @@ function checkServerStatus() {
         .then(response => {
             if (response.status === 200) {
                 return response.json().then(data => {
-                    statusElement.innerHTML = `Server Online: ${data.human_readable}`;
+                    if (data.motd) {
+                        statusElement.innerHTML = `Server Online: ${data.human_readable} | ${data.motd}`;
+                    } else {
+                        statusElement.innerHTML = `Server Online: ${data.human_readable}`;
+                    }
                     statusElement.className = 'online';
                 });
             } else if (response.status === 503) {
