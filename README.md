@@ -1,8 +1,6 @@
 # SAMBL
 Spotify Artist MusicBrainz Lookup
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/A0A5T3CJX)
-
 <details>
 <summary><h2>Userscripts</h2></summary>
 <h3><a href="https://github.com/Lioncat6/MusicBrainz-UserScripts?tab=readme-ov-file#musicbrainz-artist-sambl-button" target="_blank">Artist Page SAMBL Button</a> [Official]</h3>
