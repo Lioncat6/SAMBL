@@ -505,3 +505,9 @@ label i {
 #artistPopularityContainer {
 	cursor: help;
 }
+
+.SAMBLicon {
+	width: 12px;
+	height: 16px;
+	vertical-align: middle;
+}
