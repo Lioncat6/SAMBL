@@ -376,7 +376,9 @@ function processAlbums() {
 			var currentArtist = spotifyAlbumArtists[x];
 			var artistName = currentArtist["name"];
 			var artistUrl = currentArtist["external_urls"]["spotify"];
-			spArtistsHtml += '<a href="' + artistUrl + '" target="_blank">' + artistName + '</a><a href="' + albumMBUrl + '" target="_blank"><img class="SAMBLicon" src="../assets/images/favicon.svg" /></a>';
+			var artistId = currentArtist["id"]
+			var aristSAMBLurl = 'https://lioncat6.github.io/SAMBL/newartist?spid='+
+			spArtistsHtml += '<a href="' + artistUrl + '" target="_blank">' + artistName + '</a><a href="' + aristSAMBLurl + '" target="_blank"><img class="SAMBLicon" src="../assets/images/favicon.svg" /></a>';
 		}
 		var iconsHtml = "";
 		if (!albumMBUPC || albumMBUPC == null) {
