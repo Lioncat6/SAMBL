@@ -1,5 +1,6 @@
-let apiUrl = "https://s-api.lioncat6.com";
-
+import { getUserAgent, getApiUrl } from '../scripts/config.js';
+const userAgent = getUserAgent();
+let apiUrl = getApiUrl();
 function dispErr(error) {
 	document.getElementById("err").innerHTML = error;
 }
@@ -105,11 +106,11 @@ async function fetchSpotifyArtist(artist) {
 		const spArtistUrl = data["external_urls"]["spotify"];
 		const spGenres = data["genres"];
 		var spGenresString = "";
-		for (x in spGenres) {
-			if (x > 0) {
+		for (let genre in spGenres) {
+			if (genre > 0) {
 				spGenresString += ", ";
 			}
-			spGenresString += spGenres[x];
+			spGenresString += spGenres[genre];
 		}
 		const spFollowerCount = data["followers"]["total"];
 		const spPopularity = data["popularity"];
@@ -163,9 +164,9 @@ async function downloadSpotifyAlbums(artist) {
 	console.log(data);
 	if (!data["error"]) {
 		albumCount = data["total"];
-		for (x in data["items"]) {
-			spotifyAlbumList.push(data["items"][x]);
-			document.getElementById("loadingText").innerHTML = "Loading albums from spotify... (" + x + "/" + albumCount + ")";
+		for (let album in data["items"]) {
+			spotifyAlbumList.push(data["items"][album]);
+			document.getElementById("loadingText").innerHTML = "Loading albums from spotify... (" + album + "/" + albumCount + ")";
 		}
 	} else {
 		if (data["error"]["status"] == 404) {
@@ -197,9 +198,9 @@ async function downloadSpotifyAlbums(artist) {
 		const data = await response.json();
 		console.log(data);
 		if (!data["error"]) {
-			for (x in data["items"]) {
-				spotifyAlbumList.push(data["items"][x]);
-				document.getElementById("loadingText").innerHTML = "Loading albums from spotify... (" + Number(Number(x) + Number(currentOffset)) + "/" + albumCount + ")";
+			for (let album in data["items"]) {
+				spotifyAlbumList.push(data["items"][album]);
+				document.getElementById("loadingText").innerHTML = "Loading albums from spotify... (" + Number(Number(album) + Number(currentOffset)) + "/" + albumCount + ")";
 			}
 		} else {
 			if (data["error"]["status"] == 404) {
@@ -242,14 +243,18 @@ async function fetchMusicBrainzAlbums(type) {
 
 	while (!success && tries < 5) {
 		try {
-			const response = await fetch(`https://musicbrainz.org/ws/2/release?${type}=${mbid}&inc=url-rels&fmt=json&limit=100&offset=${currentOffset}`);
+			const response = await fetch(`https://musicbrainz.org/ws/2/release?${type}=${mbid}&inc=url-rels&fmt=json&limit=100&offset=${currentOffset}`, {
+				headers: {
+					'User-Agent': userAgent
+				}
+			});
 			const data = await response.json();
 			if (response.status == 200) {
 				console.log(data);
 				albumCount = data["release-count"];
-				for (x in data["releases"]) {
-					mbAlbumList.push(data["releases"][x]);
-					document.getElementById("loadingText").innerHTML = `Loading albums from MusicBrainz (${type === "artist" ? "1/2" : "2/2"})... (${x}/${albumCount})`;
+				for (let release in data["releases"]) {
+					mbAlbumList.push(data["releases"][release]);
+					document.getElementById("loadingText").innerHTML = `Loading albums from MusicBrainz (${type === "artist" ? "1/2" : "2/2"})... (${release}/${albumCount})`;
 				}
 				success = true;
 			} else if ((data["error"] = "Not Found" || response.status == 404)) {
@@ -278,13 +283,17 @@ async function fetchMusicBrainzAlbums(type) {
 
 		while (!success && tries < 5) {
 			try {
-				const response = await fetch(`https://musicbrainz.org/ws/2/release?${type}=${mbid}&inc=url-rels&fmt=json&limit=100&offset=${currentOffset}`);
+				const response = await fetch(`https://musicbrainz.org/ws/2/release?${type}=${mbid}&inc=url-rels&fmt=json&limit=100&offset=${currentOffset}`, {
+					headers: {
+						'User-Agent': userAgent
+					}
+				});
 				const data = await response.json();
 				if (response.status == 200) {
 					console.log(data);
-					for (x in data["releases"]) {
-						mbAlbumList.push(data["releases"][x]);
-						document.getElementById("loadingText").innerHTML = `Loading albums from MusicBrainz (${type === "artist" ? "1/2" : "2/2"})... (${Number(Number(x) + Number(currentOffset))}/${albumCount})`;
+					for (let release in data["releases"]) {
+						mbAlbumList.push(data["releases"][release]);
+						document.getElementById("loadingText").innerHTML = `Loading albums from MusicBrainz (${type === "artist" ? "1/2" : "2/2"})... (${Number(Number(release) + Number(currentOffset))}/${albumCount})`;
 					}
 					success = true;
 				} else if ((data["error"] = "Not Found" || response.status == 404)) {
@@ -319,11 +328,11 @@ var orange = 0;
 var total = 0;
 function processAlbums() {
 	displayList();
-	for (x in spotifyAlbumList) {
+	for (let album in spotifyAlbumList) {
 		var albumStatus = "red";
 		var albumMBUrl = "";
 		var pillTooltipText = "";
-		var currentAlbum = spotifyAlbumList[x];
+		var currentAlbum = spotifyAlbumList[album];
 		var spotifyUrl = currentAlbum["external_urls"]["spotify"];
 		var spotifyId = currentAlbum["id"];
 		var spotifyName = currentAlbum["name"];
@@ -337,13 +346,13 @@ function processAlbums() {
 			spotifyTrackString = spotifyTrackCount + " Tracks";
 		}
 		var spotifyAlbumType = currentAlbum["album_type"];
-		for (y in mbAlbumList) {
-			var currentMBRelease = mbAlbumList[y];
+		for (let mbAlbum in mbAlbumList) {
+			var currentMBRelease = mbAlbumList[mbAlbum];
 			var mbReleaseName = currentMBRelease["title"];
 			var mbReleaseUrls = currentMBRelease["relations"];
 			var albumMBUPC = currentMBRelease["barcode"];
-			for (z in mbReleaseUrls) {
-				if (mbReleaseUrls[z]["url"]["resource"] == spotifyUrl) {
+			for (let releaseUrl in mbReleaseUrls) {
+				if (mbReleaseUrls[releaseUrl]["url"]["resource"] == spotifyUrl) {
 					albumMBUrl = "https://musicbrainz.org/release/" + currentMBRelease["id"];
 					albumStatus = "green";
 					break;
@@ -374,11 +383,11 @@ function processAlbums() {
 			var mbLinkHtml = '<a href="' + albumMBUrl + '" target="_blank"><img class="albumMB" src="../assets/images/MB_Error.svg" title="Warning: This could be the incorrect MB release for this album!" /></a>';
 		}
 		var spArtistsHtml = "";
-		for (x in spotifyAlbumArtists) {
-			if (x > 0) {
+		for (let album in spotifyAlbumArtists) {
+			if (album > 0) {
 				spArtistsHtml += ", ";
 			}
-			var currentArtist = spotifyAlbumArtists[x];
+			var currentArtist = spotifyAlbumArtists[album];
 			var artistName = currentArtist["name"];
 			var artistUrl = currentArtist["external_urls"]["spotify"];
 			var artistId = currentArtist["id"]
