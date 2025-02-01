@@ -135,7 +135,7 @@ async function checkArtistStatus(elements) {
                 success = true
             } catch {
                 tries++;
-                timeout = 500 * tries
+                timeout = 1000 * tries
             }
             await new Promise((r) => setTimeout(r, timeout));
         }
@@ -147,7 +147,7 @@ async function checkArtistStatus(elements) {
         } else {
             viewButton.innerHTML = '<div>Add <img class="artistMB" src="../assets/images/MusicBrainz_logo_icon.svg"></div>';
         }
-        
+        await new Promise((r) => setTimeout(r, 100));
     }
 }
 

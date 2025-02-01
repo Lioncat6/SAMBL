@@ -225,83 +225,88 @@ async function downloadSpotifyAlbums(artist) {
 }
 
 async function downloadMusicBrainzAlbums() {
-	var albumCount = 0;
-	var currentOffset = 0;
-	document.getElementById("loadingText").innerHTML = "Downloading MusicBrainz Albums 1/2...";
-	const response = await fetch("https://musicbrainz.org/ws/2/release?artist=" + mbid + "&inc=url-rels&fmt=json&limit=100&offset=" + currentOffset);
-	const data = await response.json();
-	if (response.status == 200) {
-		console.log(data);
-		albumCount = data["release-count"];
-		for (x in data["releases"]) {
-			mbAlbumList.push(data["releases"][x]);
-			document.getElementById("loadingText").innerHTML = "Loading albums from MusicBrainz 1/2... (" + x + "/" + albumCount + ")";
-		}
-	} else if ((data["error"] = "Not Found" || response.status == 404)) {
-		dispErr("Musicbrainz artist not found. URL likely malfomed");
-	} else {
-		dispErr("MusicBrainz Error: " + data["error"]);
-	}
-
-	while (currentOffset + 100 < albumCount) {
-		currentOffset += 100;
-		await new Promise((r) => setTimeout(r, 500));
-		const response = await fetch("https://musicbrainz.org/ws/2/release?artist=" + mbid + "&inc=url-rels&fmt=json&limit=100&offset=" + currentOffset);
-		const data = await response.json();
-		if (response.status == 200) {
-			console.log(data);
-			for (x in data["releases"]) {
-				mbAlbumList.push(data["releases"][x]);
-				document.getElementById("loadingText").innerHTML = "Loading albums from MusicBrainz 1/2... (" + Number(Number(x) + Number(currentOffset)) + "/" + albumCount + ")";
-			}
-		} else if ((data["error"] = "Not Found" || response.status == 404)) {
-			dispErr("Musicbrainz artist not found. URL likely malfomed");
-		} else {
-			dispErr("MusicBrainz Error: " + data["error"]);
-		}
-	}
-	downloadMusicBrainzAlbums2();
-}
-
-async function downloadMusicBrainzAlbums2() {
-	var albumCount = 0;
-	var currentOffset = 0;
-	document.getElementById("loadingText").innerHTML = "Downloading MusicBrainz Albums 2/2...";
-	const response = await fetch("https://musicbrainz.org/ws/2/release?track_artist=" + mbid + "&inc=url-rels&fmt=json&limit=100&offset=" + currentOffset);
-	const data = await response.json();
-	if (response.status == 200) {
-		console.log(data);
-		albumCount = data["release-count"];
-		for (x in data["releases"]) {
-			mbAlbumList.push(data["releases"][x]);
-			document.getElementById("loadingText").innerHTML = "Loading albums from MusicBrainz 2/2... (" + x + "/" + albumCount + ")";
-		}
-	} else if ((data["error"] = "Not Found" || response.status == 404)) {
-		dispErr("Musicbrainz artist not found. URL likely malfomed");
-	} else {
-		dispErr("MusicBrainz Error: " + data["error"]);
-	}
-
-	while (currentOffset + 100 < albumCount) {
-		currentOffset += 100;
-		await new Promise((r) => setTimeout(r, 500));
-		const response = await fetch("https://musicbrainz.org/ws/2/release?track_artist=" + mbid + "&inc=url-rels&fmt=json&limit=100&offset=" + currentOffset);
-		const data = await response.json();
-		if (response.status == 200) {
-			console.log(data);
-			for (x in data["releases"]) {
-				mbAlbumList.push(data["releases"][x]);
-				document.getElementById("loadingText").innerHTML = "Loading albums from MusicBrainz 2/2... (" + Number(Number(x) + Number(currentOffset)) + "/" + albumCount + ")";
-			}
-		} else if ((data["error"] = "Not Found" || response.status == 404)) {
-			dispErr("Musicbrainz artist not found. URL likely malfomed");
-		} else {
-			dispErr("MusicBrainz Error: " + data["error"]);
-		}
-	}
+	await fetchMusicBrainzAlbums("artist");
+	await fetchMusicBrainzAlbums("track_artist");
 	document.getElementById("loadingContainer").innerHTML = "";
 	document.getElementById("loadingText").innerHTML = "";
 	processAlbums();
+}
+
+
+async function fetchMusicBrainzAlbums(type) {
+	var albumCount = 0;
+	var currentOffset = 0;
+	document.getElementById("loadingText").innerHTML = `Downloading MusicBrainz Albums (${type === "artist" ? "1/2" : "2/2"})...`;
+	let success = false;
+	let tries = 0;
+
+	while (!success && tries < 5) {
+		try {
+			const response = await fetch(`https://musicbrainz.org/ws/2/release?${type}=${mbid}&inc=url-rels&fmt=json&limit=100&offset=${currentOffset}`);
+			const data = await response.json();
+			if (response.status == 200) {
+				console.log(data);
+				albumCount = data["release-count"];
+				for (x in data["releases"]) {
+					mbAlbumList.push(data["releases"][x]);
+					document.getElementById("loadingText").innerHTML = `Loading albums from MusicBrainz (${type === "artist" ? "1/2" : "2/2"})... (${x}/${albumCount})`;
+				}
+				success = true;
+			} else if ((data["error"] = "Not Found" || response.status == 404)) {
+				dispErr("Musicbrainz artist not found. URL likely malformed");
+				break;
+			} else {
+				console.log("MusicBrainz Error: " + data["error"]);
+				throw new Error(data["error"]);
+			}
+		} catch (error) {
+			if (error.message.includes("Your requests are exceeding the allowable rate limit.")) {
+				await new Promise((r) => setTimeout(r, 1000 * tries)); // Slow down and retry
+			} else {
+				console.error('Error fetching MusicBrainz data:', error);
+				dispErr("Error fetching MusicBrainz data, please reload!");
+				break;
+			}
+		}
+		tries++;
+	}
+
+	while (currentOffset + 100 < albumCount) {
+		currentOffset += 100;
+		success = false;
+		tries = 0;
+
+		while (!success && tries < 5) {
+			try {
+				const response = await fetch(`https://musicbrainz.org/ws/2/release?${type}=${mbid}&inc=url-rels&fmt=json&limit=100&offset=${currentOffset}`);
+				const data = await response.json();
+				if (response.status == 200) {
+					console.log(data);
+					for (x in data["releases"]) {
+						mbAlbumList.push(data["releases"][x]);
+						document.getElementById("loadingText").innerHTML = `Loading albums from MusicBrainz (${type === "artist" ? "1/2" : "2/2"})... (${Number(Number(x) + Number(currentOffset))}/${albumCount})`;
+					}
+					success = true;
+				} else if ((data["error"] = "Not Found" || response.status == 404)) {
+					dispErr("Musicbrainz artist not found. URL likely malformed");
+					break;
+				} else {
+					console.log("MusicBrainz Error: " + data["error"]);
+					throw new Error(data["error"]);
+				}
+			} catch (error) {
+				if (error.message.includes("Your requests are exceeding the allowable rate limit.")) {
+					await new Promise((r) => setTimeout(r, 1000 * tries)); // Slow down and retry
+				} else {
+					console.error('Error fetching MusicBrainz data:', error);
+					dispErr("Error fetching MusicBrainz data, please reload!");
+					break;
+				}
+			}
+			tries++;
+		}
+		await new Promise((r) => setTimeout(r, 100));
+	}
 }
 
 function capFirst(string) {
