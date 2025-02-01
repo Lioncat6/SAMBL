@@ -1,16 +1,15 @@
-import { getUserAgent, getApiUrl } from '../scripts/config.js';
+import { getUserAgent, getApiUrl } from "../scripts/config.js";
 const userAgent = getUserAgent();
 let apiUrl = getApiUrl();
 function dispErr(error) {
 	document.getElementById("err").innerHTML = error;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('listSearch').addEventListener('keyup', searchList);
-    document.getElementById('filterSearch').addEventListener('click', filter);
-    document.getElementById('applyfilter').addEventListener('click', applyFilter);
+document.addEventListener("DOMContentLoaded", function () {
+	document.getElementById("listSearch").addEventListener("keyup", searchList);
+	document.getElementById("filterSearch").addEventListener("click", filter);
+	document.getElementById("applyfilter").addEventListener("click", applyFilter);
 });
-
 
 let multiple = false;
 
@@ -23,7 +22,7 @@ async function fetchSpotifyArtists(artists) {
 	let allArtistNames = [];
 	let allArtistUrls = [];
 	let totalFollowers = 0;
-	let mostPopularArtistWithOutImage = null
+	let mostPopularArtistWithOutImage = null;
 	for (const artistId of artistIds) {
 		const fsatoken = localStorage.getItem("spfAccessToken");
 		const response = await fetch(`${apiUrl}/v1/artists/${artistId.trim()}`, {
@@ -67,21 +66,20 @@ async function fetchSpotifyArtists(artists) {
 
 function updateArtistInfo(artist, allNames, allUrls, totalFollowers, mostPopular) {
 	var spImgUrl = "";
-		if (artist["images"].length > 0) {
-			spImgUrl = artist["images"][0]["url"];
-		}
+	if (artist["images"].length > 0) {
+		spImgUrl = artist["images"][0]["url"];
+	}
 	const spArtistName = allNames.join(" / ");
 	const spGenres = artist["genres"];
 	const spGenresString = spGenres.join(", ");
 	const spPopularity = artist["popularity"];
-	
-	if (mostPopular){
-		const popularityBar = document.getElementById('artistPopularityFill');
-		const popularityContainer = document.getElementById('artistPopularityContainer');
-		popularityBar.style.width = spPopularity + '%';
-		popularityContainer.title = "Popularity: " + spPopularity + '%';
+
+	if (mostPopular) {
+		const popularityBar = document.getElementById("artistPopularityFill");
+		const popularityContainer = document.getElementById("artistPopularityContainer");
+		popularityBar.style.width = spPopularity + "%";
+		popularityContainer.title = "Popularity: " + spPopularity + "%";
 	}
-	
 
 	document.getElementById("artistImageContainer").innerHTML = `<a href="${spImgUrl}" target="_blank"><img src="${spImgUrl}"></a>`;
 	document.getElementById("artistName").innerHTML = spArtistName;
@@ -121,10 +119,10 @@ async function fetchSpotifyArtist(artist) {
 		}
 		const spFollowerCount = data["followers"]["total"];
 		const spPopularity = data["popularity"];
-		const popularityBar = document.getElementById('artistPopularityFill');
-		const popularityContainer = document.getElementById('artistPopularityContainer');
-		popularityBar.style.width = spPopularity + '%';
-		popularityContainer.title = "Popularity: " + spPopularity + '%';
+		const popularityBar = document.getElementById("artistPopularityFill");
+		const popularityContainer = document.getElementById("artistPopularityContainer");
+		popularityBar.style.width = spPopularity + "%";
+		popularityContainer.title = "Popularity: " + spPopularity + "%";
 		console.log(spArtistName);
 		console.log(spArtistUrl);
 		console.log(spImgUrl);
@@ -240,7 +238,6 @@ async function downloadMusicBrainzAlbums() {
 	processAlbums();
 }
 
-
 async function fetchMusicBrainzAlbums(type) {
 	var albumCount = 0;
 	var currentOffset = 0;
@@ -252,8 +249,8 @@ async function fetchMusicBrainzAlbums(type) {
 		try {
 			const response = await fetch(`https://musicbrainz.org/ws/2/release?${type}=${mbid}&inc=url-rels&fmt=json&limit=100&offset=${currentOffset}`, {
 				headers: {
-					'User-Agent': userAgent
-				}
+					"User-Agent": userAgent,
+				},
 			});
 			const data = await response.json();
 			if (response.status == 200) {
@@ -275,7 +272,7 @@ async function fetchMusicBrainzAlbums(type) {
 			if (error.message.includes("Your requests are exceeding the allowable rate limit.")) {
 				await new Promise((r) => setTimeout(r, 1000 * tries)); // Slow down and retry
 			} else {
-				console.error('Error fetching MusicBrainz data:', error);
+				console.error("Error fetching MusicBrainz data:", error);
 				dispErr("Error fetching MusicBrainz data, please reload!");
 				break;
 			}
@@ -292,8 +289,8 @@ async function fetchMusicBrainzAlbums(type) {
 			try {
 				const response = await fetch(`https://musicbrainz.org/ws/2/release?${type}=${mbid}&inc=url-rels&fmt=json&limit=100&offset=${currentOffset}`, {
 					headers: {
-						'User-Agent': userAgent
-					}
+						"User-Agent": userAgent,
+					},
 				});
 				const data = await response.json();
 				if (response.status == 200) {
@@ -314,7 +311,7 @@ async function fetchMusicBrainzAlbums(type) {
 				if (error.message.includes("Your requests are exceeding the allowable rate limit.")) {
 					await new Promise((r) => setTimeout(r, 1000 * tries)); // Slow down and retry
 				} else {
-					console.error('Error fetching MusicBrainz data:', error);
+					console.error("Error fetching MusicBrainz data:", error);
 					dispErr("Error fetching MusicBrainz data, please reload!");
 					break;
 				}
@@ -397,8 +394,8 @@ function processAlbums() {
 			var currentArtist = spotifyAlbumArtists[album];
 			var artistName = currentArtist["name"];
 			var artistUrl = currentArtist["external_urls"]["spotify"];
-			var artistId = currentArtist["id"]
-			var aristSAMBLurl = 'https://lioncat6.github.io/SAMBL/newartist?spid='+ artistId
+			var artistId = currentArtist["id"];
+			var aristSAMBLurl = "https://lioncat6.github.io/SAMBL/newartist?spid=" + artistId;
 			spArtistsHtml += '<a href="' + artistUrl + '" target="_blank">' + artistName + '</a><a href="' + aristSAMBLurl + '" target="_blank"><img class="SAMBLicon" src="../assets/images/favicon.svg" /></a>';
 		}
 		var iconsHtml = "";
@@ -457,7 +454,7 @@ function addListItem() {}
 const params = new URLSearchParams(new URL(window.location.href).search);
 const spid = params.get("spid");
 const spids = params.get("spids");
-const newArtist = params.get("newArtist")
+const newArtist = params.get("newArtist");
 let mbid = params.get("mbid");
 if (!mbid) {
 	mbid = params.get("artist_mbid");
@@ -506,7 +503,7 @@ function searchList() {
 		td = tr[i].getElementsByClassName("albumTitle")[0].getElementsByTagName("a")[0];
 		color = tr[i].getElementsByClassName("statusPill")[0].classList[1];
 		artistString = tr[i].getElementsByClassName("artists")[0].innerHTML;
-		let hasNoUpc = (tr[i].getElementsByClassName("upcIcon").length > 0);
+		let hasNoUpc = tr[i].getElementsByClassName("upcIcon").length > 0;
 		if (td) {
 			txtValue = td.textContent || td.innerText;
 			if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -549,45 +546,49 @@ function closeFilter() {
 	document.getElementById("filterList").style.display = "none";
 }
 
-function dragElement(elmnt) { //from w3 schools
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + "Header")) {
-    /* if present, the header is where you move the DIV from:*/
-    document.getElementById(elmnt.id + "Header").onmousedown = dragMouseDown;
-  } else {
-    /* otherwise, move the DIV from anywhere inside the DIV:*/
-    elmnt.onmousedown = dragMouseDown;
-  }
+function dragElement(elmnt) {
+	//from w3 schools
+	var pos1 = 0,
+		pos2 = 0,
+		pos3 = 0,
+		pos4 = 0;
+	if (document.getElementById(elmnt.id + "Header")) {
+		/* if present, the header is where you move the DIV from:*/
+		document.getElementById(elmnt.id + "Header").onmousedown = dragMouseDown;
+	} else {
+		/* otherwise, move the DIV from anywhere inside the DIV:*/
+		elmnt.onmousedown = dragMouseDown;
+	}
 
-  function dragMouseDown(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // get the mouse cursor position at startup:
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
-  }
+	function dragMouseDown(e) {
+		e = e || window.event;
+		e.preventDefault();
+		// get the mouse cursor position at startup:
+		pos3 = e.clientX;
+		pos4 = e.clientY;
+		document.onmouseup = closeDragElement;
+		// call a function whenever the cursor moves:
+		document.onmousemove = elementDrag;
+	}
 
-  function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // calculate the new cursor position:
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    // set the element's new position:
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-  }
+	function elementDrag(e) {
+		e = e || window.event;
+		e.preventDefault();
+		// calculate the new cursor position:
+		pos1 = pos3 - e.clientX;
+		pos2 = pos4 - e.clientY;
+		pos3 = e.clientX;
+		pos4 = e.clientY;
+		// set the element's new position:
+		elmnt.style.top = elmnt.offsetTop - pos2 + "px";
+		elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
+	}
 
-  function closeDragElement() {
-    /* stop moving when mouse button is released:*/
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }
+	function closeDragElement() {
+		/* stop moving when mouse button is released:*/
+		document.onmouseup = null;
+		document.onmousemove = null;
+	}
 }
 
 searchList();

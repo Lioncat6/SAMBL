@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAMBL</title>
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
-    <link rel="icon" type="image/png" href="assets/images/favicon.png">
-    <meta name="title" content="SAMBL • Spotify Artist MusicBrainz Lookup">
-    <meta name="description" content="SAMBL is an open-source tool designed to aid in seeding data to the MusicBrainz database from Spotify.">
-    <meta name="keywords" content="Spotify, MusicBrainz, Tool, Github, Lookup, Search, Artist">
-    <meta name="robots" content="index, follow">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="language" content="English">
-    <meta name="author" content="Lioncat6">
-    <meta name="theme-color" content="#cf7a47">
-</head>
-<body>
-    <div id="main">
-        <script src="scripts/find.js"></script>
-        <embed type="text/html" src="header.html">
-        <textarea id="searchbox" rows="1" placeholder="Search for artist or enter id/url..." ></textarea>
-        <button type="button" id="searchEnter" onclick="lookup()">Search</button>   
-        <div id="err"> </div><div id="loadingMsg"> </div>
-        <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
-<script>
-	kofiWidgetOverlay.draw('lioncat6', {
-	  'type': 'floating-chat',
-	  'floating-chat.donateButton.text': 'Help pay for servers',
-	  'floating-chat.donateButton.background-color': '#00b9fe',
-	  'floating-chat.donateButton.text-color': '#fff'
-	});
-  </script>
-    </div>
-    <footer><embed type="text/html" src="footer.html"></footer>
-</body>
-
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>SAMBL</title>
+		<link rel="stylesheet" href="css/main.css" />
+		<link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+		<link rel="icon" type="image/png" href="assets/images/favicon.png" />
+		<meta name="title" content="SAMBL • Spotify Artist MusicBrainz Lookup" />
+		<meta name="description" content="SAMBL is an open-source tool designed to aid in seeding data to the MusicBrainz database from Spotify." />
+		<meta name="keywords" content="Spotify, MusicBrainz, Tool, Github, Lookup, Search, Artist" />
+		<meta name="robots" content="index, follow" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="language" content="English" />
+		<meta name="author" content="Lioncat6" />
+		<meta name="theme-color" content="#cf7a47" />
+	</head>
+	<body>
+		<div id="main">
+			<script src="scripts/find.js"></script>
+			<embed type="text/html" src="header.html" />
+			<textarea id="searchbox" rows="1" placeholder="Search for artist or enter id/url..."></textarea>
+			<button type="button" id="searchEnter" onclick="lookup()">Search</button>
+			<div id="err"></div>
+			<div id="loadingMsg"></div>
+			<script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script>
+			<script>
+				kofiWidgetOverlay.draw("lioncat6", {
+					type: "floating-chat",
+					"floating-chat.donateButton.text": "Help pay for servers",
+					"floating-chat.donateButton.background-color": "#00b9fe",
+					"floating-chat.donateButton.text-color": "#fff",
+				});
+			</script>
+		</div>
+		<footer><embed type="text/html" src="footer.html" /></footer>
+	</body>
 </html>

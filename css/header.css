@@ -1,139 +1,139 @@
 .textwrapper {
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  margin: 0;
-  padding: 0;
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  width: 50%;
-  text-align: center;
+	font-family: Arial, sans-serif;
+	background-color: #f9f9f9;
+	margin: 0;
+	padding: 0;
+	justify-content: center;
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+	width: 50%;
+	text-align: center;
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  margin: 0;
-  padding: 0;
+	font-family: Arial, sans-serif;
+	background-color: #f9f9f9;
+	margin: 0;
+	padding: 0;
 }
 
 img {
-  padding-top: 10px;
-  overflow: hidden;
-  width: 80vh;
-  height: 80vh;
+	padding-top: 10px;
+	overflow: hidden;
+	width: 80vh;
+	height: 80vh;
 }
 
 .imagewrapper {
-  position: absolute;
-  aspect-ratio: 1 / 1;
-  width: 10%;
-  height: 10%;
+	position: absolute;
+	aspect-ratio: 1 / 1;
+	width: 10%;
+	height: 10%;
 }
 
 header {
-  height: 88vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  background-color: #f9f9f9;
+	height: 88vh;
+	overflow: hidden;
+	display: flex;
+	flex-direction: row;
+	background-color: #f9f9f9;
 }
 
 .spotifyStatus {
-  height: 30px;
-  position: absolute;
-  right: 0;
+	height: 30px;
+	position: absolute;
+	right: 0;
 }
 
 .spfButton {
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  width: auto;
-  height: auto;
-  border-radius: 20px;
-  color: white;
-  background-color: black;
+	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	width: auto;
+	height: auto;
+	border-radius: 20px;
+	color: white;
+	background-color: black;
 }
 
 .spfTextWrapper {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  padding: 8px;
-  width: 100%;
-  right: 5%;
-  font-size: larger;
-  text-overflow: ellipsis;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	padding: 8px;
+	width: 100%;
+	right: 5%;
+	font-size: larger;
+	text-overflow: ellipsis;
 }
 
 .spotifyLogo img {
-  padding: 5px;
-  width: 30px;
-  height: 30px;
+	padding: 5px;
+	width: 30px;
+	height: 30px;
 }
 .spotifyLogo {
-  padding: 0;
-  width: 20%;
-  height: 50%;
+	padding: 0;
+	width: 20%;
+	height: 50%;
 }
 
 /* dark mode slider */
 .darkModeSwitch {
-  position: absolute;
-  width: 80px;
-  right: 150px;
+	position: absolute;
+	width: 80px;
+	right: 150px;
 }
 
 .darkModeSwitch label {
-  position: absolute;
-  width: 100%;
-  height: 40px;
-  background-color: #28292c;
-  border-radius: 20px;
-  cursor: pointer;
+	position: absolute;
+	width: 100%;
+	height: 40px;
+	background-color: #28292c;
+	border-radius: 20px;
+	cursor: pointer;
 }
 
 .darkModeSwitch input {
-  position: absolute;
-  display: none;
+	position: absolute;
+	display: none;
 }
 
 .darkModeSwitch .slider {
-  position: absolute;
-  width: 80.5px;
-  height: 40.5px;
-  transform: translateX(-0.5px) translateY(-0.5px);
-  border-radius: 50px;
-  transition: 0.3s;
+	position: absolute;
+	width: 80.5px;
+	height: 40.5px;
+	transform: translateX(-0.5px) translateY(-0.5px);
+	border-radius: 50px;
+	transition: 0.3s;
 }
 
 .darkModeSwitch input:checked ~ .slider {
-  background-color: #d8dbe0;
+	background-color: #d8dbe0;
 }
 
 .darkModeSwitch .slider::before {
-  content: "";
-  position: absolute;
-  top: 5.2px;
-  left: 6.4px;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  box-shadow: inset 11.2px -1.6px 0px 0px #d8dbe0;
-  background-color: #28292c;
-  transition: 0.3s;
+	content: "";
+	position: absolute;
+	top: 5.2px;
+	left: 6.4px;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	box-shadow: inset 11.2px -1.6px 0px 0px #d8dbe0;
+	background-color: #28292c;
+	transition: 0.3s;
 }
 
 .darkModeSwitch input:checked ~ .slider::before {
-  transform: translateX(38px);
-  background-color: #28292c;
-  box-shadow: none;
+	transform: translateX(38px);
+	background-color: #28292c;
+	box-shadow: none;
 }
 
 @media (max-width: 500px) {
-  .samblWrapper {
-    margin-right: 30px;
-  }
+	.samblWrapper {
+		margin-right: 30px;
+	}
 }

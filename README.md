@@ -1,4 +1,5 @@
 # SAMBL
+
 Spotify Artist MusicBrainz Lookup
 
 <details>
@@ -15,9 +16,8 @@ Description from source:
  > I recommend pairing this script with zabe40's MusicBrainz Entity Images script that displays images linked to entities on their MusicBrainz pages.
 </details>
 
-
-
 ### MetaBrainz Thread:
+
 https://community.metabrainz.org/t/sambl-spotify-artist-musicbrainz-lookup/716550
 
 ### Updates:
@@ -31,8 +31,10 @@ https://community.metabrainz.org/t/sambl-spotify-artist-musicbrainz-lookup/71655
 ### [Server Source](https://github.com/Lioncat6/Spotify-ALTAPI/)
 
 ## Todo:
-  - Add indicators to each album about the associated releases statuses
+
+- Add indicators to each album about the associated releases statuses
 
 ### Long term:
-  - Recode in electron or react 
-  - Server side caching and mb fetching 
+
+- Recode in electron or react
+- Server side caching and mb fetching

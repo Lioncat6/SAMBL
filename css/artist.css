@@ -491,15 +491,15 @@ label i {
 }
 
 .moveIcon {
-    color: lightgray;
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    display: none;
+	color: lightgray;
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	display: none;
 }
 
-#filterList:hover .moveIcon  {
-    display:block;
+#filterList:hover .moveIcon {
+	display: block;
 }
 
 #artistPopularityContainer {
