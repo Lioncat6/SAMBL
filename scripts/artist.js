@@ -5,6 +5,13 @@ function dispErr(error) {
 	document.getElementById("err").innerHTML = error;
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('listSearch').addEventListener('keyup', searchList);
+    document.getElementById('filterSearch').addEventListener('click', filter);
+    document.getElementById('applyfilter').addEventListener('click', applyFilter);
+});
+
+
 let multiple = false;
 
 async function fetchSpotifyArtists(artists) {
@@ -490,7 +497,7 @@ let missingUPC = false;
 const variousArtistsList = ["Various Artists", "Artistes Variés", "Verschiedene Künstler", "Varios Artistas", "ヴァリアス・アーティスト"];
 
 function searchList() {
-	var input, filter, table, tr, td, i, txtValue;
+	let input, filter, table, tr, td, i, txtValue, color, artistString;
 	input = document.getElementById("listSearch");
 	filter = input.value.toUpperCase();
 	table = document.getElementById("albumList");
