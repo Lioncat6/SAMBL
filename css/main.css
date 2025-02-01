@@ -229,6 +229,7 @@ iframe {
 /* ko-fi widget button */
 .floatingchat-container,
 .floatingchat-container-mobi {
+	width: -moz-fit-content !important;
 	width: fit-content !important;
 	background: transparent !important;
 }
