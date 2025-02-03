@@ -155,46 +155,12 @@ async function fetchSpotifyArtist(artist) {
 }
 
 async function downloadSpotifyAlbums(artist) {
-	var albumCount = 0;
-	var currentOffset = 0;
+	if (!newArtist) {
+		var albumCount = 0;
+		var currentOffset = 0;
 
-	var fsatoken = localStorage.getItem("spfAccessToken");
-	const response = await fetch(`${apiUrl}/v1/artists/` + artist + "/albums?limit=50", {
-		headers: {
-			Authorization: "Bearer " + fsatoken,
-		},
-	});
-
-	const data = await response.json();
-	console.log(data);
-	if (!data["error"]) {
-		albumCount = data["total"];
-		for (let album in data["items"]) {
-			spotifyAlbumList.push(data["items"][album]);
-			document.getElementById("loadingText").innerHTML = "Loading albums from spotify... (" + album + "/" + albumCount + ")";
-		}
-	} else {
-		if (data["error"]["status"] == 404) {
-			dispErr("Spotify artist not found!");
-		} else if (data["error"]["status"] == 400) {
-			dispErr("Invalid artist id!");
-		} else {
-			fsatoken = localStorage.getItem("spfAccessToken");
-			console.log(fsatoken);
-			if (!fsatoken) {
-				fsatoken = "";
-			}
-			if (fsatoken && fsatoken.length > 10) {
-				dispErr("Spotify Timeout | Please reload");
-				//location.reload()
-			}
-		}
-	}
-	while (currentOffset + 50 < albumCount) {
-		currentOffset += 50;
-		await new Promise((r) => setTimeout(r, 250));
 		var fsatoken = localStorage.getItem("spfAccessToken");
-		const response = await fetch(`${apiUrl}/v1/artists/` + artist + "/albums?limit=50&offset=" + currentOffset, {
+		const response = await fetch(`${apiUrl}/v1/artists/` + artist + "/albums?limit=50", {
 			headers: {
 				Authorization: "Bearer " + fsatoken,
 			},
@@ -203,9 +169,10 @@ async function downloadSpotifyAlbums(artist) {
 		const data = await response.json();
 		console.log(data);
 		if (!data["error"]) {
+			albumCount = data["total"];
 			for (let album in data["items"]) {
 				spotifyAlbumList.push(data["items"][album]);
-				document.getElementById("loadingText").innerHTML = "Loading albums from spotify... (" + Number(Number(album) + Number(currentOffset)) + "/" + albumCount + ")";
+				document.getElementById("loadingText").innerHTML = "Loading albums from spotify... (" + album + "/" + albumCount + ")";
 			}
 		} else {
 			if (data["error"]["status"] == 404) {
@@ -224,9 +191,44 @@ async function downloadSpotifyAlbums(artist) {
 				}
 			}
 		}
-	}
-	if (!multiple) {
-		downloadMusicBrainzAlbums();
+		while (currentOffset + 50 < albumCount) {
+			currentOffset += 50;
+			await new Promise((r) => setTimeout(r, 250));
+			var fsatoken = localStorage.getItem("spfAccessToken");
+			const response = await fetch(`${apiUrl}/v1/artists/` + artist + "/albums?limit=50&offset=" + currentOffset, {
+				headers: {
+					Authorization: "Bearer " + fsatoken,
+				},
+			});
+
+			const data = await response.json();
+			console.log(data);
+			if (!data["error"]) {
+				for (let album in data["items"]) {
+					spotifyAlbumList.push(data["items"][album]);
+					document.getElementById("loadingText").innerHTML = "Loading albums from spotify... (" + Number(Number(album) + Number(currentOffset)) + "/" + albumCount + ")";
+				}
+			} else {
+				if (data["error"]["status"] == 404) {
+					dispErr("Spotify artist not found!");
+				} else if (data["error"]["status"] == 400) {
+					dispErr("Invalid artist id!");
+				} else {
+					fsatoken = localStorage.getItem("spfAccessToken");
+					console.log(fsatoken);
+					if (!fsatoken) {
+						fsatoken = "";
+					}
+					if (fsatoken && fsatoken.length > 10) {
+						dispErr("Spotify Timeout | Please reload");
+						//location.reload()
+					}
+				}
+			}
+		}
+		if (!multiple) {
+			downloadMusicBrainzAlbums();
+		}
 	}
 }
 
