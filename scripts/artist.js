@@ -261,7 +261,7 @@ async function fetchMusicBrainzAlbums(type) {
 					document.getElementById("loadingText").innerHTML = `Loading albums from MusicBrainz (${type === "artist" ? "1/2" : "2/2"})... (${release}/${albumCount})`;
 				}
 				success = true;
-			} else if ((data["error"] = "Not Found" || response.status == 404)) {
+			} else if ((data["error"] = "Not Found" || response.status == 404) && !newArtist) {
 				dispErr("Musicbrainz artist not found. URL likely malformed");
 				break;
 			} else {
@@ -468,6 +468,20 @@ if (spid) {
 		document.getElementById("loadingText").innerHTML = "Loading albums from spotify...";
 		fetchSpotifyArtist(spid);
 	} else if (newArtist) {
+		async function fetchMBArtist(id) {
+			const response = await fetch("https://musicbrainz.org/ws/2/url?limit=1&inc=artist-rels+label-rels+release-rels&fmt=json&resource=https://open.spotify.com/artist/" + id);
+			const data = await response.json();
+			if (response.status == 200) {
+				const mbid = data["relations"][0]["artist"]["id"];
+				console.log(mbid);
+				location.assign("https://lioncat6.github.io/SAMBL/artist?spid=" + id + "&mbid=" + mbid);
+			} else if ((data["error"] = "Not Found" || response.status == 404)) {
+				console.log("add artist");
+			} else {
+				console.log("MusicBrainz Error: " + data["error"]);
+			}
+		}
+		fetchMBArtist(spid);
 		dispErr("Displaying artist page without MBID");
 		document.getElementById("mbURL").setAttribute("href", "https://musicbrainz.org/artist/" + mbid);
 		document.getElementById("loadingContainer").innerHTML = '<div class="lds-facebook"><div></div><div></div><div></div></div>';
