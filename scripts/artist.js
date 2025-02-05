@@ -155,7 +155,6 @@ async function fetchSpotifyArtist(artist) {
 }
 
 async function downloadSpotifyAlbums(artist) {
-	if (!newArtist) {
 		var albumCount = 0;
 		var currentOffset = 0;
 
@@ -229,15 +228,20 @@ async function downloadSpotifyAlbums(artist) {
 		if (!multiple) {
 			downloadMusicBrainzAlbums();
 		}
-	}
 }
 
 async function downloadMusicBrainzAlbums() {
-	await fetchMusicBrainzAlbums("artist");
-	await fetchMusicBrainzAlbums("track_artist");
-	document.getElementById("loadingContainer").innerHTML = "";
-	document.getElementById("loadingText").innerHTML = "";
-	processAlbums();
+	if (!newArtist) {
+		await fetchMusicBrainzAlbums("artist");
+		await fetchMusicBrainzAlbums("track_artist");
+		document.getElementById("loadingContainer").innerHTML = "";
+		document.getElementById("loadingText").innerHTML = "";
+		processAlbums();
+	} else {
+		document.getElementById("loadingContainer").innerHTML = "";
+		document.getElementById("loadingText").innerHTML = "";
+		processAlbums();
+	}
 }
 
 async function fetchMusicBrainzAlbums(type) {
