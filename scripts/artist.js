@@ -407,16 +407,18 @@ function processAlbums() {
 			spArtistsHtml += `<a href="${artistUrl}" target="_blank">${artistName}</a><a href="${aristSAMBLurl}" target="_blank"><img class="SAMBLicon" src="../assets/images/favicon.svg" /></a>`;
 		}
 		let iconsHtml = "";
-		if (!albumMBUPC || albumMBUPC == null) {
-			iconsHtml += `<img class="upcIcon" src="../assets/images/noUPC.svg" title="This release is missing a UPC/Barcode!">`;
-		}
-		if (MBTrackCount != spotifyTrackCount) {
-			iconsHtml += `<div class="numDiff" title="This release has a differing track count! [SP: ${spotifyTrackCount} MB: ${MBTrackCount}]">#</div>`;
-		}
-		if (MBReleaseDate == ""){
-			iconsHtml += `<div class="dateDiff" title="This release is missing a release date!">🗓</div>`
-		} else if (MBReleaseDate != spotifyReleaseDate) {
-			iconsHtml += `<div class="dateDiff" title="This release has a differing release date! [SP: ${spotifyReleaseDate} MB: ${MBReleaseDate}]\n(This may indicate that you have to split a release.)">🗓</div>`
+		if (color != "red") {
+			if (!albumMBUPC || albumMBUPC == null) {
+				iconsHtml += `<img class="upcIcon" src="../assets/images/noUPC.svg" title="This release is missing a UPC/Barcode!">`;
+			}
+			if (MBTrackCount != spotifyTrackCount) {
+				iconsHtml += `<div class="numDiff" title="This release has a differing track count! [SP: ${spotifyTrackCount} MB: ${MBTrackCount}]">#</div>`;
+			}
+			if (MBReleaseDate == ""){
+				iconsHtml += `<div class="dateDiff" title="This release is missing a release date!">🗓</div>`
+			} else if (MBReleaseDate != spotifyReleaseDate) {
+				iconsHtml += `<div class="dateDiff" title="This release has a differing release date! [SP: ${spotifyReleaseDate} MB: ${MBReleaseDate}]\n(This may indicate that you have to split a release.)">🗓</div>`
+			}
 		}
 		const htmlToAppend = `
 	<div class="album listItem">
