@@ -356,6 +356,8 @@ function processAlbums() {
 			spotifyTrackString = spotifyTrackCount + " Tracks";
 		}
 		var spotifyAlbumType = currentAlbum["album_type"];
+		var finalTrackCount = 0;
+		var finalReleaseDate = 0;
 		for (let mbAlbum in mbAlbumList) {
 			var currentMBRelease = mbAlbumList[mbAlbum];
 			var mbReleaseName = currentMBRelease["title"];
@@ -367,15 +369,20 @@ function processAlbums() {
 				if (mbReleaseUrls[releaseUrl]["url"]["resource"] == spotifyUrl) {
 					albumMBUrl = "https://musicbrainz.org/release/" + currentMBRelease["id"];
 					albumStatus = "green";
+					finalTrackCount = MBTrackCount;
+					finalReleaseDate = MBReleaseDate;
 					break;
 				}
 			}
 			if (albumStatus == "green") {
+				finalTrackCount = MBTrackCount;
+				finalReleaseDate = MBReleaseDate;
 				break;
 			} else if (mbReleaseName.toUpperCase().replace(/\s/g, "") == spotifyName.toUpperCase().replace(/\s/g, "")) {
 				albumMBUrl = "https://musicbrainz.org/release/" + currentMBRelease["id"];
 				albumStatus = "orange";
-				break
+				finalTrackCount = MBTrackCount;
+				finalReleaseDate = MBReleaseDate;
 			}
 		}
 		total++;
@@ -408,17 +415,17 @@ function processAlbums() {
 			spArtistsHtml += `<a href="${artistUrl}" target="_blank">${artistName}</a><a href="${aristSAMBLurl}" target="_blank"><img class="SAMBLicon" src="../assets/images/favicon.svg" /></a>`;
 		}
 		let iconsHtml = "";
-		if (albumStatus != "red") {
+		if (color != "red") {
 			if (!albumMBUPC || albumMBUPC == null) {
 				iconsHtml += `<img class="upcIcon" src="../assets/images/noUPC.svg" title="This release is missing a UPC/Barcode!">`;
 			}
 			if (MBTrackCount != spotifyTrackCount) {
-				iconsHtml += `<div class="numDiff" title="This release has a differing track count! [SP: ${spotifyTrackCount} MB: ${MBTrackCount}]">#</div>`;
+				iconsHtml += `<div class="numDiff" title="This release has a differing track count! [SP: ${spotifyTrackCount} MB: ${finalTrackCount}]">#</div>`;
 			}
 			if (MBReleaseDate == ""){
 				iconsHtml += `<div class="dateDiff" title="This release is missing a release date!">🗓</div>`
 			} else if (MBReleaseDate != spotifyReleaseDate) {
-				iconsHtml += `<div class="dateDiff" title="This release has a differing release date! [SP: ${spotifyReleaseDate} MB: ${MBReleaseDate}]\n(This may indicate that you have to split a release.)">🗓</div>`
+				iconsHtml += `<div class="dateDiff" title="This release has a differing release date! [SP: ${spotifyReleaseDate} MB: ${finalReleaseDate}]\n(This may indicate that you have to split a release.)">🗓</div>`
 			}
 		}
 		const htmlToAppend = `
