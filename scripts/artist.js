@@ -419,12 +419,12 @@ function processAlbums() {
 			if (!albumMBUPC || albumMBUPC == null) {
 				iconsHtml += `<img class="upcIcon" src="../assets/images/noUPC.svg" title="This release is missing a UPC/Barcode!">`;
 			}
-			if (MBTrackCount != spotifyTrackCount) {
+			if (finalTrackCount != spotifyTrackCount) {
 				iconsHtml += `<div class="numDiff" title="This release has a differing track count! [SP: ${spotifyTrackCount} MB: ${finalTrackCount}]">#</div>`;
 			}
-			if (MBReleaseDate == ""){
+			if (finalReleaseDate == ""){
 				iconsHtml += `<div class="dateDiff" title="This release is missing a release date!">🗓</div>`
-			} else if (MBReleaseDate != spotifyReleaseDate) {
+			} else if (finalReleaseDate != spotifyReleaseDate) {
 				iconsHtml += `<div class="dateDiff" title="This release has a differing release date! [SP: ${spotifyReleaseDate} MB: ${finalReleaseDate}]\n(This may indicate that you have to split a release.)">🗓</div>`
 			}
 		}
