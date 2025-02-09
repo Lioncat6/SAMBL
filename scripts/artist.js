@@ -408,7 +408,7 @@ function processAlbums() {
 			spArtistsHtml += `<a href="${artistUrl}" target="_blank">${artistName}</a><a href="${aristSAMBLurl}" target="_blank"><img class="SAMBLicon" src="../assets/images/favicon.svg" /></a>`;
 		}
 		let iconsHtml = "";
-		if (color != "red") {
+		if (albumStatus != "red") {
 			if (!albumMBUPC || albumMBUPC == null) {
 				iconsHtml += `<img class="upcIcon" src="../assets/images/noUPC.svg" title="This release is missing a UPC/Barcode!">`;
 			}
