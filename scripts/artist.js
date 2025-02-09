@@ -375,6 +375,7 @@ function processAlbums() {
 			} else if (mbReleaseName.toUpperCase().replace(/\s/g, "") == spotifyName.toUpperCase().replace(/\s/g, "")) {
 				albumMBUrl = "https://musicbrainz.org/release/" + currentMBRelease["id"];
 				albumStatus = "orange";
+				break
 			}
 		}
 		total++;
