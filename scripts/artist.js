@@ -416,7 +416,7 @@ function processAlbums() {
 		if (MBReleaseDate == ""){
 			iconsHtml += `<div class="dateDiff" title="This release is missing a release date!">🗓</div>`
 		} else if (MBReleaseDate != spotifyReleaseDate) {
-			iconsHtml += `<div class="dateDiff" title="This release has a differing release date! [SP: ${spotifyReleaseDate} MB: ${MBReleaseDate}]\n(Don't assume Spotify is right! This may indicate that you have to split a release.)\n(For example, if Bandcamp says one date and Spotify says another, they should probably be split.)">🗓</div>`
+			iconsHtml += `<div class="dateDiff" title="This release has a differing release date! [SP: ${spotifyReleaseDate} MB: ${MBReleaseDate}]\n(Don't assume Spotify is right! This may indicate that you have to split a release.)\n(For example, if Bandcamp says one date and Spotify says another, they should probably be split.)\n(Deezer, hoverer, is usually wrong.)">🗓</div>`
 		}
 		const htmlToAppend = `
 	<div class="album listItem">
