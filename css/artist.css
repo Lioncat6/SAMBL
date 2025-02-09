@@ -511,3 +511,18 @@ label i {
 	height: 16px;
 	vertical-align: middle;
 }
+
+.numDiff {
+    color: red;
+    margin-left: 5px;
+    font-weight: bold;
+	cursor: help;
+}
+
+.dateDiff {
+    color: red;
+    margin-left: 5px;
+    font-weight: bold;
+    cursor: help;
+    transform: translateY(-1.6px);
+}
