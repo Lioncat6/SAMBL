@@ -430,7 +430,7 @@ function processAlbums() {
 				const spotifyYear = spotifyReleaseDate.split("-")[0];
 				const spotifyMonth = spotifyReleaseDate.split("-")[1];
 				const spotifyDay = spotifyReleaseDate.split("-")[2];
-				iconsHtml += `<a class="dateDiff" href="https://musicbrainz.org/release/${finalMBID}/edit?events.0.date.year=${spotifyYear}&events.0.date.month=${spotifyMonth}events.0.date.day=${spotifyDay}" title="This release is missing a release date!\n[Click to Fix] - Requires MB Release Seeding Helper" target="_blank" rel="nooperner">🗓</a>`
+				iconsHtml += `<a class="dateDiff" href="https://musicbrainz.org/release/${finalMBID}/edit?events.0.date.year=${spotifyYear}&events.0.date.month=${spotifyMonth}&events.0.date.day=${spotifyDay}" title="This release is missing a release date!\n[Click to Fix] - Requires MB Release Seeding Helper" target="_blank" rel="nooperner">🗓</a>`
 			} else if (finalReleaseDate != spotifyReleaseDate) {
 				iconsHtml += `<div class="dateDiff" title="This release has a differing release date! [SP: ${spotifyReleaseDate} MB: ${finalReleaseDate}]\n(This may indicate that you have to split a release.)">🗓</div>`
 			}
