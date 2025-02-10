@@ -426,7 +426,7 @@ function processAlbums() {
 			if (finalTrackCount != spotifyTrackCount) {
 				iconsHtml += `<div class="numDiff" title="This release has a differing track count! [SP: ${spotifyTrackCount} MB: ${finalTrackCount}]">#</div>`;
 			}
-			if (finalReleaseDate == ""){
+			if (finalReleaseDate == "" || finalReleaseDate == undefined || !finalReleaseDate){
 				const spotifyYear = spotifyReleaseDate.split("-")[0];
 				const spotifyMonth = spotifyReleaseDate.split("-")[1];
 				const spotifyDay = spotifyReleaseDate.split("-")[2];
