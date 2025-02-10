@@ -4,7 +4,13 @@ Spotify Artist MusicBrainz Lookup
 
 <details>
 <summary><h2>Userscripts</h2></summary>
-<h3><a href="https://github.com/Lioncat6/MusicBrainz-UserScripts?tab=readme-ov-file#musicbrainz-artist-sambl-button" target="_blank">Artist Page SAMBL Button</a> [Official]</h3>
+<h3><a href="https://github.com/Lioncat6/MusicBrainz-UserScripts/edit/main/README.md#mb-release-seeding-helper" target="_blank"> MB Release Seeding Helper [Lioncat6]</a></h3>
+ <img src="https://github.com/user-attachments/assets/012af33b-4e9b-4ef1-81a3-b5b2bbc617d7">
+
+  > Enables the seeding of MusicBrainz release editor fields via URL parameters. Fixes MBS-13688.
+
+ <b>Allows SAMBL to edit releases</b>
+<h3><a href="https://github.com/Lioncat6/MusicBrainz-UserScripts?tab=readme-ov-file#musicbrainz-artist-sambl-button" target="_blank">Artist Page SAMBL Button [Lioncat6]</a></h3>
 <img src="https://github.com/user-attachments/assets/ea547dce-168a-4aaa-bdb6-eee3542735be">
 <h3><a href="https://github.com/mistwyrm/MusicBrainzScripts/tree/main?tab=readme-ov-file#artist-image-helper" target="_blank">Artist Image Helper</a> [<a href="https://github.com/mistwyrm" target="_blank">mistwyrm</a>]</h3>
 <img src="https://github.com/user-attachments/assets/84e6976c-7e21-4e5b-9d5a-4c7a7a82e217">
