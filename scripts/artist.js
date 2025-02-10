@@ -358,6 +358,7 @@ function processAlbums() {
 		var spotifyAlbumType = currentAlbum["album_type"];
 		var finalTrackCount = 0;
 		var finalReleaseDate = 0;
+		var finalMBID = "";
 		for (let mbAlbum in mbAlbumList) {
 			var currentMBRelease = mbAlbumList[mbAlbum];
 			var mbReleaseName = currentMBRelease["title"];
@@ -367,7 +368,8 @@ function processAlbums() {
 			var MBReleaseDate = currentMBRelease["date"];
 			for (let releaseUrl in mbReleaseUrls) {
 				if (mbReleaseUrls[releaseUrl]["url"]["resource"] == spotifyUrl) {
-					albumMBUrl = "https://musicbrainz.org/release/" + currentMBRelease["id"];
+					finalMBID = currentMBRelease["id"];
+					albumMBUrl = "https://musicbrainz.org/release/" + finalMBID;
 					albumStatus = "green";
 					finalTrackCount = MBTrackCount;
 					finalReleaseDate = MBReleaseDate;
@@ -377,9 +379,11 @@ function processAlbums() {
 			if (albumStatus == "green") {
 				finalTrackCount = MBTrackCount;
 				finalReleaseDate = MBReleaseDate;
+				finalMBID = currentMBRelease["id"];
 				break;
 			} else if (mbReleaseName.toUpperCase().replace(/\s/g, "") == spotifyName.toUpperCase().replace(/\s/g, "")) {
-				albumMBUrl = "https://musicbrainz.org/release/" + currentMBRelease["id"];
+				finalMBID = currentMBRelease["id"];
+				albumMBUrl = "https://musicbrainz.org/release/" + finalMBID;
 				albumStatus = "orange";
 				finalTrackCount = MBTrackCount;
 				finalReleaseDate = MBReleaseDate;
@@ -423,7 +427,10 @@ function processAlbums() {
 				iconsHtml += `<div class="numDiff" title="This release has a differing track count! [SP: ${spotifyTrackCount} MB: ${finalTrackCount}]">#</div>`;
 			}
 			if (finalReleaseDate == ""){
-				iconsHtml += `<div class="dateDiff" title="This release is missing a release date!">🗓</div>`
+				const spotifyYear = spotifyReleaseDate.split("-")[0];
+				const spotifyMonth = spotifyReleaseDate.split("-")[1];
+				const spotifyDay = spotifyReleaseDate.split("-")[2];
+				iconsHtml += `<a class="dateDiff" href="https://musicbrainz.org/release/${finalMBID}/edit?events.0.date.year=${spotifyYear}&events.0.date.month=${spotifyMonth}events.0.date.day=${spotifyDay}" title="This release is missing a release date!\n[Click to Fix] - Requires MB Release Seeding Helper" target="_blank" rel="nooperner">🗓</a>`
 			} else if (finalReleaseDate != spotifyReleaseDate) {
 				iconsHtml += `<div class="dateDiff" title="This release has a differing release date! [SP: ${spotifyReleaseDate} MB: ${finalReleaseDate}]\n(This may indicate that you have to split a release.)">🗓</div>`
 			}

@@ -520,9 +520,9 @@ label i {
 }
 
 .dateDiff {
-    color: red;
+    color: red !important;
     margin-left: 5px;
-    font-weight: bold;
+    font-weight: bold !important;
     cursor: help;
     transform: translateY(-1.6px);
 }
