@@ -4,7 +4,7 @@ Spotify Artist MusicBrainz Lookup
 
 <details>
 <summary><h2>Userscripts</h2></summary>
-<h3><a href="https://github.com/Lioncat6/MusicBrainz-UserScripts/edit/main/README.md#mb-release-seeding-helper" target="_blank"> MB Release Seeding Helper [Lioncat6]</a></h3>
+<h3><a href="https://github.com/Lioncat6/MusicBrainz-UserScripts?tab=readme-ov-file#mb-release-edit-seeding-helper" target="_blank"> MB Release Edit Seeding Helper [Lioncat6]</a></h3>
  <img src="https://github.com/user-attachments/assets/012af33b-4e9b-4ef1-81a3-b5b2bbc617d7">
 
   > Enables the seeding of MusicBrainz release editor fields via URL parameters. Fixes MBS-13688.

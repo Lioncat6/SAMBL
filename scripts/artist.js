@@ -430,12 +430,12 @@ function processAlbums() {
 			if (finalTrackCount != spotifyTrackCount) {
 				iconsHtml += `<div class="numDiff" title="This release has a differing track count! [SP: ${spotifyTrackCount} MB: ${finalTrackCount}]">#</div>`;
 			}
-			if (finalReleaseDate == ""){
+			if (finalReleaseDate == "" || finalReleaseDate == undefined || !finalReleaseDate){
 				const spotifyYear = spotifyReleaseDate.split("-")[0];
 				const spotifyMonth = spotifyReleaseDate.split("-")[1];
 				const spotifyDay = spotifyReleaseDate.split("-")[2];
 				const editNote = encodeURIComponent(`Added release date from Spotify using SAMBL: ${spotifyUrl}`);
-				iconsHtml += `<a class="dateDiff" href="https://musicbrainz.org/release/${finalMBID}/edit?events.0.date.year=${spotifyYear}&events.0.date.month=${spotifyMonth}&events.0.date.day=${spotifyDay}&edit_note=${editNote}" title="This release is missing a release date!\n[Click to Fix] - Requires MB Release Seeding Helper" target="_blank" rel="nooperner">🗓</a>`
+				iconsHtml += `<a class="dateDiff" href="https://musicbrainz.org/release/${finalMBID}/edit?events.0.date.year=${spotifyYear}&events.0.date.month=${spotifyMonth}&events.0.date.day=${spotifyDay}&edit_note=${editNote}" title="This release is missing a release date!\n[Click to Fix] - Requires MB Release Edit Seeding Helper" target="_blank" rel="nooperner">🗓</a>`
 			} else if (finalReleaseDate != spotifyReleaseDate) {
 				iconsHtml += `<div class="dateDiff" title="This release has a differing release date! [SP: ${spotifyReleaseDate} MB: ${finalReleaseDate}]\n(This may indicate that you have to split a release.)">🗓</div>`
 			}
