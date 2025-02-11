@@ -331,13 +331,8 @@ async function fetchMusicBrainzAlbums(type) {
 function capFirst(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
-
 function normalizeText(text) {
-  let normalizedText = text.normalize("NFD");
-  
-  // Remove diacritics
-normalizedText = normalizedText.replace(/[\u0300-\u036f]/g, "");
-normalizedText.toUpperCase().replace(/\s/g, "").replace(/[^a-zA-Z0-9]/g, "");
+	return text.toUpperCase().replace(/\s/g, "");
 }
 
 var green = 0;
