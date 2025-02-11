@@ -332,6 +332,10 @@ function capFirst(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+function normalizeText(text) {
+	return text.toUpperCase().replace(/\s/g, "").replace(/[^a-zA-Z0-9]/g, "");
+}
+
 var green = 0;
 var red = 0;
 var orange = 0;
@@ -381,7 +385,7 @@ function processAlbums() {
 				finalReleaseDate = MBReleaseDate;
 				finalMBID = currentMBRelease["id"];
 				break;
-			} else if (mbReleaseName.toUpperCase().replace(/\s/g, "") == spotifyName.toUpperCase().replace(/\s/g, "")) {
+			} else if (normalizeText(mbReleaseName) == normalizeText(spotifyName)) {
 				finalMBID = currentMBRelease["id"];
 				albumMBUrl = "https://musicbrainz.org/release/" + finalMBID;
 				albumStatus = "orange";
