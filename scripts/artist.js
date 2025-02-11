@@ -333,7 +333,11 @@ function capFirst(string) {
 }
 
 function normalizeText(text) {
-	return text.toUpperCase().replace(/\s/g, "").replace(/[^a-zA-Z0-9]/g, "");
+  let normalizedText = text.normalize("NFD");
+  
+  // Remove diacritics
+normalizedText = normalizedText.replace(/[\u0300-\u036f]/g, "");
+normalizedText.toUpperCase().replace(/\s/g, "").replace(/[^a-zA-Z0-9]/g, "");
 }
 
 var green = 0;
