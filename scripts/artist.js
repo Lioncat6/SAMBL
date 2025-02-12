@@ -367,6 +367,7 @@ function processAlbums() {
 		var finalTrackCount = 0;
 		var finalReleaseDate = 0;
 		var finalMBID = "";
+		var finalHasCoverArt = false;
 		for (let mbAlbum in mbAlbumList) {
 			var currentMBRelease = mbAlbumList[mbAlbum];
 			var mbReleaseName = currentMBRelease["title"];
@@ -374,6 +375,7 @@ function processAlbums() {
 			var albumMBUPC = currentMBRelease["barcode"];
 			var MBTrackCount = currentMBRelease["media"][0]["track-count"];
 			var MBReleaseDate = currentMBRelease["date"];
+			var hasCoverArt = currentMBRelease["cover-art-archive"]["front"];
 			for (let releaseUrl in mbReleaseUrls) {
 				if (mbReleaseUrls[releaseUrl]["url"]["resource"] == spotifyUrl) {
 					finalMBID = currentMBRelease["id"];
@@ -381,6 +383,7 @@ function processAlbums() {
 					albumStatus = "green";
 					finalTrackCount = MBTrackCount;
 					finalReleaseDate = MBReleaseDate;
+					finalHasCoverArt = hasCoverArt;
 					break;
 				}
 			}
@@ -388,6 +391,7 @@ function processAlbums() {
 				finalTrackCount = MBTrackCount;
 				finalReleaseDate = MBReleaseDate;
 				finalMBID = currentMBRelease["id"];
+				finalHasCoverArt = hasCoverArt;
 				break;
 			} else if (normalizeText(mbReleaseName) == normalizeText(spotifyName)) {
 				finalMBID = currentMBRelease["id"];
@@ -395,6 +399,7 @@ function processAlbums() {
 				albumStatus = "orange";
 				finalTrackCount = MBTrackCount;
 				finalReleaseDate = MBReleaseDate;
+				finalHasCoverArt = hasCoverArt;
 			}
 		}
 		total++;
@@ -439,9 +444,20 @@ function processAlbums() {
 				const spotifyMonth = spotifyReleaseDate.split("-")[1];
 				const spotifyDay = spotifyReleaseDate.split("-")[2];
 				const editNote = encodeURIComponent(`Added release date from Spotify using SAMBL: ${spotifyUrl}`);
-				iconsHtml += `<a class="dateDiff" href="https://musicbrainz.org/release/${finalMBID}/edit?events.0.date.year=${spotifyYear}&events.0.date.month=${spotifyMonth}&events.0.date.day=${spotifyDay}&edit_note=${editNote}" title="This release is missing a release date!\n[Click to Fix] - Requires MB Release Edit Seeding Helper" target="_blank" rel="nooperner">🗓</a>`;
+				if (albumStatus == "green") {
+					iconsHtml += `<a class="dateMissing green" href="https://musicbrainz.org/release/${finalMBID}/edit?events.0.date.year=${spotifyYear}&events.0.date.month=${spotifyMonth}&events.0.date.day=${spotifyDay}&edit_note=${editNote}" title="This release is missing a release date!\n[Click to Fix]" target="_blank" rel="nooperner"></a>`;
+				} else {
+					iconsHtml += `<a class="dateMissing" title="This release is missing a release date!"></a>`;
+				}
 			} else if (finalReleaseDate != spotifyReleaseDate) {
-				iconsHtml += `<div class="dateDiff" title="This release has a differing release date! [SP: ${spotifyReleaseDate} MB: ${finalReleaseDate}]\n(This may indicate that you have to split a release.)">🗓</div>`;
+				iconsHtml += `<div class="dateDiff" title="This release has a differing release date! [SP: ${spotifyReleaseDate} MB: ${finalReleaseDate}]\n(This may indicate that you have to split a release.)"></div>`;
+			}
+			if (!finalHasCoverArt) {
+				if (albumStatus == "green") {
+					iconsHtml += `<a class="coverArtMissing green" title="This release is missing cover art!\n[Click to Fix] - MB: Enhanced Cover Art Uploads recommended" target="_blank" rel="noopener" href="https://musicbrainz.org/release/${finalMBID}/cover-art"></a>`;
+				} else {
+					iconsHtml += `<a class="coverArtMissing" title="This release is missing cover art!"></a>`;
+				}
 			}
 		}
 		const htmlToAppend = `
@@ -552,11 +568,14 @@ function searchList() {
 		let hasNoUpc = tr[i].getElementsByClassName("upcIcon").length > 0;
 		let countDiff = tr[i].getElementsByClassName("numDiff").length > 0;
 		let dateDiff = tr[i].getElementsByClassName("dateDiff").length > 0;
+		let dateMissing = tr[i].getElementsByClassName("dateMissing").length > 0;
+		let coverArtMissing = tr[i].getElementsByClassName("coverArtMissing").length > 0;
+
 		if (td) {
 			txtValue = td.textContent || td.innerText;
 			if (txtValue.toUpperCase().indexOf(filter) > -1) {
 				const isVariousArtists = variousArtistsList.some((artist) => artistString.includes(artist));
-				if (((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red")) && !(hideVarious && isVariousArtists) && !(hasProblem && !hasNoUpc && !countDiff && !dateDiff)) {
+				if (((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red")) && !(hideVarious && isVariousArtists) && !(hasProblem && !hasNoUpc && !countDiff && !dateDiff && !dateMissing && !coverArtMissing)) {
 					tr[i].style.display = "";
 				} else {
 					tr[i].style.display = "none";

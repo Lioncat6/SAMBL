@@ -453,6 +453,7 @@ label i {
 	margin-left: 5px;
 	width: 27px;
 	cursor: help;
+	transform: translateY(1px);
 }
 
 .isrcIcon {
@@ -524,5 +525,44 @@ label i {
     margin-left: 5px;
     font-weight: bold !important;
     cursor: help;
-    transform: translateY(-1.6px);
+	background: url('../assets/images/dateConflict.svg') no-repeat center;
+	background-size: contain;
+	width: 16px;
+	height: 16px;
+}
+
+.dateMissing {
+	color: red !important;
+	margin-left: 5px;
+	font-weight: bold !important;
+	cursor: help;
+	background: url('../assets/images/missingDate.svg') no-repeat center;
+	background-size: contain;
+	width: 16px;
+	height: 16px;
+}
+
+.dateMissing.green:hover {
+	background: url('../assets/images/addDate.svg') no-repeat center;
+	background-size: contain;
+	width: 16px;
+	height: 16px;
+}
+
+.coverArtMissing {
+	color: red !important;
+	margin-left: 5px;
+	font-weight: bold !important;
+	cursor: help;
+	background: url('../assets/images/missingCover.svg') no-repeat center;
+	background-size: contain;
+	width: 16px;
+	height: 16px;
+}
+
+.coverArtMissing.green:hover {
+	background: url('../assets/images/addCover.svg') no-repeat center;
+	background-size: contain;
+	width: 16px;
+	height: 16px;
 }
