@@ -5,6 +5,11 @@
 
 #artistImageContainer img {
 	width: 20vh;
+	  max-width: 100%;
+	  border-radius: 6px;
+	  object-fit: cover;
+	  aspect-ratio: 1;
+	  filter: drop-shadow(8px 8px 10px #000000a8);
 }
 #artistImageContainer {
 	width: 50%;
@@ -38,6 +43,7 @@
 .nameContainer {
 	display: flex;
 	flex-direction: row;
+	justify-content: center;
 }
 
 .spURLContainer {
@@ -529,6 +535,8 @@ label i {
 	background-size: contain;
 	width: 16px;
 	height: 16px;
+	min-width: 16px;
+	min-height: 16px;
 }
 
 .dateMissing {
@@ -540,6 +548,8 @@ label i {
 	background-size: contain;
 	width: 16px;
 	height: 16px;
+	min-width: 16px;
+	min-height: 16px;
 }
 
 .dateMissing.green:hover {
@@ -547,6 +557,8 @@ label i {
 	background-size: contain;
 	width: 16px;
 	height: 16px;
+	min-width: 16px;
+	min-height: 16px;
 }
 
 .coverArtMissing {
@@ -558,6 +570,8 @@ label i {
 	background-size: contain;
 	width: 16px;
 	height: 16px;
+	min-width: 16px;
+	min-height: 16px;
 }
 
 .coverArtMissing.green:hover {
@@ -565,4 +579,6 @@ label i {
 	background-size: contain;
 	width: 16px;
 	height: 16px;
+	min-width: 16px;
+	min-height: 16px;
 }
