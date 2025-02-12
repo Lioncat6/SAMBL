@@ -332,7 +332,12 @@ function capFirst(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 function normalizeText(text) {
-	return text.toUpperCase().replace(/\s/g, "");
+	let normalizedText = text.toUpperCase().replace(/\s/g, "");
+	let textRemovedChars = normalizedText.replace(/['’!?.,:;(){}\[\]<>\/\\|_\-+=*&^%$#@~`“”«»„“”¿¡]/g, "");
+	if (textRemovedChars == "") {
+		textRemovedChars = normalizedText;
+	}
+	return textRemovedChars
 }
 
 var green = 0;
@@ -418,7 +423,7 @@ function processAlbums() {
 			var artistName = currentArtist["name"];
 			var artistUrl = currentArtist["external_urls"]["spotify"];
 			var artistId = currentArtist["id"];
-			const aristSAMBLurl = `https://lioncat6.github.io/SAMBL/newartist?spid=${artistId}`;
+			const aristSAMBLurl = `../newartist?spid=${artistId}`;
 			spArtistsHtml += `<a href="${artistUrl}" target="_blank">${artistName}</a><a href="${aristSAMBLurl}" target="_blank"><img class="SAMBLicon" src="../assets/images/favicon.svg" /></a>`;
 		}
 		let iconsHtml = "";
@@ -501,7 +506,7 @@ if (spid) {
 			if (response.status == 200) {
 				const mbid = data["relations"][0]["artist"]["id"];
 				console.log(mbid);
-				location.assign(`https://lioncat6.github.io/SAMBL/artist?spid=${id}&mbid=${mbid}`);
+				location.assign(`../artist?spid=${id}&mbid=${mbid}`);
 			} else if ((data["error"] = "Not Found" || response.status == 404)) {
 				console.log("add artist");
 			} else {

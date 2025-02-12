@@ -117,9 +117,9 @@ async function fetchMBArtist(id) {
 		const data = await response.json();
 		if (response.status == 200) {
 			const mbid = data["relations"][0]["artist"]["id"];
-			return [true, "https://lioncat6.github.io/SAMBL/artist?spid=" + id + "&artist_mbid=" + mbid];
+			return [true, "../artist?spid=" + id + "&artist_mbid=" + mbid];
 		} else if ((data["error"] = "Not Found" || response.status == 404)) {
-			return [false, "https://lioncat6.github.io/SAMBL/newartist?spid=" + id];
+			return [false, "../newartist?spid=" + id];
 		} else {
 			console.log("MusicBrainz Error: " + data["error"]);
 			throw new Error("MB Error");

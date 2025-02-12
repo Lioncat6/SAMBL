@@ -43,7 +43,7 @@ async function fetchSpotifyArtist(artist) {
 		document.getElementById("artistGenres").innerHTML = `<p>${spGenresString}</p>`;
 		document.getElementById(
 			"contentContainer"
-		).innerHTML = `<a class=\"addToMBButton\" href=\"https://musicbrainz.org/artist/create?edit-artist.name=${spArtistName}&edit-artist.sort_name=${spArtistName}&edit-artist.url.0.text=${spArtistUrl}&edit-artist.url.0.link_type_id=194&edit-artist.edit_note=Artist sourced from Spotify using SAMBL ${spArtistUrl}\" target=\"_blank\"><div>Add to MusicBranz</div></a><a class=\"addToMBButton\" href=\"https://lioncat6.github.io/SAMBL/artist/?spid=${spArtistId}&newArtist=true\" target=\"_blank\"><div>View Artist Anyway</div></a>`;
+		).innerHTML = `<a class=\"addToMBButton\" href=\"https://musicbrainz.org/artist/create?edit-artist.name=${spArtistName}&edit-artist.sort_name=${spArtistName}&edit-artist.url.0.text=${spArtistUrl}&edit-artist.url.0.link_type_id=194&edit-artist.edit_note=Artist sourced from Spotify using SAMBL ${spArtistUrl}\" target=\"_blank\"><div>Add to MusicBranz</div></a><a class=\"addToMBButton\" href=\"../artist/?spid=${spArtistId}&newArtist=true\" target=\"_blank\"><div>View Artist Anyway</div></a>`;
 		fetchMBArtist(artist);
 	} else {
 		if (data["error"]["status"] == 404) {
@@ -62,7 +62,7 @@ async function fetchMBArtist(id) {
 	if (response.status == 200) {
 		const mbid = data["relations"][0]["artist"]["id"];
 		console.log(mbid);
-		location.assign("https://lioncat6.github.io/SAMBL/artist?spid=" + id + "&mbid=" + mbid);
+		location.assign("../artist?spid=" + id + "&mbid=" + mbid);
 	} else if ((data["error"] = "Not Found" || response.status == 404)) {
 		console.log("add artist");
 	} else {

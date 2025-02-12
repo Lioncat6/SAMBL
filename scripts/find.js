@@ -31,7 +31,7 @@ function lookup() {
 				if (query.includes("https")) {
 					invalidInput("This type of link isn't currently supported!");
 				} else {
-					location.assign("https://lioncat6.github.io/SAMBL/search/?query=" + query);
+					location.assign("./search/?query=" + query);
 				}
 			}
 		} else {
@@ -93,11 +93,11 @@ async function fetchMBArtist(id) {
 		const mbid = data["relations"][0]["artist"]["id"];
 		console.log(mbid);
 		invalidInput(" ");
-		location.assign("https://lioncat6.github.io/SAMBL/artist?spid=" + id + "&artist_mbid=" + mbid);
+		location.assign("./artist?spid=" + id + "&artist_mbid=" + mbid);
 	} else if ((data["error"] = "Not Found" || response.status == 404)) {
 		console.log("add artist");
 		invalidInput(" ");
-		location.assign("https://lioncat6.github.io/SAMBL/newartist?spid=" + id);
+		location.assign("./newartist?spid=" + id);
 	} else {
 		invalidInput("MusicBrainz Error: " + data["error"]);
 	}
