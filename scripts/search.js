@@ -47,6 +47,13 @@ async function processArtists() {
 	var elements = [];
 	var total = 0;
 	displayList();
+	if (spotifyArtistList.length == 0){
+		let htmlToAppend = '<div id="noResults">No Results</div>'
+		var htmlObject = document.createElement("div");
+		htmlObject.innerHTML = htmlToAppend;
+		document.getElementById("artistList").append(htmlObject);
+		return;
+	}
 	for (x in spotifyArtistList) {
 		var currentArtist = spotifyArtistList[x];
 		var spotifyUrl = currentArtist["external_urls"]["spotify"];
