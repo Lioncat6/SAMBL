@@ -582,15 +582,17 @@ function searchList() {
                 const isVariousArtists = variousArtistsList.some((artist) => artistString.includes(artist));
                 if (((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red")) && !(hideVarious && isVariousArtists) && !(hasProblem && !hasNoUpc && !countDiff && !dateDiff && !dateMissing && !coverArtMissing)) {
                     tr[i].style.display = "";
-                    visibleTotal++;
+                } else {
+                    tr[i].style.display = "none";
+                }
+				if ((!isVariousArtists && hideVarious) || !hideVarious) {
+					visibleTotal++;
                     if (color === "green") {
                         visibleGreen++;
                     } else if (color === "orange") {
                         visibleOrange++;
                     }
-                } else {
-                    tr[i].style.display = "none";
-                }
+				}
             } else {
                 tr[i].style.display = "none";
             }
