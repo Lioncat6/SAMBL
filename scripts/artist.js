@@ -355,6 +355,7 @@ function processAlbums() {
 		var spotifyId = currentAlbum["id"];
 		var spotifyName = currentAlbum["name"];
 		var spotifyImageURL = currentAlbum["images"][0]["url"];
+		var spotifyImageURL300px = currentAlbum["images"][1]["url"] || spotifyImageURL;
 		var spotifyAlbumArtists = currentAlbum["artists"];
 		var spotifyReleaseDate = currentAlbum["release_date"];
 		var spotifyTrackCount = currentAlbum["total_tracks"];
@@ -464,7 +465,7 @@ function processAlbums() {
 	<div class="album listItem">
 		<div class="statusPill ${albumStatus}" title="${pillTooltipText}"></div>
 		<div class="albumCover">
-			<a href="${spotifyImageURL}" target="_blank"><img src="${spotifyImageURL}" /></a>
+			<a href="${spotifyImageURL300px}" target="_blank"><img src="${spotifyImageURL}" /></a>
 		</div>
 		<div class="textContainer">
 			<div class="albumTitle">
