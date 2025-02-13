@@ -606,6 +606,9 @@ function searchList() {
     } else {
         document.getElementById("statusText").innerHTML = `Albums on musicBrainz: ${visibleGreen}/${visibleTotal}`;
     }
+	green = visibleGreen;
+	orange = visibleOrange;
+	red = visibleTotal - visibleGreen - visibleOrange;
 }
 
 function filter() {
