@@ -556,35 +556,54 @@ let hasProblem = false;
 const variousArtistsList = ["Various Artists", "Artistes Variés", "Verschiedene Künstler", "Varios Artistas", "ヴァリアス・アーティスト"];
 
 function searchList() {
-	let input, filter, table, tr, td, i, txtValue, color, artistString;
-	input = document.getElementById("listSearch");
-	filter = input.value.toUpperCase();
-	table = document.getElementById("albumList");
-	tr = table.getElementsByClassName("listItem");
-	for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByClassName("albumTitle")[0].getElementsByTagName("a")[0];
-		color = tr[i].getElementsByClassName("statusPill")[0].classList[1];
-		artistString = tr[i].getElementsByClassName("artists")[0].innerHTML;
-		let hasNoUpc = tr[i].getElementsByClassName("upcIcon").length > 0;
-		let countDiff = tr[i].getElementsByClassName("numDiff").length > 0;
-		let dateDiff = tr[i].getElementsByClassName("dateDiff").length > 0;
-		let dateMissing = tr[i].getElementsByClassName("dateMissing").length > 0;
-		let coverArtMissing = tr[i].getElementsByClassName("coverArtMissing").length > 0;
+    let input, filter, table, tr, td, i, txtValue, color, artistString;
+    input = document.getElementById("listSearch");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("albumList");
+    tr = table.getElementsByClassName("listItem");
 
-		if (td) {
-			txtValue = td.textContent || td.innerText;
-			if (txtValue.toUpperCase().indexOf(filter) > -1) {
-				const isVariousArtists = variousArtistsList.some((artist) => artistString.includes(artist));
-				if (((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red")) && !(hideVarious && isVariousArtists) && !(hasProblem && !hasNoUpc && !countDiff && !dateDiff && !dateMissing && !coverArtMissing)) {
-					tr[i].style.display = "";
-				} else {
-					tr[i].style.display = "none";
-				}
-			} else {
-				tr[i].style.display = "none";
-			}
-		}
-	}
+    let visibleGreen = 0;
+    let visibleOrange = 0;
+    let visibleTotal = 0;
+
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByClassName("albumTitle")[0].getElementsByTagName("a")[0];
+        color = tr[i].getElementsByClassName("statusPill")[0].classList[1];
+        artistString = tr[i].getElementsByClassName("artists")[0].innerHTML;
+        let hasNoUpc = tr[i].getElementsByClassName("upcIcon").length > 0;
+        let countDiff = tr[i].getElementsByClassName("numDiff").length > 0;
+        let dateDiff = tr[i].getElementsByClassName("dateDiff").length > 0;
+        let dateMissing = tr[i].getElementsByClassName("dateMissing").length > 0;
+        let coverArtMissing = tr[i].getElementsByClassName("coverArtMissing").length > 0;
+
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                const isVariousArtists = variousArtistsList.some((artist) => artistString.includes(artist));
+                if (((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red")) && !(hideVarious && isVariousArtists) && !(hasProblem && !hasNoUpc && !countDiff && !dateDiff && !dateMissing && !coverArtMissing)) {
+                    tr[i].style.display = "";
+                    visibleTotal++;
+                    if (color === "green") {
+                        visibleGreen++;
+                    } else if (color === "orange") {
+                        visibleOrange++;
+                    }
+                } else {
+                    tr[i].style.display = "none";
+                }
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+
+    if (visibleOrange == 1) {
+        document.getElementById("statusText").innerHTML = `Albums on musicBrainz: ${visibleGreen}/${visibleTotal} ~ 1 album has a matching name but no associated link`;
+    } else if (visibleOrange > 0) {
+        document.getElementById("statusText").innerHTML = `Albums on musicBrainz: ${visibleGreen}/${visibleTotal} ~ ${visibleOrange} albums have matching names but no associated link`;
+    } else {
+        document.getElementById("statusText").innerHTML = `Albums on musicBrainz: ${visibleGreen}/${visibleTotal}`;
+    }
 }
 
 function filter() {
