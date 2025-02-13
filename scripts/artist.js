@@ -465,7 +465,7 @@ function processAlbums() {
 	<div class="album listItem">
 		<div class="statusPill ${albumStatus}" title="${pillTooltipText}"></div>
 		<div class="albumCover">
-			<a href="${spotifyImageURL300px}" target="_blank"><img src="${spotifyImageURL}" /></a>
+			<a href="${spotifyImageURL}" target="_blank"><img src="${spotifyImageURL300px}" /></a>
 		</div>
 		<div class="textContainer">
 			<div class="albumTitle">
