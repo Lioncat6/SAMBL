@@ -1,8 +1,19 @@
-import { getUserAgent, getApiUrl } from "../scripts/config.js";
-const userAgent = getUserAgent();
+import { getApiUrl } from "../scripts/config.js";
 let apiUrl = getApiUrl();
 function dispErr(error) {
 	document.getElementById("err").innerHTML = error;
+}
+
+let settingsJson = JSON.parse(localStorage.getItem("settings"));
+let showHarmony = true,
+	showAtisket = true;
+if (settingsJson) {
+	try {
+		showHarmony = settingsJson.showHarmony;
+		showAtisket = settingsJson.showAtisket;
+	} catch (e) {
+		pass
+	}
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -253,11 +264,7 @@ async function fetchMusicBrainzAlbums(type) {
 
 	while (!success && tries < 5) {
 		try {
-			const response = await fetch(`https://musicbrainz.org/ws/2/release?${type}=${mbid}&inc=url-rels+recordings&fmt=json&limit=100&offset=${currentOffset}`, {
-				headers: {
-					"User-Agent": userAgent,
-				},
-			});
+			const response = await fetch(`https://musicbrainz.org/ws/2/release?${type}=${mbid}&inc=url-rels+recordings&fmt=json&limit=100&offset=${currentOffset}`);
 			const data = await response.json();
 			if (response.status == 200) {
 				console.log(data);
@@ -275,7 +282,7 @@ async function fetchMusicBrainzAlbums(type) {
 				throw new Error(data["error"]);
 			}
 		} catch (error) {
-			if (error.message.includes("Your requests are exceeding the allowable rate limit.")) {
+			if (error.message.includes("Your requests are exceeding the allowable rate limit.") || error.message.includes("503")) {
 				await new Promise((r) => setTimeout(r, 1000 * tries)); // Slow down and retry
 			} else {
 				console.error("Error fetching MusicBrainz data:", error);
@@ -293,11 +300,7 @@ async function fetchMusicBrainzAlbums(type) {
 
 		while (!success && tries < 5) {
 			try {
-				const response = await fetch(`https://musicbrainz.org/ws/2/release?${type}=${mbid}&inc=url-rels+recordings&fmt=json&limit=100&offset=${currentOffset}`, {
-					headers: {
-						"User-Agent": userAgent,
-					},
-				});
+				const response = await fetch(`https://musicbrainz.org/ws/2/release?${type}=${mbid}&inc=url-rels+recordings&fmt=json&limit=100&offset=${currentOffset}`);
 				const data = await response.json();
 				if (response.status == 200) {
 					console.log(data);
@@ -314,7 +317,7 @@ async function fetchMusicBrainzAlbums(type) {
 					throw new Error(data["error"]);
 				}
 			} catch (error) {
-				if (error.message.includes("Your requests are exceeding the allowable rate limit.")) {
+				if (error.message.includes("Your requests are exceeding the allowable rate limit.") || error.message.includes("503")) {
 					await new Promise((r) => setTimeout(r, 1000 * tries)); // Slow down and retry
 				} else {
 					console.error("Error fetching MusicBrainz data:", error);
@@ -461,6 +464,14 @@ function processAlbums() {
 				}
 			}
 		}
+		let harmonyClasses = "harmonyButton",
+			atisketClasses = "aTisketButton";
+		if (!showHarmony) {
+			harmonyClasses = "harmonyButton hidden"
+		}
+		if (!showAtisket) {
+			atisketClasses = "aTisketButton hidden"
+		}
 		const htmlToAppend = `
 	<div class="album listItem">
 		<div class="statusPill ${albumStatus}" title="${pillTooltipText}"></div>
@@ -478,8 +489,8 @@ function processAlbums() {
 				${iconsHtml}
 			</div>
 		</div>
-		<a class="aTisketButton" href="https://atisket.pulsewidth.org.uk/?spf_id=${spotifyId}&preferred_vendor=spf" target="_blank"><div>A-tisket</div></a>
-		<a class="harmonyButton" href="https://harmony.pulsewidth.org.uk/release?url=${spotifyUrl}&category=preferred" target="_blank"><div>Harmony</div></a>
+		<a class="${atisketClasses}" href="https://atisket.pulsewidth.org.uk/?spf_id=${spotifyId}&amp;preferred_vendor=spf" target="_blank"><div>A-tisket</div></a>
+		<a class="${harmonyClasses}" href="https://harmony.pulsewidth.org.uk/release?url=${spotifyUrl}&category=preferred" target="_blank"><div>Harmony</div></a>
 	</div>`;
 		var htmlObject = document.createElement("div");
 		htmlObject.innerHTML = htmlToAppend;
@@ -557,56 +568,56 @@ let hasProblem = false;
 const variousArtistsList = ["Various Artists", "Artistes Variés", "Verschiedene Künstler", "Varios Artistas", "ヴァリアス・アーティスト"];
 
 function searchList() {
-    let input, filter, table, tr, td, i, txtValue, color, artistString;
-    input = document.getElementById("listSearch");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("albumList");
-    tr = table.getElementsByClassName("listItem");
+	let input, filter, table, tr, td, i, txtValue, color, artistString;
+	input = document.getElementById("listSearch");
+	filter = input.value.toUpperCase();
+	table = document.getElementById("albumList");
+	tr = table.getElementsByClassName("listItem");
 
-    let visibleGreen = 0;
-    let visibleOrange = 0;
-    let visibleTotal = 0;
+	let visibleGreen = 0;
+	let visibleOrange = 0;
+	let visibleTotal = 0;
 
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByClassName("albumTitle")[0].getElementsByTagName("a")[0];
-        color = tr[i].getElementsByClassName("statusPill")[0].classList[1];
-        artistString = tr[i].getElementsByClassName("artists")[0].innerHTML;
-        let hasNoUpc = tr[i].getElementsByClassName("upcIcon").length > 0;
-        let countDiff = tr[i].getElementsByClassName("numDiff").length > 0;
-        let dateDiff = tr[i].getElementsByClassName("dateDiff").length > 0;
-        let dateMissing = tr[i].getElementsByClassName("dateMissing").length > 0;
-        let coverArtMissing = tr[i].getElementsByClassName("coverArtMissing").length > 0;
+	for (i = 0; i < tr.length; i++) {
+		td = tr[i].getElementsByClassName("albumTitle")[0].getElementsByTagName("a")[0];
+		color = tr[i].getElementsByClassName("statusPill")[0].classList[1];
+		artistString = tr[i].getElementsByClassName("artists")[0].innerHTML;
+		let hasNoUpc = tr[i].getElementsByClassName("upcIcon").length > 0;
+		let countDiff = tr[i].getElementsByClassName("numDiff").length > 0;
+		let dateDiff = tr[i].getElementsByClassName("dateDiff").length > 0;
+		let dateMissing = tr[i].getElementsByClassName("dateMissing").length > 0;
+		let coverArtMissing = tr[i].getElementsByClassName("coverArtMissing").length > 0;
 
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                const isVariousArtists = variousArtistsList.some((artist) => artistString.includes(artist));
-                if (((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red")) && !(hideVarious && isVariousArtists) && !(hasProblem && !hasNoUpc && !countDiff && !dateDiff && !dateMissing && !coverArtMissing)) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
+		if (td) {
+			txtValue = td.textContent || td.innerText;
+			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				const isVariousArtists = variousArtistsList.some((artist) => artistString.includes(artist));
+				if (((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red")) && !(hideVarious && isVariousArtists) && !(hasProblem && !hasNoUpc && !countDiff && !dateDiff && !dateMissing && !coverArtMissing)) {
+					tr[i].style.display = "";
+				} else {
+					tr[i].style.display = "none";
+				}
 				if ((!isVariousArtists && hideVarious) || !hideVarious) {
 					visibleTotal++;
-                    if (color === "green") {
-                        visibleGreen++;
-                    } else if (color === "orange") {
-                        visibleOrange++;
-                    }
+					if (color === "green") {
+						visibleGreen++;
+					} else if (color === "orange") {
+						visibleOrange++;
+					}
 				}
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
+			} else {
+				tr[i].style.display = "none";
+			}
+		}
+	}
 
-    if (visibleOrange == 1) {
-        document.getElementById("statusText").innerHTML = `Albums on musicBrainz: ${visibleGreen}/${visibleTotal} ~ 1 album has a matching name but no associated link`;
-    } else if (visibleOrange > 0) {
-        document.getElementById("statusText").innerHTML = `Albums on musicBrainz: ${visibleGreen}/${visibleTotal} ~ ${visibleOrange} albums have matching names but no associated link`;
-    } else {
-        document.getElementById("statusText").innerHTML = `Albums on musicBrainz: ${visibleGreen}/${visibleTotal}`;
-    }
+	if (visibleOrange == 1) {
+		document.getElementById("statusText").innerHTML = `Albums on musicBrainz: ${visibleGreen}/${visibleTotal} ~ 1 album has a matching name but no associated link`;
+	} else if (visibleOrange > 0) {
+		document.getElementById("statusText").innerHTML = `Albums on musicBrainz: ${visibleGreen}/${visibleTotal} ~ ${visibleOrange} albums have matching names but no associated link`;
+	} else {
+		document.getElementById("statusText").innerHTML = `Albums on musicBrainz: ${visibleGreen}/${visibleTotal}`;
+	}
 	green = visibleGreen;
 	orange = visibleOrange;
 	red = visibleTotal - visibleGreen - visibleOrange;
@@ -645,39 +656,29 @@ function dragElement(elmnt) {
 		pos3 = 0,
 		pos4 = 0;
 	if (document.getElementById(elmnt.id + "Header")) {
-		/* if present, the header is where you move the DIV from:*/
 		document.getElementById(elmnt.id + "Header").onmousedown = dragMouseDown;
 	} else {
-		/* otherwise, move the DIV from anywhere inside the DIV:*/
 		elmnt.onmousedown = dragMouseDown;
 	}
-
 	function dragMouseDown(e) {
 		e = e || window.event;
 		e.preventDefault();
-		// get the mouse cursor position at startup:
 		pos3 = e.clientX;
 		pos4 = e.clientY;
 		document.onmouseup = closeDragElement;
-		// call a function whenever the cursor moves:
 		document.onmousemove = elementDrag;
 	}
-
 	function elementDrag(e) {
 		e = e || window.event;
 		e.preventDefault();
-		// calculate the new cursor position:
 		pos1 = pos3 - e.clientX;
 		pos2 = pos4 - e.clientY;
 		pos3 = e.clientX;
 		pos4 = e.clientY;
-		// set the element's new position:
 		elmnt.style.top = elmnt.offsetTop - pos2 + "px";
 		elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
 	}
-
 	function closeDragElement() {
-		/* stop moving when mouse button is released:*/
 		document.onmouseup = null;
 		document.onmousemove = null;
 	}

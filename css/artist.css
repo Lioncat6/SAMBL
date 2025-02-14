@@ -90,7 +90,7 @@
 }
 
 .aTisketButton {
-	margin-left: auto;
+	
 }
 
 .aTisketButton,
@@ -105,6 +105,7 @@
 	transition: 0.2s all;
 	text-decoration: none !important;
 	white-space: nowrap;
+	margin-left: auto;
 }
 
 .aTisketButton {
@@ -586,4 +587,8 @@ label i {
 	height: 16px;
 	min-width: 16px;
 	min-height: 16px;
+}
+
+.hidden {
+	display: none;
 }
