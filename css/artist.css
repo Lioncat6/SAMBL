@@ -159,6 +159,10 @@
 	width: calc(100% - 260px);
 }
 
+.textContainer.wider {
+	width: calc(100% - 180px) !important;
+}
+
 .albumTitle {
 	font-weight: bold !important;
 	display: flex;

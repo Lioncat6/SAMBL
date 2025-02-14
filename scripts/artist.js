@@ -12,7 +12,7 @@ if (settingsJson) {
 		showHarmony = settingsJson.showHarmony;
 		showAtisket = settingsJson.showAtisket;
 	} catch (e) {
-		pass
+		pass;
 	}
 }
 
@@ -465,12 +465,15 @@ function processAlbums() {
 			}
 		}
 		let harmonyClasses = "harmonyButton",
-			atisketClasses = "aTisketButton";
+			atisketClasses = "aTisketButton",
+			textContainerClasses = "textContainer";
 		if (!showHarmony) {
-			harmonyClasses = "harmonyButton hidden"
+			harmonyClasses = "harmonyButton hidden";
+			textContainerClasses = "textContainer wider";
 		}
 		if (!showAtisket) {
-			atisketClasses = "aTisketButton hidden"
+			atisketClasses = "aTisketButton hidden";
+			textContainerClasses = "textContainer wider";
 		}
 		const htmlToAppend = `
 	<div class="album listItem">
