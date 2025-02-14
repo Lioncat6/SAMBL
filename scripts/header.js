@@ -63,29 +63,35 @@ function dragElement(elmnt) {
 		pos4 = 0;
 	if (parent.document.getElementById(elmnt.id + "Header")) {
 		parent.document.getElementById(elmnt.id + "Header").onmousedown = dragMouseDown;
+		parent.document.getElementById(elmnt.id + "Header").ontouchstart = dragMouseDown;
 	} else {
 		elmnt.onmousedown = dragMouseDown;
+		elmnt.ontouchstart = dragMouseDown;
 	}
 	function dragMouseDown(e) {
 		e = e || window.event;
 		e.preventDefault();
-		pos3 = e.clientX;
-		pos4 = e.clientY;
+		pos3 = e.clientX || e.touches[0].clientX;
+		pos4 = e.clientY || e.touches[0].clientY;
 		parent.document.onmouseup = closeDragElement;
+		parent.document.ontouchend = closeDragElement;
 		parent.document.onmousemove = elementDrag;
+		parent.document.ontouchmove = elementDrag;
 	}
 	function elementDrag(e) {
 		e = e || window.event;
 		e.preventDefault();
-		pos1 = pos3 - e.clientX;
-		pos2 = pos4 - e.clientY;
-		pos3 = e.clientX;
-		pos4 = e.clientY;
+		pos1 = pos3 - (e.clientX || e.touches[0].clientX);
+		pos2 = pos4 - (e.clientY || e.touches[0].clientY);
+		pos3 = e.clientX || e.touches[0].clientX;
+		pos4 = e.clientY || e.touches[0].clientY;
 		elmnt.style.top = elmnt.offsetTop - pos2 + "px";
 		elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
 	}
 	function closeDragElement() {
 		parent.document.onmouseup = null;
+		parent.document.ontouchend = null;
 		parent.document.onmousemove = null;
+		parent.document.ontouchmove = null;
 	}
 }
