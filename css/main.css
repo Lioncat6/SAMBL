@@ -27,6 +27,10 @@ body {
 	overflow: hidden;
 }
 
+embed {
+	max-height: 20%;
+}
+
 embed,
 iframe {
 	display: block;
@@ -120,7 +124,7 @@ footer {
 
 embed,
 iframe {
-	background-color: #f9f9f9;
+	background-color: transparent;
 }
 
 /* https://github.com/loadingio/css-spinner/ */
@@ -244,6 +248,16 @@ iframe {
 @media (max-width: 950px) {
 	.floatingchat-container-wrap-mobi {
 		bottom: 100px !important;
+	}
+}
+
+@media (max-height: 600px) {
+	#albumContainer,
+	#artistContainer {
+		height: calc(100% - 70px) !important;
+	}
+	footer embed {
+		height: 60px;
 	}
 }
 
