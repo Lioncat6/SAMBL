@@ -481,7 +481,7 @@ function processAlbums() {
 		<div class="albumCover">
 			<a href="${spotifyImageURL}" target="_blank"><img src="${spotifyImageURL300px}" /></a>
 		</div>
-		<div class="textContainer">
+		<div class="${textContainerClasses}">
 			<div class="albumTitle">
 				<a href="${spotifyUrl}" target="_blank">${spotifyName}</a>
 				${mbLinkHtml}
