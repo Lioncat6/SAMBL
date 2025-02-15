@@ -624,16 +624,12 @@ function searchList() {
 		albumName = item.getAttribute("data-title");
 		color = item.getAttribute("data-status");
 		artistString = item.getAttribute("data-artists");
-		let hasNoUpc = item.getAttribute("data-issues").includes("noUPC");
-		let countDiff = item.getAttribute("data-issues").includes("trackDiff");
-		let dateDiff = item.getAttribute("data-issues").includes("dateDiff");
-		let dateMissing = item.getAttribute("data-issues").includes("noDate");
-		let coverArtMissing = item.getAttribute("data-issues").includes("noCover");
+		let hasIssues = (item.getAttribute("data-issues").length > 0);
 		let trackNames = item.getAttribute("data-tracks");
 		if (albumName) {
 			if (albumName.toUpperCase().indexOf(filter) > -1 || trackNames.toUpperCase().indexOf(filter) > -1) {
 				const isVariousArtists = variousArtistsList.some((artist) => artistString.includes(artist));
-				if (((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red")) && !(hideVarious && isVariousArtists) && !(hasProblem && !hasNoUpc && !countDiff && !dateDiff && !dateMissing && !coverArtMissing)) {
+				if (((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red")) && !(hideVarious && isVariousArtists) && !(hasProblem && !hasIssues)) {
 					item.style.display = "";
 				} else {
 					item.style.display = "none";
