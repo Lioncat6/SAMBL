@@ -92,14 +92,14 @@ function updateArtistInfo(artist, allNames, allUrls, totalFollowers, mostPopular
 		popularityContainer.title = "Popularity: " + spPopularity + "%";
 	}
 
-	document.getElementById("artistImageContainer").innerHTML = `<a href="${spImgUrl}" target="_blank"><img src="${spImgUrl}"></a>`;
+	document.getElementById("artistImageContainer").innerHTML = `<a href="${spImgUrl}" target="_blank" rel="nooperner"><img src="${spImgUrl}"></a>`;
 	document.getElementById("artistName").innerHTML = spArtistName;
 	document.title = "SAMBL • " + spArtistName;
 	document.getElementById("artistFollowerCount").innerHTML = `<h2>${totalFollowers} Followers</h2>`;
 	document.getElementById("artistGenres").innerHTML = `<p>${spGenresString}</p>`;
 
 	// Create Spotify icons for each artist URL
-	const spotifyIconsHtml = allUrls.map((url) => `<a href="${url}" target="_blank"><img src="../assets/images/Spotify_icon.svg" alt="Spotify" class="spIcon"></a>`).join("");
+	const spotifyIconsHtml = allUrls.map((url) => `<a href="${url}" target="_blank" rel="nooperner"><img src="../assets/images/Spotify_icon.svg" alt="Spotify" class="spIcon"></a>`).join("");
 	document.getElementsByClassName("spURLContainer")[0].innerHTML = spotifyIconsHtml;
 }
 
@@ -138,7 +138,7 @@ async function fetchSpotifyArtist(artist) {
 		console.log(spArtistUrl);
 		console.log(spImgUrl);
 		console.log(spGenres);
-		document.getElementById("artistImageContainer").innerHTML = `<a href="${spImgUrl}" target="_blank"><img src="${spImgUrl}"></a>`;
+		document.getElementById("artistImageContainer").innerHTML = `<a href="${spImgUrl}" target="_blank" rel="nooperner"><img src="${spImgUrl}"></a>`;
 		document.getElementById("spURL").setAttribute("href", spArtistUrl);
 		document.getElementById("artistName").innerHTML = spArtistName;
 		document.title = "SAMBL • " + spArtistName;
@@ -424,9 +424,9 @@ function processAlbums() {
 		}
 		var mbLinkHtml = "";
 		if (albumMBUrl && albumStatus == "green") {
-			var mbLinkHtml = `<a href="${albumMBUrl}" target="_blank"><img class="albumMB" src="../assets/images/MusicBrainz_logo_icon.svg" /></a>`;
+			var mbLinkHtml = `<a href="${albumMBUrl}" target="_blank" rel="nooperner"><img class="albumMB" src="../assets/images/MusicBrainz_logo_icon.svg" /></a>`;
 		} else if (albumMBUrl) {
-			var mbLinkHtml = `<a href="${albumMBUrl}" target="_blank"><img class="albumMB" src="../assets/images/MB_Error.svg" title="Warning: This could be the incorrect MB release for this album!" /></a>`;
+			var mbLinkHtml = `<a href="${albumMBUrl}" target="_blank" rel="nooperner"><img class="albumMB" src="../assets/images/MB_Error.svg" title="Warning: This could be the incorrect MB release for this album!" /></a>`;
 		}
 
 		var spArtistsHtml = "";
@@ -441,7 +441,7 @@ function processAlbums() {
 			var artistUrl = currentArtist["external_urls"]["spotify"];
 			var artistId = currentArtist["id"];
 			const aristSAMBLurl = `../newartist?spid=${artistId}`;
-			spArtistsHtml += `<a href="${artistUrl}" target="_blank">${artistName}</a><a href="${aristSAMBLurl}" target="_blank"><img class="SAMBLicon" src="../assets/images/favicon.svg" /></a>`;
+			spArtistsHtml += `<a href="${artistUrl}" target="_blank" rel="nooperner">${artistName}</a><a href="${aristSAMBLurl}" target="_blank" rel="nooperner"><img class="SAMBLicon" src="../assets/images/favicon.svg" /></a>`;
 		}
 		let albumIssues = [];
 		let iconsHtml = "";
@@ -497,7 +497,7 @@ function processAlbums() {
 		if (tracksWithoutISRCs.length > 0){
 			albumIssues.push("missingISRCs");
 			if (albumStatus == "green"){
-				iconsHtml += `<a class="isrcText green" href="https://isrchunt.com/spotify/importisrc?releaseId=${spotifyId}" title="This release has missing ISRCs!\n[Click to Fix]">ISRC</a>`;
+				iconsHtml += `<a class="isrcText green" href="https://isrchunt.com/spotify/importisrc?releaseId=${spotifyId}" target="_blank" rel="nooperner" title="This release has missing ISRCs!\n[Click to Fix]">ISRC</a>`;
 			} else {
 				iconsHtml += `<div class="isrcText" title="This release has missing ISRCs!">ISRC</div>`;
 			}
@@ -522,11 +522,11 @@ function processAlbums() {
 	<div class="album listItem" data-title="${spotifyName}" data-artists="${spArtistNames}" data-issues="${albumIssues}" data-tracks="${mbTrackNames}" data-status="${albumStatus}">
 		<div class="statusPill ${albumStatus}" title="${pillTooltipText}"></div>
 		<div class="albumCover">
-			<a href="${spotifyImageURL}" target="_blank"><img src="${spotifyImageURL300px}" /></a>
+			<a href="${spotifyImageURL}" target="_blank" rel="nooperner"><img src="${spotifyImageURL300px}" /></a>
 		</div>
 		<div class="${textContainerClasses}">
 			<div class="albumTitle">
-				<a href="${spotifyUrl}" target="_blank">${spotifyName}</a>
+				<a href="${spotifyUrl}" target="_blank" rel="nooperner">${spotifyName}</a>
 				${mbLinkHtml}
 			</div>
 			<div class="artists">${spArtistsHtml}</div>
@@ -535,8 +535,8 @@ function processAlbums() {
 				${iconsHtml}
 			</div>
 		</div>
-		<a class="${atisketClasses}" href="https://atisket.pulsewidth.org.uk/?spf_id=${spotifyId}&amp;preferred_vendor=spf" target="_blank"><div>A-tisket</div></a>
-		<a class="${harmonyClasses}" href="https://harmony.pulsewidth.org.uk/release?url=${spotifyUrl}&category=preferred" target="_blank"><div>Harmony</div></a>
+		<a class="${atisketClasses}" href="https://atisket.pulsewidth.org.uk/?spf_id=${spotifyId}&amp;preferred_vendor=spf" target="_blank" rel="nooperner"><div>A-tisket</div></a>
+		<a class="${harmonyClasses}" href="https://harmony.pulsewidth.org.uk/release?url=${spotifyUrl}&category=preferred" target="_blank" rel="nooperner"><div>Harmony</div></a>
 	</div>`;
 		var htmlObject = document.createElement("div");
 		htmlObject.innerHTML = htmlToAppend;
