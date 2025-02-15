@@ -126,15 +126,15 @@
 	color: #333440;
 }
 
-.red {
+.statusPill.red {
 	background-color: red;
 }
 
-.green {
+.statusPill.green {
 	background-color: #34eb80;
 }
 
-.orange {
+.statusPill.orange {
 	background-color: orange;
 }
 
@@ -483,8 +483,12 @@ label i {
 	cursor: help;
 	font-size: smaller;
 	transform: translateY(-0.5px);
-	color: red;
+	color: red !important;
 	font-weight: bolder;
+}
+
+.isrcText.green:hover {
+	color: #36b100 !important;
 }
 
 @media (max-height: 725px) {

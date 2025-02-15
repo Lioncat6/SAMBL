@@ -495,8 +495,12 @@ function processAlbums() {
 		}
 
 		if (tracksWithoutISRCs.length > 0){
-			iconsHtml += `<div class="isrcText" title="This release has missing ISRCs!">ISRC</div>`;
 			albumIssues.push("missingISRCs");
+			if (albumStatus == "green"){
+				iconsHtml += `<a class="isrcText green" href="https://isrchunt.com/spotify/importisrc?releaseId=${spotifyId}" title="This release has missing ISRCs!\n[Click to Fix]">ISRC</a>`;
+			} else {
+				iconsHtml += `<div class="isrcText" title="This release has missing ISRCs!">ISRC</div>`;
+			}
 		}
 
 		let infoHTML = `<div>${spotifyReleaseDate} • ${capFirst(spotifyAlbumType)} • <div class="trackCount hasTracks" title="${mbTrackString}">${spotifyTrackString}</div></div>`
