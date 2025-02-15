@@ -5,11 +5,11 @@
 
 #artistImageContainer img {
 	width: 20vh;
-	  max-width: 100%;
-	  border-radius: 6px;
-	  object-fit: cover;
-	  aspect-ratio: 1;
-	  filter: drop-shadow(8px 8px 10px #000000a8);
+	max-width: 100%;
+	border-radius: 6px;
+	object-fit: cover;
+	aspect-ratio: 1;
+	filter: drop-shadow(8px 8px 10px #000000a8);
 }
 #artistImageContainer {
 	width: 50%;
@@ -89,10 +89,6 @@
 	height: 56px;
 	border-radius: 10px;
 	cursor: help;
-}
-
-.aTisketButton {
-	
 }
 
 .aTisketButton,
@@ -470,8 +466,9 @@ label i {
 .upcIcon {
 	margin-left: 5px;
 	width: 27px;
+	height: 12px;
 	cursor: help;
-	transform: translateY(1px);
+	margin-right: -2 px;
 }
 
 .isrcIcon {
@@ -479,6 +476,15 @@ label i {
 	width: 36px;
 	transform: translateY(3px);
 	cursor: help;
+}
+
+.isrcText {
+	margin-left: 5px;
+	cursor: help;
+	font-size: smaller;
+	transform: translateY(-0.5px);
+	color: red;
+	font-weight: bolder;
 }
 
 @media (max-height: 725px) {
@@ -532,18 +538,18 @@ label i {
 }
 
 .numDiff {
-    color: red;
-    margin-left: 5px;
-    font-weight: bold;
+	color: red;
+	margin-left: 5px;
+	font-weight: bold;
 	cursor: help;
 }
 
 .dateDiff {
-    color: red !important;
-    margin-left: 5px;
-    font-weight: bold !important;
-    cursor: help;
-	background: url('../assets/images/dateConflict.svg') no-repeat center;
+	color: red !important;
+	margin-left: 5px;
+	font-weight: bold !important;
+	cursor: help;
+	background: url("../assets/images/dateConflict.svg") no-repeat center;
 	background-size: contain;
 	width: 16px;
 	height: 16px;
@@ -556,7 +562,7 @@ label i {
 	margin-left: 5px;
 	font-weight: bold !important;
 	cursor: help;
-	background: url('../assets/images/missingDate.svg') no-repeat center;
+	background: url("../assets/images/missingDate.svg") no-repeat center;
 	background-size: contain;
 	width: 16px;
 	height: 16px;
@@ -565,7 +571,7 @@ label i {
 }
 
 .dateMissing.green:hover {
-	background: url('../assets/images/addDate.svg') no-repeat center;
+	background: url("../assets/images/addDate.svg") no-repeat center;
 	background-size: contain;
 	width: 16px;
 	height: 16px;
@@ -578,7 +584,7 @@ label i {
 	margin-left: 5px;
 	font-weight: bold !important;
 	cursor: help;
-	background: url('../assets/images/missingCover.svg') no-repeat center;
+	background: url("../assets/images/missingCover.svg") no-repeat center;
 	background-size: contain;
 	width: 16px;
 	height: 16px;
@@ -587,7 +593,7 @@ label i {
 }
 
 .coverArtMissing.green:hover {
-	background: url('../assets/images/addCover.svg') no-repeat center;
+	background: url("../assets/images/addCover.svg") no-repeat center;
 	background-size: contain;
 	width: 16px;
 	height: 16px;
@@ -597,4 +603,12 @@ label i {
 
 .hidden {
 	display: none;
+}
+
+.trackCount {
+	display: inline;
+}
+
+.trackCount.hasTracks {
+	cursor: help;
 }

@@ -264,7 +264,7 @@ async function fetchMusicBrainzAlbums(type) {
 
 	while (!success && tries < 5) {
 		try {
-			const response = await fetch(`https://musicbrainz.org/ws/2/release?${type}=${mbid}&inc=url-rels+recordings&fmt=json&limit=100&offset=${currentOffset}`);
+			const response = await fetch(`https://musicbrainz.org/ws/2/release?${type}=${mbid}&inc=url-rels+recordings+isrcs&fmt=json&limit=100&offset=${currentOffset}`);
 			const data = await response.json();
 			if (response.status == 200) {
 				console.log(data);
@@ -300,7 +300,7 @@ async function fetchMusicBrainzAlbums(type) {
 
 		while (!success && tries < 5) {
 			try {
-				const response = await fetch(`https://musicbrainz.org/ws/2/release?${type}=${mbid}&inc=url-rels+recordings&fmt=json&limit=100&offset=${currentOffset}`);
+				const response = await fetch(`https://musicbrainz.org/ws/2/release?${type}=${mbid}&inc=url-rels+recordings+isrcs&fmt=json&limit=100&offset=${currentOffset}`);
 				const data = await response.json();
 				if (response.status == 200) {
 					console.log(data);
@@ -362,13 +362,14 @@ function processAlbums() {
 		var spotifyAlbumArtists = currentAlbum["artists"];
 		var spotifyReleaseDate = currentAlbum["release_date"];
 		var spotifyTrackCount = currentAlbum["total_tracks"];
-		var spotifyTrackString = spotifyTrackCount + " Track";
+		var spotifyTrackString = "1 Track";
 		var spotifyAlbumUPC = ""; //unused for now
 		if (spotifyTrackCount > 1) {
-			spotifyTrackString = spotifyTrackCount + " Tracks";
+			spotifyTrackString = `${spotifyTrackCount} Tracks`;
 		}
 		var spotifyAlbumType = currentAlbum["album_type"];
 		var finalTrackCount = 0;
+		var finalTracks;
 		var finalReleaseDate = 0;
 		var finalMBID = "";
 		var finalHasCoverArt = false;
@@ -378,6 +379,7 @@ function processAlbums() {
 			var mbReleaseUrls = currentMBRelease["relations"];
 			var albumMBUPC = currentMBRelease["barcode"];
 			var MBTrackCount = currentMBRelease["media"][0]["track-count"];
+			var MBTracks = currentMBRelease["media"][0]["tracks"];
 			var MBReleaseDate = currentMBRelease["date"];
 			var hasCoverArt = currentMBRelease["cover-art-archive"]["front"];
 			for (let releaseUrl in mbReleaseUrls) {
@@ -388,6 +390,7 @@ function processAlbums() {
 					finalTrackCount = MBTrackCount;
 					finalReleaseDate = MBReleaseDate;
 					finalHasCoverArt = hasCoverArt;
+					finalTracks = MBTracks;
 					break;
 				}
 			}
@@ -396,6 +399,7 @@ function processAlbums() {
 				finalReleaseDate = MBReleaseDate;
 				finalMBID = currentMBRelease["id"];
 				finalHasCoverArt = hasCoverArt;
+				finalTracks = MBTracks;
 				break;
 			} else if (normalizeText(mbReleaseName) == normalizeText(spotifyName)) {
 				finalMBID = currentMBRelease["id"];
@@ -404,6 +408,7 @@ function processAlbums() {
 				finalTrackCount = MBTrackCount;
 				finalReleaseDate = MBReleaseDate;
 				finalHasCoverArt = hasCoverArt;
+				finalTracks = MBTracks;
 			}
 		}
 		total++;
@@ -423,25 +428,31 @@ function processAlbums() {
 		} else if (albumMBUrl) {
 			var mbLinkHtml = `<a href="${albumMBUrl}" target="_blank"><img class="albumMB" src="../assets/images/MB_Error.svg" title="Warning: This could be the incorrect MB release for this album!" /></a>`;
 		}
+
 		var spArtistsHtml = "";
+		var spArtistNames = [];
 		for (let album in spotifyAlbumArtists) {
 			if (album > 0) {
 				spArtistsHtml += ", ";
 			}
 			var currentArtist = spotifyAlbumArtists[album];
 			var artistName = currentArtist["name"];
+			spArtistNames.push(artistName);
 			var artistUrl = currentArtist["external_urls"]["spotify"];
 			var artistId = currentArtist["id"];
 			const aristSAMBLurl = `../newartist?spid=${artistId}`;
 			spArtistsHtml += `<a href="${artistUrl}" target="_blank">${artistName}</a><a href="${aristSAMBLurl}" target="_blank"><img class="SAMBLicon" src="../assets/images/favicon.svg" /></a>`;
 		}
+		let albumIssues = [];
 		let iconsHtml = "";
 		if (albumStatus != "red") {
 			if (!albumMBUPC || albumMBUPC == null) {
 				iconsHtml += `<img class="upcIcon" src="../assets/images/noUPC.svg" title="This release is missing a UPC/Barcode!">`;
+				albumIssues.push("noUPC");
 			}
 			if (finalTrackCount != spotifyTrackCount) {
 				iconsHtml += `<div class="numDiff" title="This release has a differing track count! [SP: ${spotifyTrackCount} MB: ${finalTrackCount}]">#</div>`;
+				albumIssues.push("trackDiff");
 			}
 			if (finalReleaseDate == "" || finalReleaseDate == undefined || !finalReleaseDate) {
 				const spotifyYear = spotifyReleaseDate.split("-")[0];
@@ -453,8 +464,10 @@ function processAlbums() {
 				} else {
 					iconsHtml += `<a class="dateMissing" title="This release is missing a release date!"></a>`;
 				}
+				albumIssues.push("noDate");
 			} else if (finalReleaseDate != spotifyReleaseDate) {
 				iconsHtml += `<div class="dateDiff" title="This release has a differing release date! [SP: ${spotifyReleaseDate} MB: ${finalReleaseDate}]\n(This may indicate that you have to split a release.)"></div>`;
+				albumIssues.push("dateDiff");
 			}
 			if (!finalHasCoverArt) {
 				if (albumStatus == "green") {
@@ -462,7 +475,33 @@ function processAlbums() {
 				} else {
 					iconsHtml += `<a class="coverArtMissing" title="This release is missing cover art!"></a>`;
 				}
+				albumIssues.push("noCover");
 			}
+		}
+		let mbTrackString = "";
+		let mbTrackNames = [];
+		let tracksWithoutISRCs = [];
+		for (let track in finalTracks) {
+			let titleString = finalTracks[track].title;
+			let ISRCs = finalTracks[track].recording.isrcs;
+			if (ISRCs.length < 1){
+				tracksWithoutISRCs.push(track);
+			}
+			mbTrackNames.push(titleString);
+			if (track > 0) {
+				mbTrackString += "\n";
+			}
+			mbTrackString += titleString;
+		}
+
+		if (tracksWithoutISRCs.length > 0){
+			iconsHtml += `<div class="isrcText" title="This release has missing ISRCs!">ISRC</div>`;
+			albumIssues.push("missingISRCs");
+		}
+
+		let infoHTML = `<div>${spotifyReleaseDate} • ${capFirst(spotifyAlbumType)} • <div class="trackCount hasTracks" title="${mbTrackString}">${spotifyTrackString}</div></div>`
+		if (albumStatus == "red"){
+			let infoHTML = `<div>${spotifyReleaseDate} • ${capFirst(spotifyAlbumType)} • <div class="trackCount"</div></div>`
 		}
 		let harmonyClasses = "harmonyButton",
 			atisketClasses = "aTisketButton",
@@ -476,7 +515,7 @@ function processAlbums() {
 			textContainerClasses = "textContainer wider";
 		}
 		const htmlToAppend = `
-	<div class="album listItem">
+	<div class="album listItem" data-title="${spotifyName}" data-artists="${spArtistNames}" data-issues="${albumIssues}" data-tracks="${mbTrackNames}" data-status="${albumStatus}">
 		<div class="statusPill ${albumStatus}" title="${pillTooltipText}"></div>
 		<div class="albumCover">
 			<a href="${spotifyImageURL}" target="_blank"><img src="${spotifyImageURL300px}" /></a>
@@ -488,7 +527,7 @@ function processAlbums() {
 			</div>
 			<div class="artists">${spArtistsHtml}</div>
 			<div class="albumInfo">
-				<div>${spotifyReleaseDate} • ${capFirst(spotifyAlbumType)} • ${spotifyTrackString}</div>
+				${infoHTML}
 				${iconsHtml}
 			</div>
 		</div>
@@ -571,7 +610,7 @@ let hasProblem = false;
 const variousArtistsList = ["Various Artists", "Artistes Variés", "Verschiedene Künstler", "Varios Artistas", "ヴァリアス・アーティスト"];
 
 function searchList() {
-	let input, filter, table, tr, td, i, txtValue, color, artistString;
+	let input, filter, table, tr, albumName, i, txtValue, color, artistString;
 	input = document.getElementById("listSearch");
 	filter = input.value.toUpperCase();
 	table = document.getElementById("albumList");
@@ -581,24 +620,23 @@ function searchList() {
 	let visibleOrange = 0;
 	let visibleTotal = 0;
 
-	for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByClassName("albumTitle")[0].getElementsByTagName("a")[0];
-		color = tr[i].getElementsByClassName("statusPill")[0].classList[1];
-		artistString = tr[i].getElementsByClassName("artists")[0].innerHTML;
-		let hasNoUpc = tr[i].getElementsByClassName("upcIcon").length > 0;
-		let countDiff = tr[i].getElementsByClassName("numDiff").length > 0;
-		let dateDiff = tr[i].getElementsByClassName("dateDiff").length > 0;
-		let dateMissing = tr[i].getElementsByClassName("dateMissing").length > 0;
-		let coverArtMissing = tr[i].getElementsByClassName("coverArtMissing").length > 0;
-
-		if (td) {
-			txtValue = td.textContent || td.innerText;
-			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+	for (let item of tr) {
+		albumName = item.getAttribute("data-title");
+		color = item.getAttribute("data-status");
+		artistString = item.getAttribute("data-artists");
+		let hasNoUpc = item.getAttribute("data-issues").includes("noUPC");
+		let countDiff = item.getAttribute("data-issues").includes("trackDiff");
+		let dateDiff = item.getAttribute("data-issues").includes("dateDiff");
+		let dateMissing = item.getAttribute("data-issues").includes("noDate");
+		let coverArtMissing = item.getAttribute("data-issues").includes("noCover");
+		let trackNames = item.getAttribute("data-tracks");
+		if (albumName) {
+			if (albumName.toUpperCase().indexOf(filter) > -1 || trackNames.toUpperCase().indexOf(filter) > -1) {
 				const isVariousArtists = variousArtistsList.some((artist) => artistString.includes(artist));
 				if (((showGreen && color == "green") || (showOrange && color == "orange") || (showRed && color == "red")) && !(hideVarious && isVariousArtists) && !(hasProblem && !hasNoUpc && !countDiff && !dateDiff && !dateMissing && !coverArtMissing)) {
-					tr[i].style.display = "";
+					item.style.display = "";
 				} else {
-					tr[i].style.display = "none";
+					item.style.display = "none";
 				}
 				if ((!isVariousArtists && hideVarious) || !hideVarious) {
 					visibleTotal++;
@@ -609,7 +647,7 @@ function searchList() {
 					}
 				}
 			} else {
-				tr[i].style.display = "none";
+				item.style.display = "none";
 			}
 		}
 	}
@@ -692,7 +730,6 @@ function dragElement(elmnt) {
 		parent.document.ontouchmove = null;
 	}
 }
-
 
 searchList();
 dragElement(document.getElementById("filterList"));
