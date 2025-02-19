@@ -505,7 +505,7 @@ function processAlbums() {
 
 		let infoHTML = `<div>${spotifyReleaseDate} • ${capFirst(spotifyAlbumType)} • <div class="trackCount hasTracks" title="${mbTrackString}">${spotifyTrackString}</div></div>`
 		if (albumStatus == "red"){
-			infoHTML = `<div>${spotifyReleaseDate} • ${capFirst(spotifyAlbumType)} • <div class="trackCount"</div></div>`
+			infoHTML = `<div>${spotifyReleaseDate} • ${capFirst(spotifyAlbumType)} • <div class="trackCount">${spotifyTrackString}</div></div>`
 		}
 		let harmonyClasses = "harmonyButton",
 			atisketClasses = "aTisketButton",
