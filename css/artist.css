@@ -468,7 +468,7 @@ label i {
 	width: 27px;
 	height: 12px;
 	cursor: help;
-	margin-right: -2 px;
+	margin-right: -2px;
 }
 
 .isrcIcon {
@@ -484,7 +484,7 @@ label i {
 	font-size: smaller;
 	transform: translateY(-0.5px);
 	color: red !important;
-	font-weight: bolder;
+	font-weight: bolder !important;
 }
 
 .isrcText.green:hover {
