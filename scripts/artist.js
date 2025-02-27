@@ -293,8 +293,8 @@ async function fetchMusicBrainzAlbums(type) {
 		tries++;
 	}
 
-	while (currentOffset + 100 < albumCount) {
-		currentOffset += 100;
+	while (mbAlbumList.length < albumCount) {
+		currentOffset == mbAlbumList.length;
 		success = false;
 		tries = 0;
 
