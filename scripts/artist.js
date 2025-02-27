@@ -257,6 +257,7 @@ async function downloadMusicBrainzAlbums() {
 
 async function fetchMusicBrainzAlbums(type) {
 	var albumCount = 0;
+	var downloadedAlbums = 0;
 	var currentOffset = 0;
 	document.getElementById("loadingText").innerHTML = `Downloading MusicBrainz Albums (${type === "artist" ? "1/2" : "2/2"})...`;
 	let success = false;
@@ -271,6 +272,7 @@ async function fetchMusicBrainzAlbums(type) {
 				albumCount = data["release-count"];
 				for (let release in data["releases"]) {
 					mbAlbumList.push(data["releases"][release]);
+					downloadedAlbums++;
 					document.getElementById("loadingText").innerHTML = `Loading albums from MusicBrainz (${type === "artist" ? "1/2" : "2/2"})... (${release}/${albumCount})`;
 				}
 				success = true;
@@ -293,8 +295,8 @@ async function fetchMusicBrainzAlbums(type) {
 		tries++;
 	}
 
-	while (mbAlbumList.length < albumCount) {
-		currentOffset == mbAlbumList.length;
+	while (downloadedAlbums < albumCount) {
+		currentOffset == downloadedAlbums;
 		success = false;
 		tries = 0;
 
@@ -305,6 +307,7 @@ async function fetchMusicBrainzAlbums(type) {
 				if (response.status == 200) {
 					console.log(data);
 					for (let release in data["releases"]) {
+						downloadedAlbums++;
 						mbAlbumList.push(data["releases"][release]);
 						document.getElementById("loadingText").innerHTML = `Loading albums from MusicBrainz (${type === "artist" ? "1/2" : "2/2"})... (${Number(Number(release) + Number(currentOffset))}/${albumCount})`;
 					}
