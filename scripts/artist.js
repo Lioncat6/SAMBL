@@ -302,7 +302,7 @@ async function fetchMusicBrainzAlbums(type) {
 
 		while (!success && tries < 5) {
 			try {
-				console.log(`Current Offset: ${currentOffset}. Downloaded albums: ${downloadedAlbums}`}
+				console.log(`Current Offset: ${currentOffset}. Downloaded albums: ${downloadedAlbums}`);
 				const response = await fetch(`https://musicbrainz.org/ws/2/release?${type}=${mbid}&inc=url-rels+recordings+isrcs&fmt=json&limit=100&offset=${currentOffset}`);
 				const data = await response.json();
 				if (response.status == 200) {
