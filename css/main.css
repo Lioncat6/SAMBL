@@ -367,6 +367,30 @@ iframe {
 	padding: 5px;
 }
 
+/* Text input styling */
+.text-input-wrapper {
+	margin-bottom: 10px;
+	
+}
+
+.text-input-wrapper input[type="text"] {
+	font-size: 14px;
+	padding: 4px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	display: inline-block;
+	width: 100px;
+	max-width: 50%;
+}
+
+.text-input-wrapper input[type="text"]:focus {
+	border-color: #0074d9;
+	box-shadow: 0 0 5px rgba(0, 116, 217, 0.5);
+	outline: none;
+}
+
+
+
 #saveConfig {
 	margin: 2px;
 	left: 0;

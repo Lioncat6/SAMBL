@@ -6,11 +6,13 @@ function dispErr(error) {
 
 let settingsJson = JSON.parse(localStorage.getItem("settings"));
 let showHarmony = true,
-	showAtisket = true;
+	showAtisket = true,
+	harmonyConfig = "&category=preferred";
 if (settingsJson) {
 	try {
 		showHarmony = settingsJson.showHarmony;
 		showAtisket = settingsJson.showAtisket;
+		harmonyConfig = settingsJson.harmonyConfig;
 	} catch (e) {
 		pass;
 	}
@@ -540,7 +542,7 @@ function processAlbums() {
 			</div>
 		</div>
 		<a class="${atisketClasses}" href="https://atisket.pulsewidth.org.uk/?spf_id=${spotifyId}&amp;preferred_vendor=spf" target="_blank" rel="nooperner"><div>A-tisket</div></a>
-		<a class="${harmonyClasses}" href="https://harmony.pulsewidth.org.uk/release?url=${spotifyUrl}&category=preferred" target="_blank" rel="nooperner"><div>Harmony</div></a>
+		<a class="${harmonyClasses}" href="https://harmony.pulsewidth.org.uk/release?url=${spotifyUrl}${harmonyConfig}" target="_blank" rel="nooperner"><div>Harmony</div></a>
 	</div>`;
 		var htmlObject = document.createElement("div");
 		htmlObject.innerHTML = htmlToAppend;
