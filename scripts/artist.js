@@ -524,8 +524,11 @@ function processAlbums() {
 			atisketClasses = "aTisketButton hidden";
 			textContainerClasses = "textContainer wider";
 		}
+		if (albumStatus == "red") {
+			finalMBID = "";
+		}
 		const htmlToAppend = `
-	<div class="album listItem" data-title="${spotifyName}" data-artists="${spArtistNames}" data-issues="${albumIssues}" data-tracks="${mbTrackNames}" data-status="${albumStatus}">
+	<div class="album listItem" data-title="${spotifyName}" data-artists="${spArtistNames}" data-issues="${albumIssues}" data-tracks="${mbTrackNames}" data-status="${albumStatus}" data-release-date="${spotifyReleaseDate}" data-track-count="${spotifyTrackCount}" data-album-type="${spotifyAlbumType}" data-spid="${spotifyId}" data-mbid="${finalMBID}">
 		<div class="statusPill ${albumStatus}" title="${pillTooltipText}"></div>
 		<div class="albumCover">
 			<a href="${spotifyImageURL}" target="_blank" rel="nooperner"><img src="${spotifyImageURL300px}" /></a>
