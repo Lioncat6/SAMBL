@@ -384,8 +384,12 @@ function processAlbums() {
 			var mbReleaseName = currentMBRelease["title"];
 			var mbReleaseUrls = currentMBRelease["relations"];
 			var albumMBUPC = currentMBRelease["barcode"];
-			var MBTrackCount = currentMBRelease["media"][0]["track-count"];
-			var MBTracks = currentMBRelease["media"][0]["tracks"];
+			var MBTrackCount = 0;
+			var MBTracks = [];
+			for (let media of currentMBRelease["media"]) {
+				MBTrackCount += media["track-count"];
+				MBTracks = MBTracks.concat(media["tracks"]);
+			}
 			var MBReleaseDate = currentMBRelease["date"];
 			var hasCoverArt = currentMBRelease["cover-art-archive"]["front"];
 			for (let releaseUrl in mbReleaseUrls) {
