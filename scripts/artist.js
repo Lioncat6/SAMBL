@@ -530,6 +530,7 @@ function processAlbums() {
 		}
 		if (albumStatus == "red") {
 			finalMBID = "";
+			mbTrackNames = [];
 		}
 		const htmlToAppend = `
 	<div class="album listItem" data-title="${spotifyName}" data-artists="${spArtistNames}" data-issues="${albumIssues}" data-tracks="${mbTrackNames}" data-status="${albumStatus}" data-release-date="${spotifyReleaseDate}" data-track-count="${spotifyTrackCount}" data-album-type="${spotifyAlbumType}" data-spid="${spotifyId}" data-mbid="${finalMBID}">
