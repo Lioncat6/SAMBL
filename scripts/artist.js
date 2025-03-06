@@ -10,9 +10,9 @@ let showHarmony = true,
 	harmonyConfig = "&category=preferred";
 if (settingsJson) {
 	try {
-		showHarmony = settingsJson.showHarmony;
-		showAtisket = settingsJson.showAtisket;
-		harmonyConfig = settingsJson.harmonyConfig;
+		showHarmony = settingsJson.showHarmony || true;
+		showAtisket = settingsJson.showAtisket || true;
+		harmonyConfig = settingsJson.harmonyConfig || "&category=preferred";
 	} catch (e) {
 		pass;
 	}
