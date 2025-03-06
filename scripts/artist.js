@@ -455,6 +455,21 @@ function processAlbums() {
 		}
 		let albumIssues = [];
 		let iconsHtml = "";
+		let mbTrackString = "";
+		let mbTrackNames = [];
+		let tracksWithoutISRCs = [];
+		for (let track in finalTracks) {
+			let titleString = finalTracks[track].title;
+			let ISRCs = finalTracks[track].recording.isrcs;
+			if (ISRCs.length < 1){
+				tracksWithoutISRCs.push(track);
+			}
+			mbTrackNames.push(titleString);
+			if (track > 0) {
+				mbTrackString += "\n";
+			}
+			mbTrackString += titleString;
+		}
 		if (albumStatus != "red") {
 			if (!albumMBUPC || albumMBUPC == null) {
 				iconsHtml += `<img class="upcIcon" src="../assets/images/noUPC.svg" title="This release is missing a UPC/Barcode!">`;
@@ -487,29 +502,13 @@ function processAlbums() {
 				}
 				albumIssues.push("noCover");
 			}
-		}
-		let mbTrackString = "";
-		let mbTrackNames = [];
-		let tracksWithoutISRCs = [];
-		for (let track in finalTracks) {
-			let titleString = finalTracks[track].title;
-			let ISRCs = finalTracks[track].recording.isrcs;
-			if (ISRCs.length < 1){
-				tracksWithoutISRCs.push(track);
-			}
-			mbTrackNames.push(titleString);
-			if (track > 0) {
-				mbTrackString += "\n";
-			}
-			mbTrackString += titleString;
-		}
-
-		if (tracksWithoutISRCs.length > 0){
-			albumIssues.push("missingISRCs");
-			if (albumStatus == "green"){
-				iconsHtml += `<a class="isrcText green" href="https://isrchunt.com/spotify/importisrc?releaseId=${spotifyId}" target="_blank" rel="nooperner" title="This release has missing ISRCs!\n[Click to Fix]">ISRC</a>`;
-			} else {
-				iconsHtml += `<div class="isrcText" title="This release has missing ISRCs!">ISRC</div>`;
+			if (tracksWithoutISRCs.length > 0){
+				albumIssues.push("missingISRCs");
+				if (albumStatus == "green"){
+					iconsHtml += `<a class="isrcText green" href="https://isrchunt.com/spotify/importisrc?releaseId=${spotifyId}" target="_blank" rel="nooperner" title="This release has missing ISRCs!\n[Click to Fix]">ISRC</a>`;
+				} else {
+					iconsHtml += `<div class="isrcText" title="This release has missing ISRCs!">ISRC</div>`;
+				}
 			}
 		}
 
