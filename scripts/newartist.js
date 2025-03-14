@@ -62,7 +62,7 @@ async function fetchMBArtist(id) {
 	if (response.status == 200) {
 		const mbid = data["relations"][0]["artist"]["id"];
 		console.log(mbid);
-		location.assign("../artist?spid=" + id + "&mbid=" + mbid);
+		location.assign(`../artist?spid=${id}&artist_mbid=${mbid}`);
 	} else if ((data["error"] = "Not Found" || response.status == 404)) {
 		console.log("add artist");
 	} else {
