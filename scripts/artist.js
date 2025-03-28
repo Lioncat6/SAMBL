@@ -457,12 +457,17 @@ function processAlbums() {
 		let iconsHtml = "";
 		let mbTrackString = "";
 		let mbTrackNames = [];
+		let mbTrackISRCs = [];
 		let tracksWithoutISRCs = [];
 		for (let track in finalTracks) {
 			let titleString = finalTracks[track].title;
 			let ISRCs = finalTracks[track].recording.isrcs;
 			if (ISRCs.length < 1){
 				tracksWithoutISRCs.push(track);
+			} else {
+				for (let isrc in ISRCs) {
+					mbTrackISRCs.push(ISRCs[isrc]);
+				}
 			}
 			mbTrackNames.push(titleString);
 			if (track > 0) {
@@ -532,7 +537,7 @@ function processAlbums() {
 			mbTrackNames = [];
 		}
 		const htmlToAppend = `
-	<div class="album listItem" data-title="${spotifyName}" data-artists="${spArtistNames}" data-issues="${albumIssues}" data-tracks="${mbTrackNames}" data-status="${albumStatus}" data-release-date="${spotifyReleaseDate}" data-track-count="${spotifyTrackCount}" data-album-type="${spotifyAlbumType}" data-spid="${spotifyId}" data-mbid="${finalMBID}">
+	<div class="album listItem" data-title="${spotifyName}" data-artists="${spArtistNames}" data-issues="${albumIssues}" data-tracks="${mbTrackNames}" data-status="${albumStatus}" data-release-date="${spotifyReleaseDate}" data-track-count="${spotifyTrackCount}" data-album-type="${spotifyAlbumType}" data-spid="${spotifyId}" data-mbid="${finalMBID}" data-isrcs="${mbTrackISRCs}" data-tracks-without-isrcs="${tracksWithoutISRCs}">
 		<div class="statusPill ${albumStatus}" title="${pillTooltipText}"></div>
 		<div class="albumCover">
 			<a href="${spotifyImageURL}" target="_blank" rel="nooperner"><img src="${spotifyImageURL300px}" /></a>
