@@ -378,6 +378,7 @@ function processAlbums() {
 		var finalTracks;
 		var finalReleaseDate = 0;
 		var finalMBID = "";
+		var finalUPC = undefined;
 		var finalHasCoverArt = false;
 		for (let mbAlbum in mbAlbumList) {
 			var currentMBRelease = mbAlbumList[mbAlbum];
@@ -410,6 +411,7 @@ function processAlbums() {
 				finalMBID = currentMBRelease["id"];
 				finalHasCoverArt = hasCoverArt;
 				finalTracks = MBTracks;
+				finalUPC = albumMBUPC;
 				break;
 			} else if (normalizeText(mbReleaseName) == normalizeText(spotifyName)) {
 				finalMBID = currentMBRelease["id"];
@@ -419,6 +421,7 @@ function processAlbums() {
 				finalReleaseDate = MBReleaseDate;
 				finalHasCoverArt = hasCoverArt;
 				finalTracks = MBTracks;
+				finalUPC = albumMBUPC;
 			}
 		}
 		total++;
@@ -476,7 +479,7 @@ function processAlbums() {
 			mbTrackString += titleString;
 		}
 		if (albumStatus != "red") {
-			if (!albumMBUPC || albumMBUPC == null) {
+			if (!finalUPC || finalUPC == null) {
 				iconsHtml += `<img class="upcIcon" src="../assets/images/noUPC.svg" title="This release is missing a UPC/Barcode!">`;
 				albumIssues.push("noUPC");
 			}
@@ -537,7 +540,7 @@ function processAlbums() {
 			mbTrackNames = [];
 		}
 		const htmlToAppend = `
-	<div class="album listItem" data-title="${spotifyName}" data-artists="${spArtistNames}" data-issues="${albumIssues}" data-tracks="${mbTrackNames}" data-status="${albumStatus}" data-release-date="${spotifyReleaseDate}" data-track-count="${spotifyTrackCount}" data-album-type="${spotifyAlbumType}" data-spid="${spotifyId}" data-mbid="${finalMBID}" data-isrcs="${mbTrackISRCs}" data-tracks-without-isrcs="${tracksWithoutISRCs}">
+	<div class="album listItem" data-title="${spotifyName}" data-artists="${spArtistNames}" data-issues="${albumIssues}" data-tracks="${mbTrackNames}" data-status="${albumStatus}" data-release-date="${spotifyReleaseDate}" data-track-count="${spotifyTrackCount}" data-album-type="${spotifyAlbumType}" data-spid="${spotifyId}" data-mbid="${finalMBID}" data-upc="${finalUPC}" data-isrcs="${mbTrackISRCs}" data-tracks-without-isrcs="${tracksWithoutISRCs}">
 		<div class="statusPill ${albumStatus}" title="${pillTooltipText}"></div>
 		<div class="albumCover">
 			<a href="${spotifyImageURL}" target="_blank" rel="nooperner"><img src="${spotifyImageURL300px}" /></a>
