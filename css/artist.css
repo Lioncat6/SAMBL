@@ -474,7 +474,6 @@ label i {
 .isrcIcon {
 	margin-left: 5px;
 	width: 36px;
-	transform: translateY(3px);
 	cursor: help;
 }
 
@@ -482,7 +481,6 @@ label i {
 	margin-left: 5px;
 	cursor: help;
 	font-size: smaller;
-	transform: translateY(-0.5px);
 	color: red !important;
 	font-weight: bolder !important;
 }
@@ -615,4 +613,9 @@ label i {
 
 .trackCount.hasTracks {
 	cursor: help;
+}
+
+.iconsContainer {
+	display: flex;
+	align-items: center;
 }

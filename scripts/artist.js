@@ -435,29 +435,56 @@ function processAlbums() {
 			pillTooltipText = "This album has no MB release with a matching name or URL";
 			red++;
 		}
-		var mbLinkHtml = "";
+		let mbLink = document.createElement("a");
+		mbLink.href = albumMBUrl;
+		mbLink.target = "_blank";
+		mbLink.rel = "nooperner";
+		let mbLinkIcon = document.createElement("img");
+		mbLinkIcon.className = "albumMB";
 		if (albumMBUrl && albumStatus == "green") {
-			var mbLinkHtml = `<a href="${albumMBUrl}" target="_blank" rel="nooperner"><img class="albumMB" src="../assets/images/MusicBrainz_logo_icon.svg" /></a>`;
+			mbLinkIcon.src = "../assets/images/MusicBrainz_logo_icon.svg";
+			mbLink.appendChild(mbLinkIcon);
 		} else if (albumMBUrl) {
-			var mbLinkHtml = `<a href="${albumMBUrl}" target="_blank" rel="nooperner"><img class="albumMB" src="../assets/images/MB_Error.svg" title="Warning: This could be the incorrect MB release for this album!" /></a>`;
-		}
+			mbLinkIcon.src = "../assets/images/MB_Error.svg";
+			mbLinkIcon.title = "Warning: This could be the incorrect MB release for this album!";
+			mbLink.appendChild(mbLinkIcon);
+		} 
+		
 
-		var spArtistsHtml = "";
+		var spArtistsHtml = document.createElement("div");
+		spArtistsHtml.className = "artists";
 		var spArtistNames = [];
 		for (let album in spotifyAlbumArtists) {
-			if (album > 0) {
-				spArtistsHtml += ", ";
-			}
 			var currentArtist = spotifyAlbumArtists[album];
 			var artistName = currentArtist["name"];
 			spArtistNames.push(artistName);
-			var artistUrl = currentArtist["external_urls"]["spotify"];
-			var artistId = currentArtist["id"];
-			const aristSAMBLurl = `../newartist?spid=${artistId}`;
-			spArtistsHtml += `<a href="${artistUrl}" target="_blank" rel="nooperner">${artistName}</a><a href="${aristSAMBLurl}" target="_blank" rel="nooperner"><img class="SAMBLicon" src="../assets/images/favicon.svg" /></a>`;
+
+			var artistLink = document.createElement("a");
+			artistLink.href = currentArtist["external_urls"]["spotify"];
+			artistLink.target = "_blank";
+			artistLink.rel = "nooperner";
+			artistLink.textContent = artistName;
+
+			var samblLink = document.createElement("a");
+			samblLink.href = `../newartist?spid=${currentArtist["id"]}`;
+			samblLink.target = "_blank";
+			samblLink.rel = "nooperner";
+
+			var samblIcon = document.createElement("img");
+			samblIcon.className = "SAMBLicon";
+			samblIcon.src = "../assets/images/favicon.svg";
+
+			samblLink.appendChild(samblIcon);
+
+			if (album > 0) {
+				spArtistsHtml.appendChild(document.createTextNode(", "));
+			}
+			spArtistsHtml.appendChild(artistLink);
+			spArtistsHtml.appendChild(samblLink);
 		}
 		let albumIssues = [];
-		let iconsHtml = "";
+		let iconsHtml = document.createElement("div");
+		iconsHtml.className = "iconsContainer";
 		let mbTrackString = "";
 		let mbTrackNames = [];
 		let mbTrackISRCs = [];
@@ -465,7 +492,7 @@ function processAlbums() {
 		for (let track in finalTracks) {
 			let titleString = finalTracks[track].title;
 			let ISRCs = finalTracks[track].recording.isrcs;
-			if (ISRCs.length < 1){
+			if (ISRCs.length < 1) {
 				tracksWithoutISRCs.push(track);
 			} else {
 				for (let isrc in ISRCs) {
@@ -480,11 +507,19 @@ function processAlbums() {
 		}
 		if (albumStatus != "red") {
 			if (!finalUPC || finalUPC == null) {
-				iconsHtml += `<img class="upcIcon" src="../assets/images/noUPC.svg" title="This release is missing a UPC/Barcode!">`;
+				let upcIcon = document.createElement("img");
+				upcIcon.className = "upcIcon";
+				upcIcon.src = "../assets/images/noUPC.svg";
+				upcIcon.title = "This release is missing a UPC/Barcode!";
+				iconsHtml.appendChild(upcIcon);
 				albumIssues.push("noUPC");
 			}
 			if (finalTrackCount != spotifyTrackCount) {
-				iconsHtml += `<div class="numDiff" title="This release has a differing track count! [SP: ${spotifyTrackCount} MB: ${finalTrackCount}]">#</div>`;
+				let trackDiffDiv = document.createElement("div");
+				trackDiffDiv.className = "numDiff";
+				trackDiffDiv.title = `This release has a differing track count! [SP: ${spotifyTrackCount} MB: ${finalTrackCount}]`;
+				trackDiffDiv.textContent = "#";
+				iconsHtml.appendChild(trackDiffDiv);
 				albumIssues.push("trackDiff");
 			}
 			if (finalReleaseDate == "" || finalReleaseDate == undefined || !finalReleaseDate) {
@@ -492,37 +527,71 @@ function processAlbums() {
 				const spotifyMonth = spotifyReleaseDate.split("-")[1];
 				const spotifyDay = spotifyReleaseDate.split("-")[2];
 				const editNote = encodeURIComponent(`Added release date from Spotify using SAMBL: ${spotifyUrl}`);
+				let dateMissingLink = document.createElement("a");
+				dateMissingLink.className = "dateMissing";
 				if (albumStatus == "green") {
-					iconsHtml += `<a class="dateMissing green" href="https://musicbrainz.org/release/${finalMBID}/edit?events.0.date.year=${spotifyYear}&events.0.date.month=${spotifyMonth}&events.0.date.day=${spotifyDay}&edit_note=${editNote}" title="This release is missing a release date!\n[Click to Fix]" target="_blank" rel="nooperner"></a>`;
+					dateMissingLink.classList.add("green");
+					dateMissingLink.href = `https://musicbrainz.org/release/${finalMBID}/edit?events.0.date.year=${spotifyYear}&events.0.date.month=${spotifyMonth}&events.0.date.day=${spotifyDay}&edit_note=${editNote}`;
+					dateMissingLink.title = "This release is missing a release date!\n[Click to Fix]";
+					dateMissingLink.target = "_blank";
+					dateMissingLink.rel = "nooperner";
 				} else {
-					iconsHtml += `<a class="dateMissing" title="This release is missing a release date!"></a>`;
+					dateMissingLink.title = "This release is missing a release date!";
 				}
+				iconsHtml.appendChild(dateMissingLink);
 				albumIssues.push("noDate");
 			} else if (finalReleaseDate != spotifyReleaseDate) {
-				iconsHtml += `<div class="dateDiff" title="This release has a differing release date! [SP: ${spotifyReleaseDate} MB: ${finalReleaseDate}]\n(This may indicate that you have to split a release.)"></div>`;
+				let dateDiffDiv = document.createElement("div");
+				dateDiffDiv.className = "dateDiff";
+				dateDiffDiv.title = `This release has a differing release date! [SP: ${spotifyReleaseDate} MB: ${finalReleaseDate}]\n(This may indicate that you have to split a release.)`;
+				iconsHtml.appendChild(dateDiffDiv);
 				albumIssues.push("dateDiff");
 			}
 			if (!finalHasCoverArt) {
+				let coverArtMissingLink = document.createElement("a");
+				coverArtMissingLink.className = "coverArtMissing";
 				if (albumStatus == "green") {
-					iconsHtml += `<a class="coverArtMissing green" title="This release is missing cover art!\n[Click to Fix] - MB: Enhanced Cover Art Uploads recommended" target="_blank" rel="noopener" href="https://musicbrainz.org/release/${finalMBID}/cover-art"></a>`;
+					coverArtMissingLink.classList.add("green");
+					coverArtMissingLink.title = "This release is missing cover art!\n[Click to Fix] - MB: Enhanced Cover Art Uploads recommended";
+					coverArtMissingLink.target = "_blank";
+					coverArtMissingLink.rel = "noopener";
+					coverArtMissingLink.href = `https://musicbrainz.org/release/${finalMBID}/cover-art`;
 				} else {
-					iconsHtml += `<a class="coverArtMissing" title="This release is missing cover art!"></a>`;
+					coverArtMissingLink.title = "This release is missing cover art!";
 				}
+				iconsHtml.appendChild(coverArtMissingLink);
 				albumIssues.push("noCover");
 			}
-			if (tracksWithoutISRCs.length > 0){
+			if (tracksWithoutISRCs.length > 0) {
 				albumIssues.push("missingISRCs");
-				if (albumStatus == "green"){
-					iconsHtml += `<a class="isrcText green" href="https://isrchunt.com/spotify/importisrc?releaseId=${spotifyId}" target="_blank" rel="nooperner" title="This release has missing ISRCs!\n[Click to Fix]">ISRC</a>`;
+				let isrcLink = document.createElement("div");
+				isrcLink.className = "isrcText";
+				isrcLink.textContent = "ISRC";
+				if (albumStatus == "green") {
+					isrcLink.classList.add("green");
+					isrcLink.href = `https://isrchunt.com/spotify/importisrc?releaseId=${spotifyId}`;
+					isrcLink.target = "_blank";
+					isrcLink.rel = "nooperner";
+					isrcLink.title = "This release has missing ISRCs!\n[Click to Fix]";
 				} else {
-					iconsHtml += `<div class="isrcText" title="This release has missing ISRCs!">ISRC</div>`;
+					isrcLink.title = "This release has missing ISRCs!";
 				}
+				iconsHtml.appendChild(isrcLink);
 			}
 		}
 
-		let infoHTML = `<div>${spotifyReleaseDate} • ${capFirst(spotifyAlbumType)} • <div class="trackCount hasTracks" title="${mbTrackString}">${spotifyTrackString}</div></div>`
-		if (albumStatus == "red"){
-			infoHTML = `<div>${spotifyReleaseDate} • ${capFirst(spotifyAlbumType)} • <div class="trackCount">${spotifyTrackString}</div></div>`
+		let infoHTML = document.createElement("div");
+		infoHTML.textContent = `${spotifyReleaseDate} • ${capFirst(spotifyAlbumType)} • `;
+		let trackCountDiv = document.createElement("div");
+		trackCountDiv.className = "trackCount";
+		trackCountDiv.textContent = spotifyTrackString;
+
+		if (albumStatus == "red") {
+			infoHTML.appendChild(trackCountDiv);
+		} else {
+			trackCountDiv.classList.add("hasTracks");
+			trackCountDiv.title = mbTrackString;
+			infoHTML.appendChild(trackCountDiv);
 		}
 		let harmonyClasses = "harmonyButton",
 			atisketClasses = "aTisketButton",
@@ -539,29 +608,85 @@ function processAlbums() {
 			finalMBID = "";
 			mbTrackNames = [];
 		}
-		const htmlToAppend = `
-	<div class="album listItem" data-title="${spotifyName}" data-artists="${spArtistNames}" data-issues="${albumIssues}" data-tracks="${mbTrackNames}" data-status="${albumStatus}" data-release-date="${spotifyReleaseDate}" data-track-count="${spotifyTrackCount}" data-album-type="${spotifyAlbumType}" data-spid="${spotifyId}" data-mbid="${finalMBID}" data-upc="${finalUPC}" data-isrcs="${mbTrackISRCs}" data-tracks-without-isrcs="${tracksWithoutISRCs}">
-		<div class="statusPill ${albumStatus}" title="${pillTooltipText}"></div>
-		<div class="albumCover">
-			<a href="${spotifyImageURL}" target="_blank" rel="nooperner"><img src="${spotifyImageURL300px}" /></a>
-		</div>
-		<div class="${textContainerClasses}">
-			<div class="albumTitle">
-				<a href="${spotifyUrl}" target="_blank" rel="nooperner">${spotifyName}</a>
-				${mbLinkHtml}
-			</div>
-			<div class="artists">${spArtistsHtml}</div>
-			<div class="albumInfo">
-				${infoHTML}
-				${iconsHtml}
-			</div>
-		</div>
-		<a class="${atisketClasses}" href="https://atisket.pulsewidth.org.uk/?spf_id=${spotifyId}&amp;preferred_vendor=spf" target="_blank" rel="nooperner"><div>A-tisket</div></a>
-		<a class="${harmonyClasses}" href="https://harmony.pulsewidth.org.uk/release?url=${spotifyUrl}${harmonyConfig}" target="_blank" rel="nooperner"><div>Harmony</div></a>
-	</div>`;
-		var htmlObject = document.createElement("div");
-		htmlObject.innerHTML = htmlToAppend;
-		document.getElementById("albumList").append(htmlObject);
+
+		let dataVars = {
+			"data-title": spotifyName,
+			"data-artists": spArtistNames,
+			"data-issues": albumIssues,
+			"data-tracks": mbTrackNames,
+			"data-status": albumStatus,
+			"data-release-date": spotifyReleaseDate,
+			"data-track-count": spotifyTrackCount,
+			"data-album-type": spotifyAlbumType,
+			"data-spid": spotifyId,
+			"data-mbid": finalMBID,
+			"data-upc": finalUPC,
+			"data-isrcs": mbTrackISRCs,
+			"data-tracks-without-isrcs": tracksWithoutISRCs,
+		};
+
+		let listItem = document.createElement("div");
+		listItem.className = "album listItem";
+		for (let key in dataVars) {
+			listItem.setAttribute(key, dataVars[key]);
+		}
+		let pill = document.createElement("div");
+		pill.className = `statusPill ${albumStatus}`;
+		pill.title = pillTooltipText;
+		listItem.appendChild(pill);
+		let cover = document.createElement("div");
+		cover.className = "albumCover";
+		let coverLink = document.createElement("a");
+		coverLink.href = spotifyImageURL;
+		coverLink.target = "_blank";
+		coverLink.rel = "nooperner";
+		let coverImg = document.createElement("img");
+		coverImg.src = spotifyImageURL300px;
+		coverLink.appendChild(coverImg);
+		cover.appendChild(coverLink);
+		listItem.appendChild(cover);
+		let textContainer = document.createElement("div");
+		textContainer.className = textContainerClasses;
+		let title = document.createElement("div");
+		title.className = "albumTitle";
+		let titleLink = document.createElement("a");
+		titleLink.href = spotifyUrl;
+		titleLink.target = "_blank";
+		titleLink.rel = "nooperner";
+		titleLink.text = spotifyName;
+		title.appendChild(titleLink);
+		title.appendChild(mbLink);
+		textContainer.appendChild(title);
+		textContainer.appendChild(spArtistsHtml);
+		let albumInfo = document.createElement("div");
+		albumInfo.className = "albumInfo";
+		albumInfo.appendChild(infoHTML);
+		albumInfo.appendChild(iconsHtml);
+		textContainer.appendChild(albumInfo);
+		listItem.appendChild(textContainer);
+		let atisketLink = document.createElement("a");
+		atisketLink.className = atisketClasses;
+		atisketLink.href = `https://atisket.pulsewidth.org.uk/?spf_id=${spotifyId}&amp;preferred_vendor=spf`;
+		atisketLink.target = "_blank";
+		atisketLink.rel = "nooperner";
+		let atisketDiv = document.createElement("div");
+		atisketDiv.textContent = "A-tisket";
+		atisketLink.appendChild(atisketDiv);
+		listItem.appendChild(atisketLink);
+		let harmonyLink = document.createElement("a");
+		harmonyLink.className = harmonyClasses;
+		harmonyLink.href = `https://harmony.pulsewidth.org.uk/release?url=${spotifyUrl}${harmonyConfig}`;
+		harmonyLink.target = "_blank";
+		harmonyLink.rel = "nooperner";
+		let harmonyDiv = document.createElement("div");
+		harmonyDiv.textContent = "Harmony";
+		harmonyLink.appendChild(harmonyDiv);
+		listItem.appendChild(harmonyLink);
+		
+		let listItemContaner = document.createElement("div");
+		listItemContaner.appendChild(listItem);
+		document.getElementById("albumList").appendChild(listItemContaner);
+		
 	}
 	if (orange == 1) {
 		document.getElementById("statusText").innerHTML = `Albums on musicBrainz: ${green}/${total} ~ 1 album has a matching name but no associated link`;
@@ -649,7 +774,7 @@ function searchList() {
 		albumName = item.getAttribute("data-title");
 		color = item.getAttribute("data-status");
 		artistString = item.getAttribute("data-artists");
-		let hasIssues = (item.getAttribute("data-issues").length > 0);
+		let hasIssues = item.getAttribute("data-issues").length > 0;
 		let trackNames = item.getAttribute("data-tracks");
 		if (albumName) {
 			if (albumName.toUpperCase().indexOf(filter) > -1 || trackNames.toUpperCase().indexOf(filter) > -1) {
