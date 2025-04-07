@@ -564,7 +564,7 @@ function processAlbums() {
 			}
 			if (tracksWithoutISRCs.length > 0) {
 				albumIssues.push("missingISRCs");
-				let isrcLink = document.createElement("div");
+				let isrcLink = document.createElement("a");
 				isrcLink.className = "isrcText";
 				isrcLink.textContent = "ISRC";
 				if (albumStatus == "green") {
