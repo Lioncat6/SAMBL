@@ -38,9 +38,8 @@ https://community.metabrainz.org/t/sambl-spotify-artist-musicbrainz-lookup/71655
 
 ## Todo:
 
-- Add indicators to each album about the associated releases statuses
-
-### Long term:
-
+- Rename to **Streaming** Artst Music Brainz Lookup
+- Support apple music lookups
+- Refactor & Create API fetching modules to handle lookups
 - Recode in electron or react
 - Server side caching and mb fetching
