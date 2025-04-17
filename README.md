@@ -1,6 +1,8 @@
 # SAMBL
-
 Spotify Artist MusicBrainz Lookup
+
+# New Repo: https://github.com/Lioncat6/SAMBL-React/
+
 
 <details>
 <summary><h2>Userscripts</h2></summary>
