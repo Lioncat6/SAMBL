@@ -1,9 +1,48 @@
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css");
+/* :root {
+	--background: #f9f9f9;
+	--background-secondary: #f0f0f0;
+	--foreground-primary: #000000;
+	--foreground-secondary: #4a4a4a;
+	--foreground-tertiary: gray;
+	--foreground-quaternary: lightgray;
+	--scrollbar-active: #555;
+	--scrollbar: #aaa;
+	--nprogress-gradient: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+	--skeleton: #e0e0e0;
+	--skeleton-highlight: #f0f0f0;
+	--button-border: #e0e0e0;
+	--button-text: #b8b8b8;
+	--toolsButton: #000f52;
+	--configButton: #522e00;
+	--savedArtists: #00631c;
+	/* Provider Colors */
+	--spotify-green: #1db954;
+	--itunes-red: #FF0436;
+	--tidal-black: #000000;
+	--deezer-purple: #a238ff;
+	--bandcamp-blue: #0cacd7;
+} */
+
+:root {
+	--background: #1b1e1f;
+	--background-secondary: hsl(195, 7%, 8%);
+	--foreground-primary: #ffffff;
+	--foreground-secondary: #d2d2d2;
+	--foreground-quaternary: #bebebe;
+	--scrollbar-active: #d3d3d3;
+	--scrollbar: #929292;
+	--nprogress-gradient: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #7f00ff, #ff00ff);
+	--skeleton: #444;
+	--skeleton-highlight: #666;
+	--toolsButton: #5d7aff;
+	--configButton: #905100;
+	--savedArtists: #00a62f;
+	--tidal-black: #ffffff;
+}
 
 #main {
 	font-family: Arial, sans-serif;
-	background-color: #f9f9f9;
+	background: transparent;
 	margin: 0;
 	padding: 0;
 	display: flex;
@@ -15,57 +54,23 @@
 	min-width: 500px;
 }
 
-html {
-	background-color: #f9f9f9;
+#__next {
 	height: 100%;
-	margin: 0;
 }
 
-body {
+body,
+html {
+	margin: 0;
 	height: 100%;
-	background-color: #f9f9f9;
+	background-color: var(--background);
 	overflow: hidden;
 }
 
-embed {
-	max-height: 20%;
-}
-
-embed,
-iframe {
-	display: block;
-	width: 100%;
-	padding: 0;
-	margin: 0;
-}
 
 h1 {
 	text-align: center;
-	color: #333;
+	color: var(--foreground-primary);
 	margin-bottom: 20px;
-}
-
-textarea {
-	font-size: 14px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	margin-bottom: 10px;
-	margin-top: 10px;
-	resize: none;
-}
-
-button {
-	background-color: #0074d9;
-	color: #fff;
-	border: none;
-	padding: 10px 20px;
-	font-size: 16px;
-	border-radius: 5px;
-	cursor: pointer;
-}
-
-button:hover {
-	background-color: #0056b3;
 }
 
 ul {
@@ -83,11 +88,11 @@ li {
 hr {
 	margin-top: 20px;
 	width: 100%;
-	border: 1px solid #333;
+	border: 1px solid var(--foreground-secondary);
 }
 
 a {
-	color: #333;
+	color: var(--foreground-secondary);
 	text-decoration: none;
 	font-weight: bold;
 }
@@ -99,19 +104,17 @@ a:hover {
 footer embed,
 footer embed {
 	height: 80px;
+	z-index: 0;
 }
 
 footer {
-	font-family: Arial, sans-serif;
-	background-color: #f9f9f9;
-	color: #fff;
-	text-align: center;
-	position: absolute;
-	justify-content: center;
 	bottom: 0;
-	width: 99%;
-	overflow: hidden;
+	position: fixed;
+	width: 100%;
+	margin-left: -8px;
+	background: transparent
 }
+
 
 #err {
 	color: red;
@@ -132,12 +135,14 @@ iframe {
 .lds-ellipsis div {
 	box-sizing: border-box;
 }
+
 .lds-ellipsis {
 	display: inline-block;
 	position: relative;
 	width: 80px;
 	height: 14px;
 }
+
 .lds-ellipsis div {
 	position: absolute;
 	top: 2px;
@@ -147,42 +152,52 @@ iframe {
 	background: currentColor;
 	animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
+
 .lds-ellipsis div:nth-child(1) {
 	left: 8px;
 	animation: lds-ellipsis1 0.6s infinite;
 }
+
 .lds-ellipsis div:nth-child(2) {
 	left: 8px;
 	animation: lds-ellipsis2 0.6s infinite;
 }
+
 .lds-ellipsis div:nth-child(3) {
 	left: 32px;
 	animation: lds-ellipsis2 0.6s infinite;
 }
+
 .lds-ellipsis div:nth-child(4) {
 	left: 56px;
 	animation: lds-ellipsis3 0.6s infinite;
 }
+
 @keyframes lds-ellipsis1 {
 	0% {
 		transform: scale(0);
 	}
+
 	100% {
 		transform: scale(1);
 	}
 }
+
 @keyframes lds-ellipsis3 {
 	0% {
 		transform: scale(1);
 	}
+
 	100% {
 		transform: scale(0);
 	}
 }
+
 @keyframes lds-ellipsis2 {
 	0% {
 		transform: translate(0, 0);
 	}
+
 	100% {
 		transform: translate(24px, 0);
 	}
@@ -192,12 +207,14 @@ iframe {
 .lds-facebook div {
 	box-sizing: border-box;
 }
+
 .lds-facebook {
 	display: inline-block;
 	position: relative;
 	width: 80px;
 	height: 80px;
 }
+
 .lds-facebook div {
 	display: inline-block;
 	position: absolute;
@@ -206,23 +223,28 @@ iframe {
 	background: currentColor;
 	animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
 }
+
 .lds-facebook div:nth-child(1) {
 	left: 8px;
 	animation-delay: -0.24s;
 }
+
 .lds-facebook div:nth-child(2) {
 	left: 32px;
 	animation-delay: -0.12s;
 }
+
 .lds-facebook div:nth-child(3) {
 	left: 56px;
 	animation-delay: 0s;
 }
+
 @keyframes lds-facebook {
 	0% {
 		top: 8px;
 		height: 64px;
 	}
+
 	50%,
 	100% {
 		top: 24px;
@@ -243,6 +265,10 @@ iframe {
 		min-width: 380px;
 		width: -webkit-fill-available;
 	}
+	.popup-content {
+		min-width: 380px !important;
+		width: 95% !important;
+	}
 }
 
 @media (max-width: 950px) {
@@ -252,10 +278,12 @@ iframe {
 }
 
 @media (max-height: 600px) {
+
 	#albumContainer,
 	#artistContainer {
 		height: calc(100% - 70px) !important;
 	}
+
 	footer embed {
 		height: 60px;
 	}
@@ -285,6 +313,7 @@ iframe {
 .checkbox-wrapper ::before {
 	box-sizing: border-box;
 }
+
 .checkbox-wrapper [type="checkbox"].substituted {
 	margin: 0;
 	width: 0;
@@ -294,7 +323,8 @@ iframe {
 	-moz-appearance: none;
 	appearance: none;
 }
-.checkbox-wrapper [type="checkbox"].substituted + label:before {
+
+.checkbox-wrapper [type="checkbox"].substituted+label:before {
 	content: "";
 	display: inline-block;
 	vertical-align: top;
@@ -305,60 +335,69 @@ iframe {
 	border: solid 0.06em;
 	box-shadow: 0 0 0.04em, 0 0.06em 0.16em -0.03em inset, 0 0 0 0.07em transparent inset;
 	border-radius: 0.2em;
-	background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xml:space="preserve" fill="white" viewBox="0 0 9 9"><rect x="0" y="4.3" transform="matrix(-0.707 -0.7072 0.7072 -0.707 0.5891 10.4702)" width="4.3" height="1.6" /><rect x="2.2" y="2.9" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 12.1877 2.9833)" width="6.1" height="1.7" /></svg>')
-			no-repeat center,
+	background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xml:space="preserve" fill="white" viewBox="0 0 9 9"><rect x="0" y="4.3" transform="matrix(-0.707 -0.7072 0.7072 -0.707 0.5891 10.4702)" width="4.3" height="1.6" /><rect x="2.2" y="2.9" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 12.1877 2.9833)" width="6.1" height="1.7" /></svg>') no-repeat center,
 		white;
 	background-size: 0;
 	will-change: color, border, background, background-size, box-shadow;
 	transform: translate3d(0, 0, 0);
 	transition: color 0.1s, border 0.1s, background 0.15s, box-shadow 0.1s;
 }
-.checkbox-wrapper [type="checkbox"].substituted:enabled:active + label:before,
-.checkbox-wrapper [type="checkbox"].substituted:enabled + label:active:before {
+
+.checkbox-wrapper [type="checkbox"].substituted:enabled:active+label:before,
+.checkbox-wrapper [type="checkbox"].substituted:enabled+label:active:before {
 	box-shadow: 0 0 0.04em, 0 0.06em 0.16em -0.03em transparent inset, 0 0 0 0.07em rgba(0, 0, 0, 0.1) inset;
 	background-color: #f0f0f0;
 }
-.checkbox-wrapper [type="checkbox"].substituted:checked + label:before {
+
+.checkbox-wrapper [type="checkbox"].substituted:checked+label:before {
 	background-color: #3b99fc;
 	background-size: 0.75em;
 	color: rgba(0, 0, 0, 0.075);
 }
-.checkbox-wrapper [type="checkbox"].substituted:checked:enabled:active + label:before,
-.checkbox-wrapper [type="checkbox"].substituted:checked:enabled + label:active:before {
+
+.checkbox-wrapper [type="checkbox"].substituted:checked:enabled:active+label:before,
+.checkbox-wrapper [type="checkbox"].substituted:checked:enabled+label:active:before {
 	background-color: #0a7ffb;
 	color: rgba(0, 0, 0, 0.275);
 }
-.checkbox-wrapper [type="checkbox"].substituted:focus + label:before {
+
+.checkbox-wrapper [type="checkbox"].substituted:focus+label:before {
 	box-shadow: 0 0 0.04em, 0 0.06em 0.16em -0.03em transparent inset, 0 0 0 0.07em rgba(0, 0, 0, 0.1) inset, 0 0 0 3.3px rgba(65, 159, 255, 0.55), 0 0 0 5px rgba(65, 159, 255, 0.3);
 }
-.checkbox-wrapper [type="checkbox"].substituted:focus:active + label:before,
-.checkbox-wrapper [type="checkbox"].substituted:focus + label:active:before {
+
+.checkbox-wrapper [type="checkbox"].substituted:focus:active+label:before,
+.checkbox-wrapper [type="checkbox"].substituted:focus+label:active:before {
 	box-shadow: 0 0 0.04em, 0 0.06em 0.16em -0.03em transparent inset, 0 0 0 0.07em rgba(0, 0, 0, 0.1) inset, 0 0 0 3.3px rgba(65, 159, 255, 0.55), 0 0 0 5px rgba(65, 159, 255, 0.3);
 }
-.checkbox-wrapper [type="checkbox"].substituted:disabled + label:before {
+
+.checkbox-wrapper [type="checkbox"].substituted:disabled+label:before {
 	opacity: 0.5;
 }
 
-.checkbox-wrapper [type="checkbox"].substituted.dark + label:before {
+.checkbox-wrapper [type="checkbox"].substituted.dark+label:before {
 	color: rgba(255, 255, 255, 0.275);
 	background-color: #222;
 	background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xml:space="preserve" fill="rgba(34, 34, 34, 0.999)" viewBox="0 0 9 9"><rect x="0" y="4.3" transform="matrix(-0.707 -0.7072 0.7072 -0.707 0.5891 10.4702)" width="4.3" height="1.6" /><rect x="2.2" y="2.9" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 12.1877 2.9833)" width="6.1" height="1.7" /></svg>');
 }
-.checkbox-wrapper [type="checkbox"].substituted.dark:enabled:active + label:before,
-.checkbox-wrapper [type="checkbox"].substituted.dark:enabled + label:active:before {
+
+.checkbox-wrapper [type="checkbox"].substituted.dark:enabled:active+label:before,
+.checkbox-wrapper [type="checkbox"].substituted.dark:enabled+label:active:before {
 	background-color: #444;
 	box-shadow: 0 0 0.04em, 0 0.06em 0.16em -0.03em transparent inset, 0 0 0 0.07em rgba(255, 255, 255, 0.1) inset;
 }
-.checkbox-wrapper [type="checkbox"].substituted.dark:checked + label:before {
+
+.checkbox-wrapper [type="checkbox"].substituted.dark:checked+label:before {
 	background-color: #a97035;
 	color: rgba(255, 255, 255, 0.075);
 }
-.checkbox-wrapper [type="checkbox"].substituted.dark:checked:enabled:active + label:before,
-.checkbox-wrapper [type="checkbox"].substituted.dark:checked:enabled + label:active:before {
+
+.checkbox-wrapper [type="checkbox"].substituted.dark:checked:enabled:active+label:before,
+.checkbox-wrapper [type="checkbox"].substituted.dark:checked:enabled+label:active:before {
 	background-color: #c68035;
 	color: rgba(0, 0, 0, 0.275);
 }
-.checkbox-wrapper [type="checkbox"].substituted + label {
+
+.checkbox-wrapper [type="checkbox"].substituted+label {
 	-webkit-user-select: none;
 	user-select: none;
 }
@@ -370,7 +409,7 @@ iframe {
 /* Text input styling */
 .text-input-wrapper {
 	margin-bottom: 10px;
-	
+
 }
 
 .text-input-wrapper input[type="text"] {
@@ -395,7 +434,7 @@ iframe {
 	margin: 2px;
 	left: 0;
 	height: 32px;
-	border: 1px solid gray;
+	border: 1px solid var(--foreground-tertiary);
 	border-radius: 10px;
 	transition: 0.2s all;
 	background: transparent;
@@ -418,4 +457,54 @@ iframe {
 
 #configMenu:hover .moveIcon {
 	display: block;
+}
+
+.loadingContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+
+#contentContainer {
+	height: 100%;
+	/* max-height: 40%; */
+	overflow: hidden;
+}
+
+* ::-webkit-scrollbar {
+	width: 15px;
+}
+
+* ::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+* ::-webkit-scrollbar-thumb {
+	border: 4px solid rgba(0, 0, 0, 0);
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	border-radius: 9999px;
+	background-color: var(--scrollbar);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+	background-color: var(--scrollbar-active);
+}
+
+#nprogress .bar {
+	background: var(--nprogress-gradient, linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)) !important;
+	height: .2% !important;
+}
+
+.popup-content {
+	background: none !important;
+	border: none !important;
+	min-width: 500px;
+}
+
+svg {
+	padding-top: 1px;
+	vertical-align: text-top;
 }
