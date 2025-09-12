@@ -289,6 +289,10 @@ iframe {
 	}
 }
 
+.subdesc {
+    color: var(--foreground-primary);
+}
+
 .textwrapper {
 	font-family: Arial, sans-serif;
 	background: transparent;
