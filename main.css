@@ -289,6 +289,27 @@ iframe {
 	}
 }
 
+.textwrapper {
+	font-family: Arial, sans-serif;
+	background: transparent;
+	padding: 0;
+	justify-content: center;
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+	margin-top: 18px;
+	width: 50%;
+	text-align: center;
+}
+
+
+.logo {
+	padding-top: 10px;
+	overflow: hidden;
+	width: 120px;
+	height: 120px;
+}
+
 .imagewrapper {
 	position: absolute;
 	aspect-ratio: 1 / 1;
@@ -296,12 +317,15 @@ iframe {
 	height: 10%;
 }
 
-header {
-	height: 88vh;
+.header {
+	width: 50%;
+	min-width: 500px;
+	margin: 0 auto;
+	height: 150px;
 	overflow: hidden;
 	display: flex;
 	flex-direction: row;
-	background-color: #f9f9f9;
+	background: transparent;
 }
 
 * ::-webkit-scrollbar {
